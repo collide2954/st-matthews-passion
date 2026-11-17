@@ -110,7 +110,8 @@ def plan() -> tuple[dict[str, list[Tone]], int]:
         # The voice: the tune at the speed of Bach. A short last note gets more time.
         tune = rhythm.shift(rhythm.tones(first(TUNE[phrase], voice_level)), start)
         if last:
-            tune[-1] = replace(tune[-1], length=stop - tune[-1].start, end=r"\fermata")
+            # The voice stops before the hold of the strings: it goes away first.
+            tune[-1] = replace(tune[-1], length=stop - 1 - tune[-1].start)
         elif tune[-1].length < 2 and length > 8:
             tune[-1] = replace(tune[-1], length=F(2))
         parts["alto"].extend(tune)

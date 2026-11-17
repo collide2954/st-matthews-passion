@@ -83,14 +83,14 @@ def write(work: Work) -> None:
 
     # From the second time of the first two phrases: the oboes and the bassoon.
     later = {1: r"\mf", 4: r"\p", 5: r"\mf", 6: r"\p"}
-    wait = "R1*5 | r2. "
+    wait = r'\switch "oboe" R1*5 | r2. '
     s.write("ob1", wait + CHORALE.line("soprano", ORDER[2:], later) + end)
     s.write("ob2", wait + CHORALE.line("alto", ORDER[2:], later) + end)
-    s.write("bn", wait + CHORALE.line("bass", ORDER[2:], later) + end)
+    s.write("bn", "R1*5 | r2. " + CHORALE.line("bass", ORDER[2:], later) + end)
 
     # From the third phrase: the flutes.
     last = {1: r"\mf", 2: r"\p", 3: r"\mf", 4: r"\p"}
-    wait = "R1*9 | r2. "
+    wait = r'\switch "flute" R1*9 | r2. '
     s.write("fl1", wait + CHORALE.line("soprano", ORDER[4:], last) + end)
     s.write("fl2", wait + CHORALE.line("alto", ORDER[4:], last) + end)
 

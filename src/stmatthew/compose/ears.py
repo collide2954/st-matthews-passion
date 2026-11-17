@@ -18,6 +18,7 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from fractions import Fraction
 
+from ..notation import music
 from ..notation.work import Work
 from ..perform.events import PerfNote, perform
 
@@ -260,11 +261,16 @@ def parallels(
     hand of a keyboard instrument: its lowest note). Two lines are parallel
     if the two move at the same moment, in the same direction, from a fifth
     to a fifth or from an octave to an octave. Two players who have the same
-    line (most of their notes are in unison or in octaves) are a doubling:
-    their octaves are not in the result.
+    line for some time (most of their notes near a place are in unison or in
+    octaves) are a doubling there: these octaves are not in the result.
     """
     structure = work.structure
-    names = list(players) if players is not None else [p.id for p in work.orchestra.players]
+    if players is not None:
+        names = list(players)
+    else:
+        # The chords of a keyboard instrument and of the theorbo are a realization of the
+        # harmony: they double the lines of the other players, and they are not lines.
+        names = [p.id for p in work.orchestra.players if p.family not in ("keyboards", "plucked")]
     notes = notes_of(work, first_bar, last_bar, names)
     lines = {name: _line(notes, name, top=not name.endswith(".lh")) for name in names}
     found = []
@@ -277,19 +283,24 @@ def parallels(
                 other = starts.get(note.start)
                 if other is not None:
                     pairs.append((note, other))
-            same = sum(1 for a, b in pairs if round(abs(b.midi - a.midi)) % 12 == 0)
-            doubling = len(pairs) >= 3 and same >= DOUBLING_SHARE * len(pairs)
-            for (a1, b1), (a2, b2) in zip(pairs[:-1], pairs[1:], strict=True):
+            octaves = [round(abs(b.midi - a.midi)) % 12 == 0 for a, b in pairs]
+            for index, ((a1, b1), (a2, b2)) in enumerate(zip(pairs[:-1], pairs[1:], strict=True)):
+                # A doubling: most of the notes near this place are in unison or in octaves.
+                near = octaves[max(0, index - DOUBLING_SPAN + 1) : index + DOUBLING_SPAN + 1]
+                doubling = len(near) >= 4 and sum(near) >= DOUBLING_SHARE * len(near)
                 # The two notes must follow the notes before them with no other note between.
                 if a1.start + a1.duration != a2.start or b1.start + b1.duration != b2.start:
                     continue
                 before = round(abs(b1.midi - a1.midi)) % 12
                 after = round(abs(b2.midi - a2.midi)) % 12
                 moved = (a2.midi - a1.midi) * (b2.midi - b1.midi) > 0
+                # Two players on the same note (a unison) are always a doubling.
+                unison = round(a1.midi) == round(b1.midi) and round(a2.midi) == round(b2.midi)
                 if (
                     moved
                     and before == after
                     and before in (0, 7)
+                    and not unison
                     and not (doubling and before == 0)
                 ):
                     bar = structure.bar_at(a2.start)
@@ -299,8 +310,10 @@ def parallels(
     return found
 
 
-# Two lines are a doubling if this share of their common notes is in unison or in octaves.
+# Two lines are a doubling at a place if this share of their common notes near the place
+# (`DOUBLING_SPAN` notes before it and after it) is in unison or in octaves.
 DOUBLING_SHARE = 0.7
+DOUBLING_SPAN = 4
 
 
 @dataclass(frozen=True)
@@ -321,10 +334,13 @@ def phrases(work: Work, player: str = "alto") -> list[Phrase]:
     """Return the phrases of a voice.
 
     A rest of a sixteenth note or more is a breath. A note with a fermata is
-    the end of a phrase: the singer breathes after it.
+    the end of a phrase: the singer breathes after it. A breath mark
+    (`\\breathe`) is a breath also.
     """
     structure = work.structure
     notes = [note for note in perform(work, player) if not note.grace]
+    marks: list[Fraction] = []
+    _breath_marks(work.music_of(player).children, Fraction(0), Fraction(1), marks)
     result: list[Phrase] = []
     group: list[PerfNote] = []
 
@@ -345,13 +361,40 @@ def phrases(work: Work, player: str = "alto") -> list[Phrase]:
             group.clear()
 
     for note in notes:
-        if group and (
-            group[-1].fermata or note.start - (group[-1].start + group[-1].duration) >= BREATH
-        ):
-            close()
+        if group:
+            before = group[-1]
+            marked = any(before.start < mark <= note.start for mark in marks)
+            if before.fermata or marked or note.start - (before.start + before.duration) >= BREATH:
+                close()
         group.append(note)
     close()
     return result
+
+
+def _breath_marks(
+    elements: Sequence[music.Element], position: Fraction, scale: Fraction, found: list[Fraction]
+) -> Fraction:
+    """Collect the positions of the breath marks of a line. Return the end position."""
+    for element in elements:
+        if isinstance(element, music.Command):
+            if element.name == "breathe":
+                found.append(position)
+        elif isinstance(element, music.Note | music.Rest):
+            position += element.duration * scale
+        elif isinstance(element, music.Group):
+            if element.kind == "grace":
+                continue
+            if element.kind == "parallel":
+                position = max(
+                    _breath_marks(child.children, position, scale, found)
+                    for child in element.children
+                )
+            elif element.kind in ("unfold", "tremolo"):
+                for _ in range(element.count):
+                    position = _breath_marks(element.children, position, scale, found)
+            else:
+                position = _breath_marks(element.children, position, scale * element.ratio, found)
+    return position
 
 
 def voice_summary(work: Work, player: str = "alto") -> dict[str, float]:

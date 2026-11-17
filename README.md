@@ -24,7 +24,7 @@ The document [`docs/work.md`](docs/work.md) gives the plan: the numbers, the key
 | --- | --- | --- |
 | 1. Style study | Tables of measured and sourced style parameters | First edition complete. See [`docs/style-study.md`](docs/style-study.md). |
 | 2. Design | Form, words, and material of the work | Complete. The owner must examine it. See [`design`](design). |
-| 3. Composition | The music, written as code | 2 of 16 numbers are written (numbers 6 and 14). See [`docs/work.md`](docs/work.md). |
+| 3. Composition | The music, written as code | 3 of 16 numbers are written (numbers 1, 6, and 14: 7.1 of 42.7 minutes). See [`docs/work.md`](docs/work.md). |
 | 4. Engraving | Conductor score and parts | The score of the written numbers. The parts are not examined. |
 | 5. Audio | Audio from sample libraries | First previews. An instrument plays the line of the voice: no sound library of the project has a solo singer. |
 | 6. Video | Score video | Not started |

@@ -128,7 +128,27 @@ all twelve eighth notes of the bar (number 1), three plucked notes on each bass 
 | --- | --- |
 | Style study | First edition complete |
 | Plan | Complete. The owner must examine it. |
-| Music | 2 of the 16 numbers are written: number 6 and number 14 (3.6 of 42.7 minutes) |
+| Music | 3 of the 16 numbers are written: numbers 1, 6, and 14 (7.1 of 42.7 minutes) |
+
+### Number 1 in detail
+
+The number has 41 bars in 12/8 (3 minutes 32 seconds). The words in brackets have no singer: the instruments have them.
+
+| Bars | Words | Music |
+| --- | --- | --- |
+| 1 to 4 | | The pedal note E with the pulse. The oboes have the theme of Bach in sixths. Then all winds have a line that goes down, on a bass that goes by fifths. |
+| 5 to 8 | Kommt, ihr Töchter, helft mir klagen, | The voice has the theme of the sopranos of Bach, and the bass has the theme of the start: this is bar 17 of Bach. The violins have the calls "Kommt!" of his alto and his tenor. Then the voice goes down through one octave. |
+| 9 to 12 | Sehet! (Wen?) den Bräutigam. Seht ihn! (Wie?) als wie ein Lamm. | Each question is three notes of three instruments, one after the other. The answers of the voice are in G major. |
+| 13 to 16 | (O Lamm Gottes, unschuldig am Stamm des Kreuzes geschlachtet) | The chorale: the recorders, and the organ with the same tune one beat later. |
+| 17 and 18 | | The oboes have the theme of the start. The music goes to the dominant of B minor, but that chord goes to G major. |
+| 19 to 22 | Sehet! (Was?) seht die Geduld. Seht! (Wohin?) auf unsre Schuld. (allzeit erfunden geduldig, wiewohl du warest verachtet) | The chorale is above the voice. Its last note is the third of the chord of E minor. The word "Schuld" has the two notes of the word "Lamm". |
+| 23 to 26 | (All Sünd hast du getragen, sonst müßten wir verzagen) | The chorale, the theme of the start in the oboes, and the pulse in the strings. The music becomes louder. |
+| 27 to 31 | Sehet ihn aus Lieb und Huld Holz zum Kreuze selber tragen. (Erbarm dich unser, o Jesu!) | The bass goes up by semitones from E to B, and the voice goes up with it. The chord of B goes to C major: there the last line of the chorale starts, and the voice sings its notes with the recorders. |
+| 32 to 35 | Kommt, ihr Töchter, helft mir klagen. | The pedal note E comes back. The voice has the theme of the start, with the words as the bass of the choir of Bach has them. |
+| 36 to 41 | | The theorbo has 10, 8, 6, 4, and 2 notes in a bar, and then one chord of E major (the last chord of Bach). |
+
+The module `compose/ears.py` finds no parallel fifths and no parallel octaves between two lines of the number.
+10 percent of its moments have a semitone clash (the opening choruses of Bach in the study: 30 to 58 percent; his arias: 13 to 28 percent).
 
 ### Number 14 in detail
 
