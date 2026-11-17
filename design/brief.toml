@@ -1,0 +1,59 @@
+# St Matthew Passion: design brief.
+#
+# This file records the decisions of the owner of the project.
+# Do not change a decision in this file without the agreement of the owner.
+# The words in quotation marks are the words of the owner.
+
+[work]
+title = "St Matthew Passion"
+model = "J. S. Bach, St Matthew Passion, BWV 244"
+request = "study St Matthews Passion by bach, and I basically want to reset it for one baroque orchestra and voice"
+duration_minutes = 40      # The owner selected "About 40 minutes" (2026-11-16).
+decided = 2026-11-16
+
+[style]
+take = "I want it to be a modern take of that piece, but include motifs and elements of the original."
+period = "It does not need to be a strictly baroque piece, but it should definitely primarily for in that style but with a modern inflection in the structure and use of counterpoint."
+research = "Make sure to do your research, and look at other composers and examples of music that would be good to think about when planning this and analyze those too"
+profiles = "research/tables/profiles.csv"
+# The work uses the motifs and the elements of the work of Bach. The study gives each of them
+# with its source. The music of other composers is a source of methods; the work does not copy it.
+
+[voice]
+# The owner selected "One alto" (2026-11-16): one solo singer (a mezzo-soprano or a
+# countertenor) has all the sung text. In the work of Bach this is the voice of "Erbarme dich"
+# and of "Buss und Reu". The orchestra takes the crowd, the second choir, and the harmony of
+# the chorales.
+singers = 1
+type = "alto"
+
+[orchestra]
+# "one baroque orchestra": the work of Bach has two orchestras and two choirs.
+orchestras = 1
+type = "baroque"
+
+[text]
+# The owner selected "German originals" (2026-11-16): the texts that Bach set.
+language = "German"
+sources = ["the Gospel of Matthew, chapters 26 and 27, in the translation of Martin Luther", "the poems of Picander (Christian Friedrich Henrici)", "the chorale verses"]
+
+[repository]
+visibility = "public"      # The owner selected "Public" (2026-11-16).
+method = "Commit often, push often."
+start = "The engine of Night Music for Orchestra, as G-Type Star."
+
+[licence]
+# As in the two projects before this one. The owner must examine this decision.
+music_and_documents = "CC BY 4.0"
+code = "MIT"
+
+# Decisions that the composer's assistant made while the owner was not available.
+# The owner must examine each decision. Each decision is easy to change.
+[pending_review]
+subtitle = "The subtitle of the work is 'after J. S. Bach, BWV 244, for alto and baroque orchestra'."
+composer_name = "The composer on the score is Brett Gilio, as in the two projects before this one."
+players = "23 players: 2 flutes (also recorders), 2 oboes (also oboe d'amore and oboe da caccia), bassoon, 4 first violins, 4 second violins, 3 violas, viola da gamba, 2 violoncellos, violone, theorbo, harpsichord, organ. No trumpets and no timpani, as in the work of Bach."
+score_order = "The voice is immediately above the continuo group, as in the scores of Bach."
+commit_address = "The commits use the GitHub no-reply address of the owner."
+commit_trailer = "Each commit has the co-author line of the assistant, as in G-Type Star."
+documents = "The documents follow the rules of Simplified Technical English (ASD-STE100), as in the two projects before this one."
