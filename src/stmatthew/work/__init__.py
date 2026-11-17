@@ -10,14 +10,14 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 from ..notation.work import Work, load_orchestra
-from . import n06
+from . import n06, n14
 
 TITLE = "St Matthew Passion"
 SUBTITLE = "after J. S. Bach, BWV 244, for alto and baroque orchestra"
 COMPOSER = "Brett Gilio"
 
 # The numbers that are written: the number, and the module that writes it.
-NUMBERS = {6: n06}
+NUMBERS = {6: n06, 14: n14}
 
 
 def build(only: Iterable[int] | None = None) -> Work:

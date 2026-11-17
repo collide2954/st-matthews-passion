@@ -57,7 +57,7 @@ The work is primarily in the musical language of Bach. Its form and its counterp
 | 11 | Choral | O Haupt voll Blut und Wunden | 53, 54 | G minor to B-flat major | 1:40 | The voice has the tune; the viola da gamba has only the notes of one triad around it. |
 | 12 | Golgatha | Ach Golgatha, unselges Golgatha! | 55, 58a, 59 | A-flat major | 1:45 | The plucked notes of the bell have a rhythm cycle and a pitch cycle of different lengths. |
 | 13 | Tod | Eli, Eli, lama asabthani? | 61a, 61e | to C minor, to A minor | 2:10 | The voice is alone for the last words. Then 7 seconds of silence. |
-| 14 | Choral | Wenn ich einmal soll scheiden | 62 | A minor; ends on E major | 2:15 | Each string group has its voice of the setting of Bach in a different note value. The chords come apart and come together at each fermata. |
+| 14 | Choral | Wenn ich einmal soll scheiden | 62 | A minor; ends on E major | 2:15 | The voice has the tune and the violoncellos have the bass of Bach, at one speed. The other string voices of Bach are slower than the voice: their notes are 1.5, 2, or 3 times as long. The chords come apart. Each line ends when the slowest voice comes to its last note: then the chord of Bach is complete again. |
 | 15 | Erdbeben | Wahrlich, dieser ist Gottes Sohn gewesen | 63a, 63b, 63c | C major to A-flat major | 1:25 | The runs go through the strings from the top to the bottom as a canon. The two bars of Bach come one time, plain. |
 | 16 | Grablegung | Am Abend, da es kühle war; Mein Jesu, gute Nacht; Wir setzen uns mit Tränen nieder | 64, 66a, 67, 68 | G minor, C minor | 4:30 | The flutes hold the note B above the last chord of C minor, and the chord goes away under it. The voice alone sings the last note C. |
 
@@ -90,7 +90,7 @@ The Passion chorale ("Herzlich tut mich verlangen") comes four times, and each t
 | 6 | E-flat major | Complete and plain: the voice and all instruments, with the setting of Bach |
 | 8 | D major | A memory: two phrases of the winds, with no words |
 | 11 | G minor to B-flat major | Complete, but bare: the voice, one viola da gamba, and the bass |
-| 14 | A minor, ending on E major | Complete: the four voices of Bach, each in its own note value. The chords come apart. The end is on the dominant, as in the setting of Bach. |
+| 14 | A minor, ending on E major | Complete: the four voices of Bach, but not at one speed. The chords come apart, and they are complete again at the end of each line. The last line is the plain setting of Bach. The end is on the dominant, as in the setting of Bach. |
 
 Bach has the chorale five times: in E major, E-flat major, D major, D minor, and A minor.
 The tune is a tune for sopranos. In E major it goes to F-sharp 5, and in D minor to G5.
@@ -128,4 +128,29 @@ all twelve eighth notes of the bar (number 1), three plucked notes on each bass 
 | --- | --- |
 | Style study | First edition complete |
 | Plan | Complete. The owner must examine it. |
-| Music | Not started |
+| Music | 2 of the 16 numbers are written: number 6 and number 14 (3.6 of 42.7 minutes) |
+
+### Number 14 in detail
+
+The verse has eight lines. In each line, the table gives the speed of each voice of Bach: the length of its notes in relation to the notes of the voice.
+The tune and the bass are always together: they are the frame of the harmony of Bach.
+
+| Line | Words | Tune one octave higher (first violins) | Alto of Bach (second violins) | Tenor of Bach (violas) | Moments with a semitone clash |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Wenn ich einmal soll scheiden, | 2 | 1 | 1 | 0.19 |
+| 2 | so scheide nicht von mir, | 1 | 1.5 | 1 | 0.17 |
+| 3 | wenn ich den Tod soll leiden, | 2 | 1 | 1.5 | 0.22 |
+| 4 | so tritt du dann herfür! | 1 | 1.5 | 1.5 | 0.29 |
+| 5 | Wenn mir am allerbängsten | 3 | 2 | 1.5 | 0.29 |
+| 6 | wird um das Herze sein, | 2 | 1.5 | 1.5 | 0.16 |
+| 7 | so reiß mich aus den Ängsten | 1 | 1 | 1.5 | 0.00 |
+| 8 | kraft deiner Angst und Pein! | 1 | 1 | 1 | 0.00 |
+
+The first line says "when I must go away": the first violins have the tune at half speed, and they go away from the voice.
+The second line says "do not go away from me": the first violins stay with the voice.
+In line 5 ("when my heart is most afraid") each voice has its own speed.
+The last line is the setting of Bach with no change.
+
+The code tried all sets of speeds for each line and counted the moments with a semitone clash (the module `compose/ears.py`).
+The sets of the table make an arch: the clashes increase to lines 4 and 5, and the last two lines have none.
+For comparison: in the measured music of Bach, 7 percent of the chords of a plain chorale and 13 to 28 percent of the chords of an aria have a semitone clash (tables M1 and M6 of the style study).

@@ -24,9 +24,9 @@ The document [`docs/work.md`](docs/work.md) gives the plan: the numbers, the key
 | --- | --- | --- |
 | 1. Style study | Tables of measured and sourced style parameters | First edition complete. See [`docs/style-study.md`](docs/style-study.md). |
 | 2. Design | Form, words, and material of the work | Complete. The owner must examine it. See [`design`](design). |
-| 3. Composition | The music, written as code | Not started |
-| 4. Engraving | Conductor score and parts | Not started |
-| 5. Audio | Audio from sample libraries | Not started |
+| 3. Composition | The music, written as code | 2 of 16 numbers are written (numbers 6 and 14). See [`docs/work.md`](docs/work.md). |
+| 4. Engraving | Conductor score and parts | The score of the written numbers. The parts are not examined. |
+| 5. Audio | Audio from sample libraries | First previews. An instrument plays the line of the voice: no sound library of the project has a solo singer. |
 | 6. Video | Score video | Not started |
 
 ## Style study
@@ -56,7 +56,14 @@ uv sync                       # install the Python environment
 make study                    # download the open data, measure it, and write the report
 make test                     # run the tests
 uv run stmatthew check        # find music that a player cannot play
+uv run stmatthew ears --bars 19-22   # the chord at each beat, the clashes, the parallel fifths
+uv run stmatthew score        # engrave the score (LilyPond)
+uv run stmatthew audio --engine musescore   # render the audio (MuseScore Studio with Muse Sounds)
 ```
+
+The audio command needs MuseScore Studio, the Muse Sounds libraries, and the open sample
+libraries of the project (for the organ). The file
+[`src/stmatthew/audio/musescore.py`](src/stmatthew/audio/musescore.py) describes the method.
 
 ## Licence
 
