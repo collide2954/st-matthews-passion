@@ -1,0 +1,42 @@
+# Check the code, run the tests, and check the work.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, test, and playability
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Get the source
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+
+      - name: Install the Python environment
+        run: uv sync --locked
+
+      - name: Check the code style
+        run: make lint
+
+      - name: Run the tests
+        run: make test
+
+      # The check needs no sound files: it reads the written music only.
+      - name: Check that each player can play the work
+        run: uv run stmatthew check

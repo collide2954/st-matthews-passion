@@ -1,0 +1,249 @@
+# St Matthew Passion: the voice and the orchestra.
+#
+# One alto voice and one baroque orchestra of 23 players.
+# The instruments are those of one of the two orchestras of the St Matthew Passion
+# of J. S. Bach (BWV 244). The work of Bach has no trumpets and no timpani; this
+# work has none.
+#
+# The sequence of the players in this file is the sequence in the score:
+# woodwinds, upper strings, viola da gamba, voice, continuo. The voice is
+# immediately above the continuo, as in the scores of Bach.
+# "family" gives the type of the instrument. The checks and the audio use it.
+# "group" gives the bracket of the score.
+# Pitches are MIDI numbers of the real sound (60 = middle C), for instruments at
+# the modern pitch name. The performance pitch is a' = 415 Hz (see design/brief.toml).
+# "transposition" is the number of semitones from the real sound up to the written note
+# in the part of the player.
+# "score_transposition" is the same number for the conductor score. The score is in C:
+# only the violone, which sounds one octave below the written note, is transposed there.
+# "score_clef" is the clef in the conductor score, if it is different from the part.
+# The ranges are safe ranges for professional players of baroque instruments.
+
+[summary]
+voices = 1
+woodwind_players = 5
+upper_strings = [4, 4, 3]
+solo_strings = 1          # viola da gamba
+continuo_players = 6      # 2 violoncellos, 1 violone, theorbo, harpsichord, organ
+total_players = 23
+
+# ---------------------------------------------------------------- woodwinds
+
+[[player]]
+id = "fl1"
+name = "Flauto traverso 1"
+short = "Fl. 1"
+family = "woodwinds"
+group = "woodwinds"
+instruments = ["flute", "recorder"]
+
+[[player]]
+id = "fl2"
+name = "Flauto traverso 2"
+short = "Fl. 2"
+family = "woodwinds"
+group = "woodwinds"
+instruments = ["flute", "recorder"]
+
+[[player]]
+id = "ob1"
+name = "Oboe 1"
+short = "Ob. 1"
+family = "woodwinds"
+group = "woodwinds"
+instruments = ["oboe", "oboe d'amore", "oboe da caccia"]
+
+[[player]]
+id = "ob2"
+name = "Oboe 2"
+short = "Ob. 2"
+family = "woodwinds"
+group = "woodwinds"
+instruments = ["oboe", "oboe d'amore", "oboe da caccia"]
+
+[[player]]
+id = "bn"
+name = "Fagotto"
+short = "Fag."
+family = "woodwinds"
+group = "woodwinds"
+instruments = ["bassoon"]
+
+# ------------------------------------------------------------ upper strings
+
+[[player]]
+id = "vn1"
+name = "Violino I"
+short = "Vn. I"
+family = "strings"
+group = "strings"
+count = 4
+instruments = ["violin"]
+
+[[player]]
+id = "vn2"
+name = "Violino II"
+short = "Vn. II"
+family = "strings"
+group = "strings"
+count = 4
+instruments = ["violin"]
+
+[[player]]
+id = "va"
+name = "Viola"
+short = "Va."
+family = "strings"
+group = "strings"
+count = 3
+instruments = ["viola"]
+
+[[player]]
+id = "gamba"
+name = "Viola da gamba"
+short = "V. d. g."
+family = "strings"
+group = "strings"
+instruments = ["viola da gamba"]
+
+# -------------------------------------------------------------------- voice
+
+[[player]]
+id = "alto"
+name = "Alto"
+short = "A."
+family = "voice"
+group = "voice"
+instruments = ["alto voice"]
+
+# ----------------------------------------------------------------- continuo
+
+[[player]]
+id = "vc"
+name = "Violoncello"
+short = "Vc."
+family = "strings"
+group = "continuo"
+count = 2
+instruments = ["violoncello"]
+
+[[player]]
+id = "vne"
+name = "Violone"
+short = "Vne."
+family = "strings"
+group = "continuo"
+instruments = ["violone"]
+
+[[player]]
+id = "lute"
+name = "Tiorba"
+short = "Tb."
+family = "plucked"
+group = "continuo"
+instruments = ["theorbo"]
+
+[[player]]
+id = "hpd"
+name = "Cembalo"
+short = "Cemb."
+family = "keyboards"
+group = "continuo"
+instruments = ["harpsichord"]
+
+[[player]]
+id = "org"
+name = "Organo"
+short = "Org."
+family = "keyboards"
+group = "continuo"
+instruments = ["organ"]
+
+# -------------------------------------------------------------- instruments
+
+[instrument."flute"]
+# The one-keyed flute of the time of Bach (flauto traverso). Lowest note: D4.
+transposition = 0
+clef = "treble"
+range = [62, 91]
+
+[instrument."recorder"]
+# The alto recorder in F (flauto dolce). The flute players play it.
+transposition = 0
+clef = "treble"
+range = [65, 91]
+
+[instrument."oboe"]
+transposition = 0
+clef = "treble"
+range = [60, 86]
+
+[instrument."oboe d'amore"]
+# In A: the sound is a minor third below the written note of the part.
+transposition = 3
+clef = "treble"
+range = [57, 83]
+
+[instrument."oboe da caccia"]
+# In F: the sound is a fifth below the written note of the part.
+transposition = 7
+clef = "treble"
+score_clef = "alto"
+range = [53, 79]
+
+[instrument."bassoon"]
+transposition = 0
+clef = "bass"
+range = [34, 67]
+
+[instrument."violin"]
+transposition = 0
+clef = "treble"
+range = [55, 93]
+
+[instrument."viola"]
+transposition = 0
+clef = "alto"
+range = [48, 81]
+
+[instrument."viola da gamba"]
+# The bass viol with seven strings. Lowest string: A1.
+transposition = 0
+clef = "bass"
+range = [33, 79]
+
+[instrument."alto voice"]
+# A mezzo-soprano or a countertenor. The usual notes are from B3 to D5.
+transposition = 0
+clef = "treble"
+range = [55, 77]
+
+[instrument."violoncello"]
+transposition = 0
+clef = "bass"
+range = [36, 76]
+
+[instrument."violone"]
+# The sound is one octave below the written note.
+transposition = 12
+clef = "bass"
+range = [24, 55]
+score_transposition = 12
+
+[instrument."theorbo"]
+# In A, with 14 courses. The two highest courses are tuned one octave lower.
+transposition = 0
+clef = "bass"
+range = [31, 67]
+
+[instrument."harpsichord"]
+# Two manuals, F1 to F6.
+transposition = 0
+clef = "grand"
+range = [29, 89]
+
+[instrument."organ"]
+# A positive organ with no pedals, C2 to D6.
+transposition = 0
+clef = "grand"
+range = [36, 86]

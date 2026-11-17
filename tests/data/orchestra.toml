@@ -1,0 +1,452 @@
+# The large test orchestra of the engine tests (from Night Music for Orchestra).
+#
+# The sequence of the instruments in this file is the sequence in the score.
+# Pitches are MIDI numbers of the real sound (60 = middle C).
+# "transposition" is the number of semitones from the real sound up to the written note
+# in the part of the player.
+# "score_transposition" is the same number for the conductor score. The score is in C:
+# only the instruments that play in a different octave are transposed there.
+# If "score_transposition" is not given, it is 0.
+# "score_clef" is the clef in the conductor score, if it is different from the part.
+# The ranges are safe ranges for professional players.
+# The identifiers fl3, ob3, cl3, and bn3 are the players of the piccolo, the English
+# horn, the bass clarinet, and the contrabassoon: in this work they play only these
+# instruments, and the score and the parts have these names.
+
+[summary]
+woodwind_players = 13
+brass_players = 13
+percussion_players = 7   # 1 timpani player and 6 percussion players
+keyboard_and_plucked_players = 6
+strings = [16, 14, 12, 10, 8]
+minimum_strings = [14, 12, 10, 8, 6]
+total_players = 99
+
+# ---------------------------------------------------------------- woodwinds
+
+[[player]]
+id = "fl1"
+name = "Flute 1"
+short = "Fl. 1"
+family = "woodwinds"
+instruments = ["flute"]
+
+[[player]]
+id = "fl2"
+name = "Flute 2"
+short = "Fl. 2"
+family = "woodwinds"
+instruments = ["flute", "alto flute"]
+
+[[player]]
+id = "fl3"
+name = "Piccolo"
+short = "Picc."
+family = "woodwinds"
+instruments = ["piccolo", "flute"]
+
+[[player]]
+id = "ob1"
+name = "Oboe 1"
+short = "Ob. 1"
+family = "woodwinds"
+instruments = ["oboe"]
+
+[[player]]
+id = "ob2"
+name = "Oboe 2"
+short = "Ob. 2"
+family = "woodwinds"
+instruments = ["oboe", "ocarina"]
+
+[[player]]
+id = "ob3"
+name = "English Horn"
+short = "E. Hn."
+family = "woodwinds"
+instruments = ["English horn", "oboe"]
+
+[[player]]
+id = "cl1"
+name = "Clarinet 1"
+short = "Cl. 1"
+family = "woodwinds"
+instruments = ["clarinet in B-flat", "ocarina"]
+
+[[player]]
+id = "cl2"
+name = "Clarinet 2"
+short = "Cl. 2"
+family = "woodwinds"
+instruments = ["clarinet in B-flat", "clarinet in E-flat"]
+
+[[player]]
+id = "cl3"
+name = "Bass Clarinet"
+short = "B. Cl."
+family = "woodwinds"
+instruments = ["bass clarinet", "clarinet in B-flat"]
+
+[[player]]
+id = "cbcl"
+name = "Contrabass Clarinet"
+short = "Cb. Cl."
+family = "woodwinds"
+instruments = ["contrabass clarinet", "ocarina"]
+
+[[player]]
+id = "bn1"
+name = "Bassoon 1"
+short = "Bn. 1"
+family = "woodwinds"
+instruments = ["bassoon"]
+
+[[player]]
+id = "bn2"
+name = "Bassoon 2"
+short = "Bn. 2"
+family = "woodwinds"
+instruments = ["bassoon", "ocarina"]
+
+[[player]]
+id = "bn3"
+name = "Contrabassoon"
+short = "Cbn."
+family = "woodwinds"
+instruments = ["contrabassoon", "bassoon"]
+
+# -------------------------------------------------------------------- brass
+
+[[player]]
+id = "hn"
+name = "Horn"
+short = "Hn."
+family = "brass"
+count = 6
+instruments = ["horn in F"]
+
+[[player]]
+id = "tpt"
+name = "Trumpet"
+short = "Tpt."
+family = "brass"
+count = 3
+instruments = ["trumpet in C"]
+
+[[player]]
+id = "tbn"
+name = "Trombone"
+short = "Tbn."
+family = "brass"
+count = 2
+instruments = ["tenor trombone"]
+
+[[player]]
+id = "btbn"
+name = "Bass Trombone"
+short = "B. Tbn."
+family = "brass"
+instruments = ["bass trombone"]
+
+[[player]]
+id = "tuba"
+name = "Tuba"
+short = "Tba."
+family = "brass"
+instruments = ["tuba"]
+
+# --------------------------------------------------------------- percussion
+
+[[player]]
+id = "timp"
+name = "Timpani"
+short = "Timp."
+family = "percussion"
+instruments = ["timpani"]
+
+[[player]]
+id = "perc"
+name = "Percussion"
+short = "Perc."
+family = "percussion"
+count = 6
+instruments = [
+    "vibraphone", "marimba", "glockenspiel", "crotales", "xylophone", "tubular bells",
+    "tuned gongs", "singing bowls", "tam-tams", "suspended cymbals", "crash cymbals", "bass drum",
+    "triangle",
+    "snare drum", "tom-toms", "taiko", "frame drum", "wood blocks", "temple blocks", "claves",
+    "guiro", "cowbells", "finger cymbals", "wind chimes", "waterphone",
+]
+
+# ------------------------------------------------- keyboards, harp, colours
+
+[[player]]
+id = "harp"
+name = "Harp"
+short = "Hp."
+family = "plucked"
+instruments = ["harp"]
+
+[[player]]
+id = "cimb"
+name = "Cimbalom"
+short = "Cimb."
+family = "plucked"
+instruments = ["cimbalom"]
+
+[[player]]
+id = "mand"
+name = "Mandolin"
+short = "Mand."
+family = "plucked"
+instruments = ["mandolin"]
+
+[[player]]
+id = "cel"
+name = "Celesta"
+short = "Cel."
+family = "keyboards"
+instruments = ["celesta"]
+
+[[player]]
+id = "pno"
+name = "Piano"
+short = "Pno."
+family = "keyboards"
+instruments = ["piano"]
+
+[[player]]
+id = "acc"
+name = "Accordion"
+short = "Acc."
+family = "keyboards"
+instruments = ["accordion"]
+
+# ------------------------------------------------------------------ strings
+
+[[player]]
+id = "vn1"
+name = "Violin I"
+short = "Vn. I"
+family = "strings"
+count = 16
+instruments = ["violin"]
+
+[[player]]
+id = "vn2"
+name = "Violin II"
+short = "Vn. II"
+family = "strings"
+count = 14
+instruments = ["violin"]
+
+[[player]]
+id = "va"
+name = "Viola"
+short = "Va."
+family = "strings"
+count = 12
+instruments = ["viola"]
+
+[[player]]
+id = "vc"
+name = "Violoncello"
+short = "Vc."
+family = "strings"
+count = 10
+instruments = ["violoncello"]
+
+[[player]]
+id = "cb"
+name = "Double Bass"
+short = "Cb."
+family = "strings"
+count = 8
+instruments = ["double bass"]
+
+# -------------------------------------------------------------- instruments
+
+[instrument."piccolo"]
+transposition = -12
+clef = "treble"
+range = [74, 108]
+score_transposition = -12
+
+[instrument."flute"]
+transposition = 0
+clef = "treble"
+range = [60, 97]  # to D-flat 7: the highest note that the audio can play
+
+[instrument."alto flute"]
+transposition = 5
+clef = "treble"
+range = [55, 91]
+
+[instrument."oboe"]
+transposition = 0
+clef = "treble"
+range = [58, 91]
+
+[instrument."English horn"]
+transposition = 7
+clef = "treble"
+range = [52, 84]
+
+[instrument."clarinet in E-flat"]
+transposition = -3
+clef = "treble"
+range = [55, 96]
+
+[instrument."clarinet in B-flat"]
+transposition = 2
+clef = "treble"
+range = [50, 94]
+
+[instrument."bass clarinet"]
+transposition = 14
+clef = "treble"
+range = [34, 82]
+score_clef = "bass"
+
+[instrument."contrabass clarinet"]
+transposition = 26
+clef = "treble"
+range = [22, 65]
+score_transposition = 12
+score_clef = "bass"
+
+[instrument."bassoon"]
+transposition = 0
+clef = "bass"
+range = [34, 76]
+
+[instrument."contrabassoon"]
+transposition = 12
+clef = "bass"
+range = [22, 55]
+score_transposition = 12
+
+[instrument."ocarina"]
+transposition = 0
+clef = "treble"
+range = [69, 89]
+
+[instrument."horn in F"]
+transposition = 7
+clef = "treble"
+range = [35, 77]
+
+[instrument."trumpet in C"]
+transposition = 0
+clef = "treble"
+range = [54, 86]
+
+[instrument."tenor trombone"]
+transposition = 0
+clef = "bass"
+range = [40, 74]
+
+[instrument."bass trombone"]
+transposition = 0
+clef = "bass"
+range = [28, 67]
+
+[instrument."tuba"]
+transposition = 0
+clef = "bass"
+range = [26, 65]
+
+[instrument."timpani"]
+transposition = 0
+clef = "bass"
+range = [38, 60]
+
+[instrument."vibraphone"]
+transposition = 0
+clef = "treble"
+range = [53, 89]
+
+[instrument."marimba"]
+transposition = 0
+clef = "treble"
+range = [36, 96]
+
+[instrument."glockenspiel"]
+transposition = -24
+clef = "treble"
+range = [79, 108]
+score_transposition = -24
+
+[instrument."crotales"]
+transposition = -24
+clef = "treble"
+range = [84, 108]
+score_transposition = -24
+
+[instrument."xylophone"]
+transposition = -12
+clef = "treble"
+range = [65, 108]
+score_transposition = -12
+
+[instrument."tubular bells"]
+transposition = 0
+clef = "treble"
+range = [60, 77]
+
+[instrument."tuned gongs"]
+transposition = 0
+clef = "bass"
+range = [48, 72]
+
+[instrument."harp"]
+transposition = 0
+clef = "grand"
+range = [24, 104]
+
+[instrument."cimbalom"]
+transposition = 0
+clef = "grand"
+range = [36, 93]
+
+[instrument."mandolin"]
+transposition = 0
+clef = "treble"
+range = [55, 93]
+
+[instrument."celesta"]
+transposition = -12
+clef = "grand"
+range = [48, 108]
+score_transposition = -12
+
+[instrument."piano"]
+transposition = 0
+clef = "grand"
+range = [21, 108]
+
+[instrument."accordion"]
+transposition = 0
+clef = "grand"
+range = [28, 100]
+
+[instrument."violin"]
+transposition = 0
+clef = "treble"
+range = [55, 105]
+
+[instrument."viola"]
+transposition = 0
+clef = "alto"
+range = [48, 88]
+
+[instrument."violoncello"]
+transposition = 0
+clef = "bass"
+range = [36, 84]
+
+[instrument."double bass"]
+transposition = 12
+clef = "bass"
+range = [24, 67]
+score_transposition = 12

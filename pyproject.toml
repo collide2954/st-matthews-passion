@@ -1,0 +1,41 @@
+[project]
+name = "stmatthew"
+version = "0.1.0"
+description = "St Matthew Passion: a programmed work for alto and baroque orchestra after J. S. Bach, with its style study, score, audio, and video tools."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mido>=1.3",
+    "numpy>=2.5.4",
+    "pillow>=13.0.0",
+    "scipy>=1.18.1",
+    "soundfile>=0.14.0",
+    "soxr>=1.1.0",
+]
+
+[project.scripts]
+stmatthew = "stmatthew.cli:main"
+stmatthew-study = "stmatthew.study.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/stmatthew"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
