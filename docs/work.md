@@ -48,13 +48,13 @@ The work is primarily in the musical language of Bach. Its form and its counterp
 | 3 | Gethsemane | Meine Seele ist betrübt bis an den Tod; O Schmerz | 18, 19, 21 | F minor | 3:45 | The halo of the words of Jesus is one line that goes by step and one line on the notes of one triad. The chorale has no words; the voice sings only its last line. |
 | 4 | Choral | Was mein Gott will, das g'scheh allzeit | 25 | B minor | 1:15 | The lower voices of the setting of Bach go from instrument to instrument. |
 | 5 | Gefangennahme | So ist mein Jesus nun gefangen; Sind Blitze, sind Donner | 26, 27a, 27b | E minor | 2:50 | The thunder theme enters at shorter and shorter distances until the lines are one cloud. |
-| 6 | Choral | Ich will hier bei dir stehen | 28, 17 | E major | 1:40 | None. This is the one plain setting: the setting of Bach, note for note. All disciples flee; the witness stays. |
+| 6 | Choral | Ich will hier bei dir stehen | 28, 17 | E-flat major | 1:40 | None. This is the one plain setting: the setting of Bach for these words, note for note, in its key. All disciples flee; the witness stays. |
 | | **Part 2** | | | | | |
 | 7 | Klage | Ach! nun ist mein Jesus hin! | 30 | B minor | 2:20 | The answers of the choir are a consort of four instruments. Each answer is shorter. |
-| 8 | Petrus | Ich kenne des Menschen nicht | 38a, 38c | A major to F-sharp minor | 1:25 | The Passion chorale comes as a memory, in E-flat major, with no words. |
+| 8 | Petrus | Ich kenne des Menschen nicht | 38a, 38c | A major to F-sharp minor | 1:25 | The Passion chorale comes as a memory, in D major, with no words. |
 | 9 | Erbarme dich | Erbarme dich, mein Gott | 39 | B minor | 4:45 | The voice and the violin are a canon whose distance gets shorter. The return of the theme is short: the theme loses notes at its two ends. |
 | 10 | Pilatus | Laß ihn kreuzigen; Aus Liebe; Erbarm es Gott | 45 to 51 | A minor to C-sharp major; G minor | 3:40 | The crowd is a fugue of the orchestra. The second time the entries come nearer, and the lines shift against each other. |
-| 11 | Choral | O Haupt voll Blut und Wunden | 53, 54 | D minor to F major | 1:40 | The voice has the tune; the viola da gamba has only the notes of one triad around it. |
+| 11 | Choral | O Haupt voll Blut und Wunden | 53, 54 | G minor to B-flat major | 1:40 | The voice has the tune; the viola da gamba has only the notes of one triad around it. |
 | 12 | Golgatha | Ach Golgatha, unselges Golgatha! | 55, 58a, 59 | A-flat major | 1:45 | The plucked notes of the bell have a rhythm cycle and a pitch cycle of different lengths. |
 | 13 | Tod | Eli, Eli, lama asabthani? | 61a, 61e | to C minor, to A minor | 2:10 | The voice is alone for the last words. Then 7 seconds of silence. |
 | 14 | Choral | Wenn ich einmal soll scheiden | 62 | A minor; ends on E major | 2:15 | Each string group has its voice of the setting of Bach in a different note value. The chords come apart and come together at each fermata. |
@@ -81,11 +81,22 @@ After the death the leaps are small again.
 The study measured the alto lines of Bach: a leap of a sixth or more is only 2 to 6 percent of the moves.
 Thus each wide leap of the voice is an event.
 
-### The descent of the chorale
+### The chorale that comes apart
 
-The Passion chorale ("Herzlich tut mich verlangen") comes five times, as in the work of Bach, and each time in a lower key: E major, E-flat major, D major, D minor, and A minor.
-The first time it is complete and plain. The second time and the third time it is only a memory, with no words.
-The last time, after the death, its chords come apart, and it ends on the dominant.
+The Passion chorale ("Herzlich tut mich verlangen") comes four times, and each time it has less.
+
+| Number | Key | Form |
+| --- | --- | --- |
+| 6 | E-flat major | Complete and plain: the voice and all instruments, with the setting of Bach |
+| 8 | D major | A memory: two phrases of the winds, with no words |
+| 11 | G minor to B-flat major | Complete, but bare: the voice, one viola da gamba, and the bass |
+| 14 | A minor, ending on E major | Complete: the four voices of Bach, each in its own note value. The chords come apart. The end is on the dominant, as in the setting of Bach. |
+
+Bach has the chorale five times: in E major, E-flat major, D major, D minor, and A minor.
+The tune is a tune for sopranos. In E major it goes to F-sharp 5, and in D minor to G5.
+The alto of Bach has E5 as its highest note (table M4 of the style study).
+Thus the first setting of this work is in E-flat major, the key of Bach for the words "Ich will hier bei dir stehen": there the tune goes to F5 one time.
+The third setting is one fifth lower than the setting of Bach.
 
 ### Sharps and flats
 

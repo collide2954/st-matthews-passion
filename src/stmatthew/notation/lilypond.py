@@ -8,8 +8,8 @@ from fractions import Fraction
 from itertools import accumulate
 from pathlib import Path
 
-from . import combine, cues, frontmatter, music, techniques, turns
-from .pitch import Interval
+from . import combine, cues, frontmatter, lyrics, music, techniques, turns
+from .pitch import Interval, Pitch
 from .structure import Bar, global_to_lilypond
 from .work import Instrument, Player, Work
 
@@ -516,8 +516,15 @@ def _with_clefs(
     current = emitter.clef_of(_first_played(work, chunks, instrument))
     elements.append(music.Command("clef", [current]))
     ottava = 0
+    key: tuple[str, str] | None = None
     position = Fraction(0)  # the start of the unit in the work, in quarter notes
     for chunk in chunks:
+        # A section can start with a new key signature.
+        if position < work.structure.length:
+            new_key = work.structure.key_at(work.structure.bar_at(position).number)
+            if new_key != key and new_key is not None:
+                elements.append(key_command(new_key, emitter.interval))
+            key = new_key
         # A hand of a keyboard instrument can change its clef in each bar: its music
         # moves through the full keyboard. Other instruments have one clef for a section.
         grand = instrument is not None and instrument.clef == "grand"
@@ -525,10 +532,14 @@ def _with_clefs(
         for unit in units:
             if len(unit) == 1 and _is_switch(unit[0]):
                 # A change of instrument changes the usual clef.
+                old_interval = emitter.interval
                 instrument = work.orchestra.instruments.get(unit[0].arguments[0].strip('"'))
                 emitter.set_instrument(instrument)
                 current = emitter.clef_of(instrument)
                 elements.extend(unit)
+                # An instrument in a different key has a different key signature.
+                if key is not None and emitter.interval != old_interval:
+                    elements.append(key_command(key, emitter.interval))
                 continue
             start = position
             position += sum((music.length(element) for element in unit), Fraction(0))
@@ -558,6 +569,14 @@ def _with_clefs(
                 elements.extend(piece)
     emitter.set_instrument(first_instrument)
     return _ottava_at_notes(elements)
+
+
+def key_command(key: tuple[str, str], interval: Interval | None = None) -> music.Command:
+    """Return the command for a key signature. `interval` moves it for a transposing instrument."""
+    pitch = Pitch.parse(key[0])
+    if interval is not None:
+        pitch = pitch.transposed(interval).simplified()
+    return music.Command("key", [replace(pitch, octave=3).name, f"\\{key[1]}"])
 
 
 def _is_switch(element: music.Element) -> bool:
@@ -822,7 +841,15 @@ def _player_music(
         elements = _with_cues(work, player, elements, part_cues)
     if player.family == "percussion" and len(player.instruments) > 1:
         emitter.instrument_name = ""  # the first note gets the name of its instrument
-    return emitter.emit(elements)
+    text = emitter.emit(elements)
+    if player.id in work.lyrics:
+        text = f"{lyrics.VOICE_SETTINGS}\n{text}"
+    return text
+
+
+def lyrics_identifier(player_id: str) -> str:
+    """Return the LilyPond variable name for the words of a voice."""
+    return identifier(player_id).replace("music", "words", 1)
 
 
 def _header(work: Work, instrument_line: str = "", document: str = "") -> str:
@@ -953,15 +980,25 @@ def _definitions(
         mine = part_cues if player is players[0] else None
         text = _player_music(work, player, for_part=for_part, part_cues=mine)
         blocks.append(f"{identifier(player.id)} = {{\n{text}\n}}")
+        if player.id in work.lyrics:
+            sung = "\n".join(text for _first_bar, text in work.lyrics[player.id])
+            blocks.append(f"{lyrics_identifier(player.id)} = \\lyricmode {{\n{sung}\n}}")
     return "\n\n".join(blocks)
 
 
-def _staff(player: Player, *, names: bool = True) -> str:
+def _staff(player: Player, *, names: bool = True, work: Work | None = None) -> str:
+    """Return the staff of a player. A voice with words has a line of words below its staff."""
     with_block = (
         f'\\with {{ instrumentName = "{player.name}" shortInstrumentName = "{player.short}" }} '
         if names
         else ""
     )
+    if work is not None and player.id in work.lyrics:
+        return (
+            f'\\new Staff = "{player.id}" {with_block}<< \\global '
+            f'\\new Voice = "{player.id}" {{ \\{identifier(player.id)} }} >>\n'
+            f'  \\new Lyrics \\lyricsto "{player.id}" {{ \\{lyrics_identifier(player.id)} }}'
+        )
     return f'\\new Staff = "{player.id}" {with_block}<< \\global \\{identifier(player.id)} >>'
 
 
@@ -1046,7 +1083,7 @@ def _score_staves(work: Work, shared: dict[str, combine.SharedStaff] | None = No
                 )
                 index += 2
             else:
-                staves.append(_staff(player))
+                staves.append(_staff(player, work=work))
                 index += 1
         joined = "\n  ".join(staves)
         if family in MARK_LINE_FAMILIES:
@@ -1058,79 +1095,35 @@ def _score_staves(work: Work, shared: dict[str, combine.SharedStaff] | None = No
 def score_notes(work: Work, *, transposed: bool = False) -> list[str]:
     """Return the notes for the performance on the first page of the score.
 
-    The bar numbers come from the music. Thus they stay correct when the
-    music changes. `transposed` is true for the transposed score.
+    `transposed` is true for the transposed score.
     """
-    from ..perform.events import perform  # at call time: that module imports this package
-
     structure = work.structure
-    quarter: dict[str, set[int]] = {"alto flute": set(), "violoncello": set(), "woodwinds": set()}
-    ocarina: set[int] = set()
-    for player in work.orchestra.players:
-        for note in perform(work, player.id):
-            bar = structure.bar_at(note.start).number
-            if note.instrument == "ocarina":
-                ocarina.add(bar)
-            if note.midi != round(note.midi):
-                if note.instrument in quarter:
-                    quarter[note.instrument].add(bar)
-                elif player.family == "woodwinds":
-                    quarter["woodwinds"].add(bar)
-                else:
-                    raise ValueError(f"no note about the quarter-tones of the {player.id}")
-
-    def bars(numbers: set[int]) -> str:
-        first, last = min(numbers), max(numbers)
-        return f"bar {first}" if first == last else f"bars {first} to {last}"
-
-    pitch = "The score is in C. The parts are transposed."
+    pitch = (
+        "The score is in C: the oboes d'amore and the oboes da caccia have their real sound. "
+        "Their parts are transposed. The violone sounds one octave lower than written."
+    )
     if transposed:
         pitch = (
             "This score is transposed: each staff has the notes of the part of its player. "
             "The list of the instruments gives the key of each transposing instrument."
         )
     notes = [
+        "The work is for instruments of the time of Bach at the pitch a' = 415 Hz. "
+        "Modern instruments can play it at the modern pitch.",
         pitch,
-        "Piccolo, celesta, and glockenspiel sound higher than written, by one or two octaves. "
-        "Contrabassoon, contrabass clarinet, and double basses sound one octave lower than "
-        "written.",
+        "The voice is one alto: a mezzo-soprano or a countertenor. The singer tells the story, "
+        "says the words of the persons, and sings the poems and the chorales.",
+        "Words in italic type above the staves of the instruments are the words of the second "
+        "choir or of the crowd in the work of Bach. No one sings them: the instruments have "
+        "their music. They show the players what their notes say.",
+        "The harpsichord, the organ, and the theorbo have written parts. A player who knows the "
+        "style can play freely from the bass line and the chords of the part.",
+        "A small note before a note is an appoggiatura: play it on the beat. tr: a trill that "
+        "starts on the upper note.",
         "An accidental is for one bar and one octave only.",
+        "Seating: the first violins are on the left, the second violins on the right. The alto "
+        "is in front of the orchestra.",
     ]
-    places = []
-    if quarter["alto flute"]:
-        places.append(f"the alto flute ({bars(quarter['alto flute'])})")
-    if quarter["violoncello"]:
-        places.append(f"one cello ({bars(quarter['violoncello'])})")
-    series = ""
-    if quarter["woodwinds"]:
-        # The woodwinds hold their quarter-tones to the end of the section.
-        marks = sorted(structure.marks)
-        before = [number for number in marks if number <= min(quarter["woodwinds"])]
-        after = [number for number in marks if number > max(quarter["woodwinds"])]
-        first = before[-1] if before else 1
-        last = after[0] - 1 if after else len(structure.bars)
-        series = f"bars {first} to {last}"
-        places.append(f"the woodwinds ({series})")
-    if places:
-        text = "Quarter-tones are in these parts: "
-        text += places[0] if len(places) == 1 else ", ".join(places[:-1]) + ", and " + places[-1]
-        text += "."
-        if series:
-            text += (
-                f" In {series}, the quarter-tones are the notes of the harmonic series on D: "
-                "play them with no vibrato."
-            )
-        notes.append(text)
-    notes.append("l.v.: let the sound ring.")
-    if ocarina:
-        notes.append(
-            f"Three players have an ocarina in C ({bars(ocarina)}): oboe 2, clarinet 1, and "
-            "bassoon 2."
-        )
-    notes.append(
-        "Seating: the first violins are on the left of the conductor, the second violins on "
-        "the right."
-    )
     minutes = round(structure.duration_seconds / 60)
     if minutes >= 1:
         notes.append(f"Duration: {minutes} minutes.")
@@ -1377,7 +1370,9 @@ def part_file(
     if instrument and instrument.transposition % 12 and " in " in instrument.name:
         line = f"{name} in {instrument.name.split(' in ')[1]}"
     if len(players) == 1:
-        staves = f"\\new Staff << \\global \\{identifier(first.id)} >>"
+        staves = _staff(first, names=False, work=work)
+        if first.id in work.lyrics:
+            staves = f"<<\n  {staves}\n>>"
     else:
         inner = "\n  ".join(_staff(player, names=False) for player in players)
         staves = f"\\new PianoStaff <<\n  {inner}\n>>"

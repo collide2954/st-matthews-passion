@@ -12,7 +12,7 @@
 [call]
 shape = "a leap up, then steps down"
 steps = [
-    { leap = "fourth", semitones = 5, where = "the Passion chorale (first two notes)", number = 6 },
+    { leap = "fourth", semitones = 5, where = "the Passion chorale (its first two notes)", number = 6 },
     { leap = "minor sixth", semitones = 8, where = "Erbarme dich (F-sharp to D)", number = 9 },
     { leap = "minor seventh", semitones = 10, where = "Erbarm es Gott (C to B-flat)", number = 10 },
     { leap = "octave", semitones = 12, where = "the cry of Jesus (Aber Jesus schriee abermal laut); Bach has a major sixth here", number = 13 },
@@ -21,24 +21,29 @@ steps = [
 # Why: the study measured the alto lines of Bach. Leaps of a sixth or more are only 2 to 6
 # percent of the moves: each is a call or a cry. The plan uses them as events.
 
-# ------------------------------------------------------------------ the descent
-# The Passion chorale comes five times, as in the work of Bach, and each time lower.
-[descent]
+# ------------------------------------------------------------------ the chorale
+# The Passion chorale comes four times. Each time it has less: first all voices and the
+# plain setting of Bach, then a memory with no words, then the voice with one instrument,
+# then the setting of Bach with its chords apart. The last time it ends on the dominant.
+[chorale]
 tune = "Herzlich tut mich verlangen"
 settings = [
-    { number = 6, key = "E major", form = "complete, plain, with the setting of Bach" },
-    { number = 8, key = "E-flat major", form = "two phrases as a memory, with no words" },
-    { number = 10, key = "D major", form = "one phrase in the bass, with no words" },
-    { number = 11, key = "D minor to F major", form = "complete; the voice with a triad voice" },
-    { number = 14, key = "A minor, ending on E major", form = "complete; each voice in its own note value" },
+    { number = 6, key = "E-flat major", form = "complete, plain, with the setting of Bach (movement 17), in its key" },
+    { number = 8, key = "D major", form = "two phrases as a memory, with no words (the key of movement 44)" },
+    { number = 11, key = "G minor to B-flat major", form = "complete; the voice with a triad voice (the setting of movement 54, one fifth lower)" },
+    { number = 14, key = "A minor, ending on E major", form = "complete; each voice in its own note value (the setting of movement 62, in its key)" },
 ]
-# Bach: E major, E-flat major, D major, D minor to F major, A minor (table S5).
+# Bach has the chorale five times: E major, E-flat major, D major, D minor to F major, and
+# A minor (table S5). The tune is a tune for sopranos: in E major it goes to F-sharp 5,
+# and in D minor to G5. The style profile of the alto has E5 as its highest note, and F5
+# for one moment of the work. Thus the first setting is in E-flat major (the tune goes to
+# F5 one time), and the third setting is one fifth lower than the setting of Bach.
 
 # ------------------------------------------------------------------ the keys
 # Sharps on the way to the cross, flats at the death and the tomb (table S8).
 [keys]
-part_1 = ["E minor", "A minor", "B minor", "F-sharp minor", "F minor", "B minor", "E minor", "E major"]
-part_2 = ["B minor", "F-sharp minor", "B minor", "A minor", "B major", "C-sharp major", "G minor", "D minor", "F major", "A-flat major", "C minor", "A minor", "A-flat major", "G minor", "E-flat major", "C minor"]
+part_1 = ["E minor", "A minor", "B minor", "F-sharp minor", "F minor", "B minor", "E minor", "E-flat major"]
+part_2 = ["B minor", "F-sharp minor", "B minor", "A minor", "B major", "C-sharp major", "G minor", "B-flat major", "A-flat major", "C minor", "A minor", "A-flat major", "G minor", "E-flat major", "C minor"]
 turn_to_the_flats = "number 10, after the second 'Laß ihn kreuzigen' (C-sharp major): the scourge music starts in F major"
 one_number_outside = "number 3 (F minor): Gethsemane is in the key of the death scene, as in the work of Bach"
 

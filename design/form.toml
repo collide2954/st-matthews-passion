@@ -22,7 +22,7 @@ pause_between_the_parts = "after number 6"
 
 # The events that give the work its shape. A position is a share of the duration.
 [events]
-end_of_part_1 = 0.39          # number 6: the chorale in E major, the one plain setting
+end_of_part_1 = 0.39          # number 6: the chorale in E-flat major, the one plain setting
 centre = 0.50                 # number 9: "Erbarme dich"
 death = 0.76                  # number 13; profile "All": 0.70 to 0.85
 long_silence = 0.80           # after the death: 7 seconds with no sound
@@ -102,12 +102,12 @@ name = "Choral"
 words = "Ich will hier bei dir stehen"
 bach = "28 (last sentence), 17"
 layer = "story, then chorale"
-key = "E major"
+key = "E-flat major"
 metre = "4/4"
 seconds = 100
 forces = "voice; tutti"
-bach_elements = ["the Passion chorale, first time", "the setting of Bach, note for note"]
-device = "None: this is the one plain setting. All disciples flee; the witness stays."
+bach_elements = ["the Passion chorale, first time", "the setting of Bach for these words (movement 17), note for note, in its key"]
+device = "None: this is the one plain setting. All disciples flee; the witness stays. The instruments come in group by group."
 
 # ------------------------------------------------------------------ part 2
 
@@ -135,7 +135,7 @@ metre = "4/4"
 seconds = 85
 forces = "voice; harpsichord, violoncello; oboes"
 bach_elements = ["recitative with short chords", "the three denials", "the long line on 'weinete bitterlich'"]
-device = "The Passion chorale comes as a memory: two phrases in E-flat major, very soft, while Peter remembers."
+device = "The Passion chorale comes as a memory: two phrases in D major, very soft, with no words, while Peter remembers."
 
 [[number]]
 number = 9
@@ -169,11 +169,11 @@ name = "Choral"
 words = "O Haupt voll Blut und Wunden"
 bach = "53a, 53c, 54"
 layer = "story, then chorale"
-key = "D minor to F major"
+key = "G minor to B-flat major"
 metre = "4/4"
 seconds = 100
 forces = "voice; viola da gamba, violas, violoncello; organ"
-bach_elements = ["the Passion chorale, fourth time", "the bass of the setting of Bach"]
+bach_elements = ["the Passion chorale, third time", "the bass of the setting of Bach (movement 54), one fifth lower: thus the tune is in the range of the alto"]
 device = "The tune goes by step; the viola da gamba has only the notes of one triad around it (melody voice and triad voice)."
 
 [[number]]
@@ -212,7 +212,7 @@ key = "A minor; the last chord is E major"
 metre = "4/4"
 seconds = 135
 forces = "voice; strings with mutes; viola da gamba"
-bach_elements = ["the Passion chorale, last time", "the four voices of the setting of Bach", "the end on the dominant"]
+bach_elements = ["the Passion chorale, fourth and last time", "the four voices of the setting of Bach (movement 62), in its key", "the end on the dominant"]
 device = "The voice has the tune in plain notes. Each string group has its voice of the setting of Bach in a different note value: the chords come apart and come together again at each fermata."
 
 [[number]]

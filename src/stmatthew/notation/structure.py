@@ -65,6 +65,10 @@ class Structure:
     bars: list[Bar] = field(default_factory=list)
     tempo_points: list[TempoPoint] = field(default_factory=list)
     marks: dict[int, str] = field(default_factory=dict)  # bar number -> rehearsal mark
+    # bar number -> key signature from this bar: the key note (for example "fis") and the mode
+    keys: dict[int, tuple[str, str]] = field(default_factory=dict)
+    # bar number -> title of the number that starts at this bar, for example "1. Eingang"
+    titles: dict[int, str] = field(default_factory=dict)
     double_bars: set[int] = field(default_factory=set)  # double bar line at the END of these bars
     breaks: set[int] = field(default_factory=set)  # line break at the END of these bars
     final_bar: bool = True
@@ -251,6 +255,27 @@ class Structure:
     def mark(self, bar: int, label: str) -> None:
         """Put a rehearsal mark at the start of a bar."""
         self.marks[bar] = label
+
+    def key(self, bar: int, tonic: str, mode: str = "major") -> None:
+        """Set the key signature from the start of a bar.
+
+        `tonic` is the key note in the note names of the music language
+        ("e", "fis", "bes"). `mode` is "major" or "minor". The bar must be the
+        first bar of a section: a staff gets its key signature at the start of
+        a section.
+        """
+        if mode not in ("major", "minor"):
+            raise ValueError(f"the mode of a key is major or minor, not {mode!r}")
+        self.keys[bar] = (tonic, mode)
+
+    def key_at(self, bar: int) -> tuple[str, str] | None:
+        """Return the key signature in effect at a bar, or None (no signature)."""
+        earlier = [number for number in self.keys if number <= bar]
+        return self.keys[max(earlier)] if earlier else None
+
+    def title(self, bar: int, text: str) -> None:
+        """Give a title to the number that starts at a bar."""
+        self.titles[bar] = text
 
     def double_bar(self, bar: int) -> None:
         """Put a double bar line at the end of a bar."""

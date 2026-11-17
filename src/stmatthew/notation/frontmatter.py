@@ -31,18 +31,16 @@ TUNED = (
     "timpani", "glockenspiel", "crotales", "xylophone", "vibraphone", "marimba",
     "tubular bells", "tuned gongs",
 )  # fmt: skip
+# The groups of the score, in the sequence of the list of the instruments.
 FAMILY_TITLES = {
+    "voice": "Voice",
     "woodwinds": "Woodwinds",
-    "brass": "Brass",
-    "percussion": "Timpani and percussion",
-    "plucked": "Harp and plucked instruments",
-    "keyboards": "Keyboards",
     "strings": "Strings",
+    "continuo": "Continuo",
 }
 TOP_SHARE = 0.025  # the empty space above the heading of a text page, as a share of the page
 STRING_NAMES = {
-    "vn1": "First violins", "vn2": "Second violins", "va": "Violas", "vc": "Cellos",
-    "cb": "Double basses",
+    "vn1": "First violins", "vn2": "Second violins", "va": "Violas", "vc": "Violoncellos",
 }  # fmt: skip
 
 
@@ -176,14 +174,14 @@ def _page(page: Page, lines: list[str]) -> str:
 
 def cover(work: Work, page: Page, edition: str) -> str:
     """Return the cover: the composer, the title, and the type of the document."""
-    title, _, rest = work.title.partition(" for ")
+    title, rest = work.title, work.subtitle
     lines = [
         page.skip(0.15 * page.height_mm),
         line(page, spaced(work.composer.upper()), 13.5),
         page.skip(0.050 * page.height_mm),
         line(page, quote(title), 46),
         page.skip(0.012 * page.height_mm),
-        line(page, quote("for " + rest), 21.5, r"\italic") if rest else "",
+        line(page, quote(rest), 17.0, r"\italic") if rest else "",
         page.skip(0.050 * page.height_mm),
         rule(page, 46.0),
         page.skip(0.050 * page.height_mm),
@@ -208,14 +206,14 @@ def part_cover(
     and the instrument on the front of a part, with all instruments of the
     player and all instructions for the player.
     """
-    title, _, rest = work.title.partition(" for ")
+    title, rest = work.title, work.subtitle
     lines = [
         page.skip(0.07 * page.height_mm),
         line(page, spaced(work.composer.upper()), 12.0),
         page.skip(0.032 * page.height_mm),
         line(page, quote(title), 34.0),
         page.skip(0.008 * page.height_mm),
-        line(page, quote("for " + rest), 16.0, r"\italic") if rest else "",
+        line(page, quote(rest), 13.0, r"\italic") if rest else "",
         page.skip(0.036 * page.height_mm),
         rule(page, 40.0),
         page.skip(0.036 * page.height_mm),
@@ -249,9 +247,11 @@ def imprint(work: Work, page: Page) -> str:
     bars = len(work.structure.bars)
     rows = [
         (work.title, r"\bold"),
-        (f"Music by {work.composer}, {YEAR}", ""),
+        (f"Music by {work.composer}, {YEAR}, after the St Matthew Passion of J. S. Bach.", ""),
+        ("The words are those of the text that Bach set: the Gospel of Matthew in the", ""),
+        ("translation of Martin Luther, poems of Picander, and chorale verses.", ""),
         ("", ""),
-        (f"One movement in five linked parts. {bars} bars. Duration: about {minutes} minutes.", ""),
+        (f"{bars} bars. Duration: about {minutes} minutes.", ""),
         ("", ""),
         (f"Copyright {YEAR} by {work.composer}.", ""),
         (f"Licence: {LICENCE}.", ""),
@@ -402,7 +402,9 @@ def instrument_lines(work: Work) -> dict[str, list[tuple[str, str]]]:
         first = player.instruments[0]
         if player.family == "strings":
             name = STRING_NAMES.get(player.id, player.name)
-            lines["strings"].append((name, f"{player.count} players" if player.count > 1 else ""))
+            lines[player.group].append(
+                (name, f"{player.count} players" if player.count > 1 else "")
+            )
             continue
         if player.family == "percussion":
             items = _with_ranges(player.id, used, ranges)
@@ -419,7 +421,10 @@ def instrument_lines(work: Work) -> dict[str, list[tuple[str, str]]]:
             name += " in " + first.split(" in ", 1)[1]
         others = [instrument for instrument in used if instrument != first]
         also = "also " if first in used else ""
-        lines[player.family].append((name, f"{also}{', '.join(others)}" if others else ""))
+        if player.family == "voice":
+            name, others = "Alto", ["a mezzo-soprano or a countertenor"]
+            also = ""
+        lines[player.group].append((name, f"{also}{', '.join(others)}" if others else ""))
     return lines
 
 
@@ -431,7 +436,7 @@ def instrumentation(work: Work, page: Page) -> str:
     for family, title in FAMILY_TITLES.items():
         if not families[family]:
             continue
-        target = columns[0] if family in ("woodwinds", "brass", "strings") else columns[1]
+        target = columns[0] if family in ("voice", "woodwinds") else columns[1]
         target.append(page.skip(7.0))
         target.append(label(page, title, 12.5, r"\bold"))
         target.append(page.skip(2.2))
@@ -453,7 +458,9 @@ def instrumentation(work: Work, page: Page) -> str:
                 target.append(block(page, text, 10.5, page.units(column_mm)))
                 target.append(page.skip(2.3))
     players = sum(
-        player.count for player in work.orchestra.players if not player.id.endswith(".lh")
+        player.count
+        for player in work.orchestra.players
+        if not player.id.endswith(".lh") and player.family != "voice"
     )
     left = "\n      ".join(columns[0])
     right = "\n      ".join(columns[1])
@@ -463,12 +470,13 @@ def instrumentation(work: Work, page: Page) -> str:
         page.skip(5.0),
         paragraph(
             page,
-            f"The work is for {players} players. A player who has more than one instrument "
-            "changes between them: the part says when. The number of the string players can be "
-            "smaller, but not smaller than 14, 12, 10, 8, and 6. Each percussion player has "
-            "the instruments of one list. For an instrument with a pitch, the list gives the "
-            "range that the music uses: the names of the notes are for the real sound, and C4 "
-            "is the middle C.",
+            f"The work is for one alto voice and {players} players of baroque instruments. "
+            "The list shows the instruments that have notes in this score. A player who has "
+            "more than one instrument changes between them: the part says when. The flute "
+            "players also have alto recorders. The oboe players also have oboes d'amore and "
+            "oboes da caccia. The number of the string players can be larger, in the same "
+            "proportion. The orchestra has no trumpets and no timpani, as the orchestra of "
+            "the St Matthew Passion of Bach.",
         ),
         page.skip(1.0),
         r"\line {",
@@ -486,30 +494,22 @@ def instrumentation(work: Work, page: Page) -> str:
 # metres (left, right, front, back). The conductor is at 0, 0. The plan agrees with
 # the seats of the hall model of the audio (`audio/space.py`).
 STAGE = [
-    ("First violins", -9.4, -1.5, 1.3, 3.8, True),
-    ("Second violins", 1.5, 9.4, 1.3, 3.8, True),
-    ("Cellos", -5.6, -0.4, 4.2, 6.2, True),
-    ("Violas", 0.4, 5.6, 4.2, 6.2, True),
-    ("Double basses", -9.8, -6.0, 4.2, 6.0, True),
-    ("Flutes", -4.3, -0.3, 6.7, 7.9, False),
-    ("Oboes", 0.3, 4.3, 6.7, 7.9, False),
-    ("Clarinets", -5.3, -0.3, 8.2, 9.4, False),
-    ("Bassoons", 0.3, 4.3, 8.2, 9.4, False),
-    ("Horns", -6.6, -0.9, 9.8, 11.3, False),
-    ("Trumpets", -0.5, 3.1, 9.8, 11.0, False),
-    ("Trombones, tuba", 3.5, 8.4, 9.8, 11.0, False),
-    ("Percussion", -8.4, -1.9, 11.7, 13.2, False),
-    ("Timpani", -1.5, 1.5, 11.7, 13.2, False),
-    ("Percussion", 1.9, 6.8, 11.7, 13.2, False),
-    ("Harp", -10.6, -7.6, 6.4, 7.6, False),
-    ("Piano", -10.6, -7.0, 7.9, 9.5, False),
-    ("Celesta", -10.6, -7.6, 9.8, 11.0, False),
-    ("Mandolin", 6.4, 9.2, 4.2, 5.4, False),
-    ("Cimbalom", 6.4, 9.8, 5.7, 7.1, False),
-    ("Accordion", 6.4, 9.8, 7.4, 8.6, False),
+    ("Alto", -3.3, -1.1, -0.5, 0.7, True),
+    ("First violins", -7.2, -1.9, 1.2, 3.3, True),
+    ("Harpsichord", -1.6, 1.6, 1.4, 3.1, False),
+    ("Second violins", 1.9, 7.2, 1.2, 3.3, True),
+    ("Violone", -7.2, -5.4, 3.8, 5.6, True),
+    ("Violoncellos", -5.1, -2.2, 3.8, 5.4, True),
+    ("Theorbo", -1.9, -0.2, 3.6, 5.0, False),
+    ("Gamba", 0.2, 1.9, 3.6, 5.0, False),
+    ("Violas", 2.2, 6.0, 3.8, 5.4, True),
+    ("Flutes", -4.6, -1.7, 6.0, 7.3, False),
+    ("Organ", -1.4, 1.4, 5.6, 7.3, False),
+    ("Oboes", 1.7, 4.6, 6.0, 7.3, False),
+    ("Bassoon", 4.9, 6.6, 6.0, 7.3, False),
 ]
-STAGE_WIDTH = 22.0  # metres: the width of the plan
-STAGE_DEPTH = 13.4  # metres: from the conductor to the back of the plan
+STAGE_WIDTH = 16.0  # metres: the width of the plan
+STAGE_DEPTH = 7.6  # metres: from the conductor to the back of the plan
 
 
 def stage_plan(page: Page) -> str:
@@ -553,12 +553,12 @@ def stage_plan(page: Page) -> str:
         page.skip(5.0),
         paragraph(
             page,
-            "The first violins are on the left of the conductor, and the second violins are "
-            "on the right: many passages go from one group to the other. The cellos are "
-            "behind the first violins, and the violas are behind the second violins. The "
-            "double basses are on the left. For the interlude (rehearsal marks W to AA) the "
-            "piano is a solo instrument: its lid is open. If the stage is small, the piano "
-            "can be at the front, on the left of the conductor.",
+            "The first violins are on the left and the second violins are on the right: "
+            "many passages go from one group to the other. The harpsichord is in the middle; "
+            "the theorbo, the viola da gamba, and the first violoncello are near it: these "
+            "players accompany the voice in the story numbers. The organ is behind them, "
+            "between the flutes and the oboes. The alto is in front of the orchestra, on the "
+            "left of the conductor. With no conductor, the first violin leads.",
         ),
         page.skip(10.0),
         rf"\fill-line {{ {drawing} }}",
@@ -650,42 +650,49 @@ SYMBOLS = [
     ("A box with a name", "The player changes to this instrument."),
 ]
 PROGRAMME = [
-    "{title} is one movement in five linked parts. It goes from dark to light: from D minor "
-    "with a tritone at the start to D major at the end. The music has no story, and its parts "
-    "have no titles.",
-    "One idea of three notes, the motto, is in all parts of the work. In its dark state it is "
-    "D, E-flat, A-flat. At the turn of the work, two of its notes go up by a semitone, and the "
-    "motto becomes D, E, A. The note A-flat is the pivot. In the dark half it goes down to G. "
-    "After the turn the same pitch has the name G-sharp, and it goes up to A.",
-    "The first part is a slow night scene. The second part is fast and agitated: a chase in "
-    "the metre 7/8, a heavy section, and a first climax that breaks. The third part is night "
-    "music with no pulse: a cluster, the calls of the night, a melody with quarter-tones. From "
-    "this silence the piano starts an interlude, which is a small concerto: a toccata, a theme "
-    "in hammered octaves, and a cadenza. At its end the full orchestra holds a chord of all "
-    "twelve notes. After a silence, D major arrives, suddenly soft. This is the turn of the "
-    "work.",
-    "The fourth part has the themes of the dark half again, now in major keys, and it goes to "
-    "the main climax. The fifth part starts with the harmonic series on D, as the first light. "
-    "Then the themes sound together, the heavy rhythm comes back in D major, and a chorale "
-    "with bells ends the work.",
-    "The work has three models: Verklärte Nacht by Arnold Schoenberg for the form, the night "
-    "music of Béla Bartók for the third part, and the orchestra of John Corigliano for the "
-    "colours.",
+    "The St Matthew Passion of Johann Sebastian Bach has two choirs, two orchestras, and a "
+    "group of soloists. Its text has three layers: the story of the Gospel, the poems of "
+    "Picander, and the chorales. This work sets the text again for one voice and one "
+    "orchestra.",
+    "The voice is the witness. In the text of Bach, a woman pours water on the head of Jesus "
+    "in Bethany, women watch the cross from far away, and two women sit at the tomb. One alto "
+    "is that woman. She tells the story, she says the words of the persons, and she answers "
+    "with the poems and the chorales. The orchestra has the music of the second choir and of "
+    "the crowd, with no words.",
+    "The words are those that Bach set: the work selects sentences and lines, and it does "
+    "not change a word. The themes of the numbers are those of Bach, and two short settings "
+    "of Bach are in the work note for note. The music is primarily in the language of Bach. "
+    "Its form and its counterpoint use methods of later music: canons whose voices come "
+    "nearer, one chorale phrase in many speeds, a theme that loses its notes, a rhythm cycle "
+    "against a pitch cycle.",
+    "Four threads go through the work. A call (a leap up, then steps down) gets wider from a "
+    "fourth to an octave at the death. The Passion chorale comes back and has less each time. "
+    "The keys go from the sharps to the flats. The pulse of three eighth notes of the first "
+    "number gets thin, and at the end it stops.",
 ]
-# The plan of the form: the name, the first and the last rehearsal mark, and the contents.
-FORM = [
-    ("Part 1", "", "C", "Night: a low D, the walking theme, the long song, the chorale."),
-    ("Part 2", "D", "R", "Unrest: the agitated theme, the chase, the heavy section, the first "
-     "climax."),
-    ("Part 3", "S", "V", "Night music: a cluster, gongs, the calls of the night, one cello "
-     "above a drone."),
-    ("Interlude", "W", "Z", "The piano is the soloist: a toccata, the theme in the forge, "
-     "trades with the orchestra, a cadenza, a chord of twelve notes."),
-    ("Part 4", "AA", "FF", "The turn to D major: the warm theme, the themes in major keys, the "
-     "main climax, calm."),
-    ("Part 5", "GG", "KK", "Light: the harmonic series, the themes together, the heavy rhythm "
-     "in D major, the chorale with bells."),
-]  # fmt: skip
+
+
+def form_rows(work: Work) -> list[tuple[str, str, str, str]]:
+    """Return the plan of the form: the numbers that this score has, with their times."""
+    import tomllib
+
+    from . import work as work_module
+
+    path = work_module.DESIGN_DIR / "form.toml"
+    if not path.exists():
+        return []  # a work with no plan of its form (the tests of the engine)
+    with path.open("rb") as handle:
+        plan = {str(entry["number"]): entry for entry in tomllib.load(handle)["number"]}
+    structure = work.structure
+    rows = []
+    for bar, label in sorted(structure.marks.items()):
+        entry = plan.get(label)
+        if entry is None:
+            continue  # a mark inside a number
+        seconds = structure.seconds(structure.bar(bar).start)
+        clock = f"{int(seconds // 60)}:{int(seconds % 60):02d}"
+        rows.append((f"{label}. {entry['name']}", entry["key"], clock, entry["words"]))
+    return rows
 
 
 def used_marks(work: Work, players: list[str] | None = None) -> list[tuple[str, str]]:
@@ -770,23 +777,8 @@ def part_notes(work: Work, players: list[str], has_cues: bool) -> list[str]:
         )
     notes.append("An accidental is for one bar and one octave only.")
     minutes = round(structure.duration_seconds / 60)
-    notes.append(f"The work is one movement. Duration: about {minutes} minutes.")
+    notes.append(f"Duration of the music of this score: about {minutes} minutes.")
     return notes
-
-
-def form_rows(work: Work) -> list[tuple[str, str, str, str]]:
-    """Return the plan of the form with the time of each part."""
-    structure = work.structure
-    bars = {label: bar for bar, label in structure.marks.items()}
-    rows = []
-    for name, first, last, contents in FORM:
-        if first and first not in bars:
-            continue
-        seconds = structure.seconds(structure.bar(bars[first]).start) if first else 0.0
-        marks = f"{first} to {last}" if first else f"start to {last}"
-        clock = f"{int(seconds // 60)}:{int(seconds % 60):02d}"
-        rows.append((name, marks, clock, contents))
-    return rows
 
 
 def pages(work: Work, page: Page, edition: str, notes: list[str]) -> list[str]:

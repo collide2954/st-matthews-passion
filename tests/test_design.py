@@ -53,10 +53,10 @@ def test_each_number_has_its_words():
                 assert line["who"]
 
 
-def test_the_passion_chorale_goes_down_five_times():
+def test_the_passion_chorale_comes_four_times_and_the_call_gets_wider():
     pitch = _load("pitch.toml")
-    settings = pitch["descent"]["settings"]
-    assert [entry["number"] for entry in settings] == [6, 8, 10, 11, 14]
+    settings = pitch["chorale"]["settings"]
+    assert [entry["number"] for entry in settings] == [6, 8, 11, 14]
     leaps = [step["semitones"] for step in pitch["call"]["steps"]]
     assert leaps[:-1] == sorted(leaps[:-1])  # the call gets wider to the death
     assert leaps[-1] == 1

@@ -7,7 +7,12 @@ from dataclasses import dataclass, field
 from fractions import Fraction
 from pathlib import Path
 
-from . import hairpins, music, techniques  # noqa: F401  (the import registers the technique names)
+from . import (  # noqa: F401  (the import of techniques registers the technique names)
+    hairpins,
+    lyrics,
+    music,
+    techniques,
+)
 from .pitch import Interval
 from .structure import Structure
 
@@ -180,6 +185,21 @@ class Section:
         self.written.add(player_id)
         self.work.revision += 1
 
+    def sing(self, player_id: str, music_text: str, words: str) -> None:
+        """Give the music and the words of a voice for this section.
+
+        `words` is lyric text (see `lyrics.py`). Each note that takes a
+        syllable must have one syllable.
+        """
+        self.write(player_id, music_text)
+        parsed = self.work.chunks[player_id][-1][1]
+        state = self.work.lyric_states.setdefault(player_id, lyrics.State())
+        try:
+            lyrics.check(parsed.children, words, state)
+        except music.MusicSyntaxError as problem:
+            raise WorkError(f"{player_id}, bars {self.label}: {problem}") from None
+        self.work.lyrics.setdefault(player_id, []).append((self.first_bar, words))
+
     def close(self) -> None:
         """Give full-bar rests to all players that have no music in this section."""
         rests = " ".join(
@@ -189,6 +209,16 @@ class Section:
         for player in self.work.orchestra.players:
             if player.id not in self.written:
                 self.write(player.id, rests)
+            elif player.family == "voice":
+                sung = self.work.lyrics.get(player.id, [])
+                if not (sung and sung[-1][0] == self.first_bar):
+                    # A voice with notes and no words: all later words would move.
+                    chunk = self.work.chunks[player.id][-1][1]
+                    state = self.work.lyric_states.setdefault(player.id, lyrics.State())
+                    if lyrics.slots(chunk.children, state):
+                        raise WorkError(
+                            f"{player.id}, bars {self.label}: the voice has notes but no words"
+                        )
         self._stop_hairpins_at_rests()
         self.work.revision += 1
 
@@ -311,6 +341,9 @@ class Work:
     chunks: dict[str, list[tuple[int, music.Group]]] = field(default_factory=dict)
     composer: str = ""
     subtitle: str = ""
+    # The words of each voice: the first bar of a section, and its lyric text.
+    lyrics: dict[str, list[tuple[int, str]]] = field(default_factory=dict)
+    lyric_states: dict[str, lyrics.State] = field(default_factory=dict, repr=False)
     # The dynamic marks of each player at the end of the last complete section.
     hairpin_states: dict[str, hairpins.State] = field(default_factory=dict, repr=False)
     # The number of changes of the music. Code that keeps a result uses it.

@@ -24,7 +24,7 @@ from ..notation.pitch import from_midi
 from ..notation.work import Work
 from ..perform.events import PerfNote, perform
 
-ONE_NOTE_FAMILIES = ("woodwinds", "brass")
+ONE_NOTE_FAMILIES = ("woodwinds", "brass", "voice")
 HAND_FAMILIES = ("keyboards", "plucked")
 
 # The smallest time in seconds for a change of instrument.
@@ -41,11 +41,13 @@ TIMPANI_SECONDS = 5.0
 # largest number of notes, and the largest width in semitones. The harp player does
 # not use the little finger. A rolled chord of a keyboard instrument can be wider:
 # the hand moves, and the pedal of the piano holds the notes.
-HAND_NOTES = {"harp": 4}
+# The theorbo has one staff: its chords have a low bass string and notes of the upper
+# strings, thus they are wide.
+HAND_NOTES = {"harp": 4, "theorbo": 6}
 HAND_NOTES_DEFAULT = 5
-HAND_SPAN = {"harp": 16}  # the harp: a major tenth
+HAND_SPAN = {"harp": 16, "theorbo": 31}  # the harp: a major tenth
 HAND_SPAN_DEFAULT = 14  # a keyboard instrument: a major ninth
-ROLLED_SPAN = {"harp": 16}
+ROLLED_SPAN = {"harp": 16, "theorbo": 36}
 ROLLED_SPAN_DEFAULT = 24
 
 # The moves of one hand of a keyboard player. The model: the hand is a window of
