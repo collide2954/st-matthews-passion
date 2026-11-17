@@ -643,7 +643,10 @@ SOUNDS: dict[str, Sound] = {
             "principal4": (sso("Organ/great-principal4ft", low_hz=100, high_hz=4400),),
         },
         "keyboards",
-        loud_db=-13,
+        # The level: a measurement of the first chorale (number 6, all groups at mf)
+        # gave the organ the level of all strings together with the value -13. With
+        # -21 the organ is 8 dB below the strings: a soft sound behind them.
+        loud_db=-21,
         range_db=30,
         release=0.25,
         lead=0.03,

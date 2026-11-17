@@ -317,12 +317,19 @@ KEYBOARD_PARTS = ("Harpsichord", "Piano", "Celesta")  # parts whose slides are o
 #   times the players of this work (4, 4, 3, and 2 players). A group with four times
 #   the players is 6 dB louder (10 x log10 of 4). Thus the strings get -6 dB: the
 #   woodwinds and the voice then have the weight that they have in a small orchestra.
-STEM_GAIN_DB = {"woodwinds": 0.0, "strings": -6.0, "continuo": 0.0, "voice": 0.0}
+# - The voice is the soloist: she stands at the front of the stage. A measurement of
+#   the first chorale (number 6) gave the stand-in for the voice a level 12 dB below
+#   the strings and 7 dB below the woodwinds. With +9 dB the voice is 3 dB below all
+#   strings together in a chorale, and it is above the continuo in a recitative.
+STEM_GAIN_DB = {"woodwinds": 0.0, "strings": -6.0, "continuo": 0.0, "voice": 9.0}
 
-# Level of the sounds of the sampler (the organ, and a voice of the sampler) in the
-# mix, in dB. The calibration makes the two sound sources agree on the level of one
-# instrument. This value is a correction after that.
-SAMPLER_GAIN_DB = 0.0
+# Level of each instrument of the sampler (the organ, and a voice of the sampler) in
+# the mix, in dB. The calibration makes the two sound sources agree on the level of
+# one instrument. These values are corrections after that.
+# - The voice of the sampler (a group of women) was 6 dB louder in the first chorale
+#   than the voice of MuseScore (a clarinet with the gain of `STEM_GAIN_DB`). With
+#   -6 dB the two stand-ins have the same level.
+SAMPLER_GAIN_DB = {"organ": 0.0, musicxml.VOICE: -6.0}
 
 # The equalization of the mix. The loud passages of the mix (the loudest tenth of its
 # seconds) were compared with those of five reference recordings of real
@@ -452,9 +459,9 @@ def render_parts(
 ) -> dict[str, np.ndarray]:
     """Return the sound of each group of the mix, at its level in the mix.
 
-    The groups are the stems of MuseScore and the group `sampler` (the
-    instruments that the sampler of this project plays). All sounds start at
-    the start of the first bar.
+    The groups are the stems of MuseScore and the instruments that the
+    sampler of this project plays (each is one group, with the name of the
+    instrument). All sounds start at the start of the first bar.
     """
     from . import mix
 
@@ -474,15 +481,15 @@ def render_parts(
             audio, largest = stemtone.ride(audio, *stemtone.RIDES[name])
             print(f"musescore: stem {name}: largest slow level change {largest:+.1f} dB")
         parts[name] = np.float32(dsp.db(STEM_GAIN_DB[name])) * audio
-    others = other_instruments(work)
-    if others:
-        sound, count = mix.render_mix(work, bars=bars, instruments=others)
-        if count:
-            # The mix of an excerpt starts some time before its first bar.
-            lead = int(round(min(begin, mix.SEGMENT_LEAD) * dsp.RATE)) if bars else 0
-            gain_db = calibration_gain(work, directory, profile) + SAMPLER_GAIN_DB
-            print(f"musescore: sampler: {sorted(others)}, {gain_db:+.1f} dB")
-            parts["sampler"] = np.float32(dsp.db(gain_db)) * sound[lead:]
+    for instrument in sorted(other_instruments(work)):
+        sound, count = mix.render_mix(work, bars=bars, instruments={instrument})
+        if not count:
+            continue
+        # The mix of an excerpt starts some time before its first bar.
+        lead = int(round(min(begin, mix.SEGMENT_LEAD) * dsp.RATE)) if bars else 0
+        gain_db = calibration_gain(work, directory, profile) + SAMPLER_GAIN_DB.get(instrument, 0.0)
+        print(f"musescore: sampler: {instrument}, {gain_db:+.1f} dB")
+        parts[instrument] = np.float32(dsp.db(gain_db)) * sound[lead:]
     return parts
 
 
