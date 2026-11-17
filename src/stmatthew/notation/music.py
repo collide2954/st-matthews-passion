@@ -318,7 +318,8 @@ class _Parser:
                 raise self.error("a tremolo needs a number, for example :32")
             self.index = match.end()
             self.last_note(elements).posts.append(Post("tremolo", match.group(0), match.group(1)))
-        elif char in "rsR" and not self.text[self.index : self.index + 2].isalpha():
+        elif char in "rsR" and not self.text[self.index + 1 : self.index + 2].isalpha():
+            # A rest: the letter stands alone (also as the last letter of the text).
             self.index += 1
             duration, text = self.read_duration()
             elements.append(Rest(char, duration, text))

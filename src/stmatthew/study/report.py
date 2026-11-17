@@ -39,6 +39,7 @@ def check() -> list[str]:
     if len(keys) != len(sources):
         problems.append("sources.csv: a key occurs more than one time")
 
+    cited_keys: set[str] = set()
     for path in sorted(TABLES_DIR.glob("*.csv")):
         with path.open(encoding="utf-8", newline="") as handle:
             raw = list(csv.reader(handle))
@@ -56,6 +57,7 @@ def check() -> list[str]:
                 problems.append(f"{path.name} line {number}: evidence code {row['evidence']!r}")
             if "source" in row:
                 cited = [key.strip() for key in row["source"].split(";") if key.strip()]
+                cited_keys.update(cited)
                 if not cited:
                     problems.append(f"{path.name} line {number}: no source")
                 for key in cited:
@@ -66,6 +68,8 @@ def check() -> list[str]:
                     problems.append(f"{path.name} line {number}: code K must cite 'reference'")
                 if evidence == "R" and "reference" in cited:
                     problems.append(f"{path.name} line {number}: code R cannot cite 'reference'")
+    for key in sorted(keys - cited_keys):
+        problems.append(f"sources.csv: no table cites the source {key!r}")
     return problems
 
 
@@ -96,7 +100,7 @@ def _label(column: str) -> str:
 def percent(value: str) -> str:
     """Show a share (0 to 1) as a percentage."""
     try:
-        return f"{100 * float(value):.1f} %"
+        return f"{100 * float(value):.0f} %"
     except ValueError:
         return value
 
@@ -114,6 +118,11 @@ def number(digits: int) -> Callable[[str], str]:
         return f"{amount:.{digits}f}"
 
     return convert
+
+
+def code(value: str) -> str:
+    """Show music text in a fixed-width font."""
+    return f"`{value}`" if value else ""
 
 
 @dataclass
@@ -142,510 +151,311 @@ class TableSpec:
         return "\n\n".join(parts)
 
 
-FINGERPRINT_LABELS = {
-    "Schoenberg: Verklärte Nacht, complete": "VN",
-    "Schoenberg: Verklärte Nacht, part 1 (bars 1-228)": "VN part 1",
-    "Schoenberg: Verklärte Nacht, part 2 (bars 229-418)": "VN part 2",
-    "Bartók: Out of Doors, 1. With Drums and Pipes": "OoD 1",
-    "Bartók: Out of Doors, 2. Barcarolla": "OoD 2",
-    "Bartók: Out of Doors, 3. Musettes": "OoD 3",
-    "Bartók: Out of Doors, 4. The Night's Music": "OoD 4 (Night)",
-    "Bartók: Out of Doors, 5. The Chase": "OoD 5",
-    "Bartók: Bagatelle op. 6 no. 12 (early night music)": "Bag. 12",
-    "Bartók: Fourteen Bagatelles op. 6, complete": "Bag. 1-14",
-}
-SHARE_WORDS = ("share", "top line: ")
-NOT_SHARES = ("mean size", "entropy")
+SHARE_MEASURES = ("steps", "repeated", "semitone", "fourths", "octaves", "share", "outside")
 
 
-def render_fingerprints() -> str:
-    """Render the comparison table of all measured works."""
-    path = MEASURED_DIR / "fingerprints.csv"
-    header, rows = read_table(path)
-    works = header[1:]
+def render_chorale_style() -> str:
+    """Render the style numbers of the chorales: all settings, and those of the Passion."""
+    _, rows = read_table(MEASURED_DIR / "chorale_style.csv")
     body = []
     for row in rows:
         name = row["measure"]
-        is_share = any(word in name for word in SHARE_WORDS) and not any(
-            word in name for word in NOT_SHARES
-        )
-        convert = percent if is_share else number(2)
-        cells = [convert(row[work]) if row[work] else "-" for work in works]
-        body.append([_label(name), *cells])
-    return markdown_table(["Measure", *[FINGERPRINT_LABELS.get(w, w) for w in works]], body)
-
-
-def render_sonorities(works: Sequence[str], count: int = 12) -> str:
-    """Render the most frequent sonorities of the given works."""
-    _, rows = read_table(MEASURED_DIR / "sonorities.csv")
-    parts = []
-    for work in works:
-        chosen = [row for row in rows if row["work"] == work][:count]
-        parts.append(f"**{work}**")
-        parts.append(
-            markdown_table(
-                ["Rank", "Sonority", "Share of the sounding time"],
-                [
-                    [row["rank"], row["sonority"], percent(row["share_of_sounding_time"])]
-                    for row in chosen
-                ],
-            )
-        )
-    return "\n\n".join(parts)
-
-
-# The rows of the harmony table of the new work: the measure, and the parameter of
-# the profile "Transfigured" that gives its target range.
-WORK_HARMONY_TARGETS = {
-    "chords: share built from thirds": "Chords built from thirds",
-    "chords: share with a semitone clash": "Chords with a semitone clash",
-    "chords: share with a 3-semitone cluster": "Chords with a cluster of 3 semitones",
-    "chords: share in one whole-tone scale": "Chords in one whole-tone scale",
-    "share of sounding time: dominant chords": "Dominant chords",
-    "mean distinct pitch classes in one window": "Different pitch classes in one bar of 4/4",
-}
-WORK_COLUMNS = ["complete", "before the turn", "after the turn"]
-WORK_PARTS = ["part 1", "part 2", "part 3", "part 4", "part 5"]
-
-
-def _value(name: str, text: str) -> str:
-    if not text:
-        return "-"
-    is_share = any(word in name for word in (*SHARE_WORDS, "bar", "bars")) and not any(
-        word in name for word in NOT_SHARES
-    )
-    return percent(text) if is_share else number(2)(text)
-
-
-def render_work_repetition() -> str:
-    """Render the repetition of the reference work and of the new work in one table."""
-    reference_header, reference = read_table(MEASURED_DIR / "repetition.csv")
-    _, rows = read_table(MEASURED_DIR / "work_repetition.csv")
-    label = reference_header[1]
-    values = {row["measure"]: row[label] for row in reference}
-    columns = [*WORK_COLUMNS[:1], *WORK_PARTS]
-    body = [
-        [
-            _label(row["measure"]),
-            percent(values[row["measure"]]),
-            *[percent(row[column]) for column in columns],
-        ]
-        for row in rows
-    ]
-    header = ["Measure", "Verklärte Nacht", *[f"New work, {column}" for column in columns]]
-    return markdown_table(header, body)
-
-
-def render_work_harmony() -> str:
-    """Render the harmony of the new work with the reference work and the profile."""
-    _, rows = read_table(MEASURED_DIR / "work_harmony.csv")
-    _, prints = read_table(MEASURED_DIR / "fingerprints.csv")
-    _, profiles = read_table(TABLES_DIR / "profiles.csv")
-    reference = {row["measure"]: row["Schoenberg: Verklärte Nacht, complete"] for row in prints}
-    ranges = {
-        row["parameter"]: f"{row['low']} to {row['high']}"
-        for row in profiles
-        if row["profile"] == "Transfigured"
-    }
-    columns = [*WORK_COLUMNS, *WORK_PARTS]
-    body = []
-    for row in rows:
-        name = row["measure"]
-        target = ranges.get(WORK_HARMONY_TARGETS.get(name, ""), "-")
+        show = percent if any(word in name for word in SHARE_MEASURES) else number(1)
         body.append(
             [
                 _label(name),
-                target,
-                _value(name, reference.get(name, "")),
-                *[_value(name, row[column]) for column in columns],
+                show(row["all_median"]),
+                f"{show(row['all_10_percent'])} to {show(row['all_90_percent'])}",
+                show(row["passion_median"]),
+                f"{show(row['passion_lowest'])} to {show(row['passion_highest'])}",
             ]
         )
-    header = [
-        "Measure",
-        'Range of the profile "Transfigured"',
-        "Verklärte Nacht",
-        *[f"New work, {column}" for column in columns],
-    ]
-    return markdown_table(header, body)
+    return markdown_table(
+        ["Measure", "All 370: middle value", "All 370: middle 80 percent",
+         "Passion (11): middle value", "Passion (11): lowest to highest"],
+        body,
+    )  # fmt: skip
 
 
-def render_work_instruments() -> str:
-    """Render the use of the players of the new work."""
-    _, rows = read_table(MEASURED_DIR / "work_instruments.csv")
-    body = [
-        [
-            row["player"],
-            percent(row["share_of_time"]),
-            percent(row["range_used"]) if row["range_used"] else "-",
-            percent(row["low_third"]) if row["low_third"] else "-",
-            percent(row["middle_third"]) if row["middle_third"] else "-",
-            percent(row["high_third"]) if row["high_third"] else "-",
-            row["techniques"] or "-",
-        ]
-        for row in rows
-    ]
-    header = [
-        "Player",
-        "Share of the time",
-        "Range in use",
-        "Notes in the low third",
-        "Notes in the middle third",
-        "Notes in the high third",
-        "Techniques",
-    ]
-    _, unused = read_table(MEASURED_DIR / "work_unused.csv")
-    names = ", ".join(row["instrument"] for row in unused) or "none"
-    return (
-        markdown_table(header, body)
-        + f"\n\nInstruments in the list of the orchestra that have no notes: {names}."
-    )
+LINE_SHARES = [
+    "share_of_time", "share_sixteenths_or_shorter", "share_eighths", "share_longer",
+    "repeated_note", "semitone", "whole_tone", "third", "fourth_or_fifth", "sixth_or_larger",
+    "tritone", "descending_share", "notes_outside_the_scale",
+]  # fmt: skip
+
+
+def _line_spec(title: str, intro: list[str], keep: Callable[[Row], bool]) -> TableSpec:
+    return TableSpec(
+        title,
+        MEASURED_DIR / "lines.csv",
+        intro,
+        columns=["movement", "line", "notes", "lowest", "pitch_5", "pitch_median", "pitch_95",
+                 "highest", "share_of_time", "notes_per_quarter", "share_sixteenths_or_shorter",
+                 "repeated_note", "semitone", "whole_tone", "third", "fourth_or_fifth",
+                 "sixth_or_larger", "notes_outside_the_scale"],
+        formats={**dict.fromkeys(LINE_SHARES, percent), "notes_per_quarter": number(2)},
+        labels={
+            "pitch_5": "5 % point", "pitch_median": "Middle", "pitch_95": "95 % point",
+            "share_of_time": "Time with notes", "notes_per_quarter": "Notes in a quarter note",
+            "share_sixteenths_or_shorter": "Sixteenths or shorter",
+            "repeated_note": "Repeated", "third": "Thirds", "fourth_or_fifth": "Fourths, fifths",
+            "sixth_or_larger": "Sixths or larger", "notes_outside_the_scale": "Outside the scale",
+        },
+        keep=keep,
+    )  # fmt: skip
 
 
 def _measured_specs() -> list[TableSpec]:
-    section_columns = [
-        "section",
-        "content",
-        "first_bar",
-        "last_bar",
-        "minutes",
-        "share_of_time",
-        "start_position",
-        "mean_quarter_bpm",
-        "slowest_bar_bpm",
-        "fastest_bar_bpm",
-        "note_starts_per_second",
-        "mean_midi_volume",
-    ]
-    section_formats = {
-        "minutes": number(2),
-        "share_of_time": percent,
-        "start_position": percent,
-        "mean_quarter_bpm": number(0),
-        "slowest_bar_bpm": number(0),
-        "fastest_bar_bpm": number(0),
-        "note_starts_per_second": number(1),
-        "mean_midi_volume": number(0),
-    }
-    section_labels = {
-        "mean_quarter_bpm": "Mean tempo (quarter notes in a minute)",
-        "slowest_bar_bpm": "Slowest bar",
-        "fastest_bar_bpm": "Fastest bar",
-        "start_position": "Start (share of the time)",
-        "mean_midi_volume": "Mean loudness (MIDI volume, 0 to 127)",
-    }
+    shares = {
+        "chords_from_thirds", "chords_with_a_semitone_clash", "major_and_minor_triads",
+        "dominant_chords", "vagrant_chords", "other_seventh_chords",
+        "time_with_the_key_note_in_the_bass", "notes_outside_the_scale",
+    }  # fmt: skip
+    bass_shares = {
+        "share_sixteenths_or_shorter", "share_eighths", "share_longer", "repeated_note",
+        "semitone", "step", "third", "fourth_or_fifth", "sixth_or_larger", "share_of_time_silent",
+    }  # fmt: skip
     return [
         TableSpec(
-            "M1. Verklärte Nacht: general numbers",
-            MEASURED_DIR / "vn_overview.csv",
+            "M2. The chorale settings of the St Matthew Passion",
+            MEASURED_DIR / "passion_chorales.csv",
             [
-                "This table gives the size, the tempo range, and the positions of the "
-                "main events. A position is a share of the full duration.",
+                "The edition of the chorales has 11 settings from the Passion "
+                "(the settings of movements 15 and 17 are one setting in two keys). "
+                "The edition gives some settings in a key that is not the key of the Passion: "
+                "table S2 gives the keys of the Passion.",
+                'The column "Chords at the fermatas" gives the chord at the end of each phrase '
+                "as a degree of the key: small letters are minor chords. "
+                "The last setting (movement 62) ends on the dominant.",
             ],
-            formats={"value": number(2)},
-        ),
-        TableSpec(
-            "M2. Verklärte Nacht: the five sections",
-            MEASURED_DIR / "vn_parts.csv",
-            [
-                "The bar numbers of the sections are from Frisch (1993). "
-                "The tempo values use the timing of the arrangement. "
-                "Real recordings are slower by the factor 1.12.",
-            ],
-            columns=section_columns,
-            formats=section_formats,
-            labels=section_labels,
-        ),
-        TableSpec(
-            "M3. Verklärte Nacht: the ten segments",
-            MEASURED_DIR / "vn_segments.csv",
-            [
-                "This table divides section 2 and section 4 into smaller segments. "
-                "The loudness and the density are highest in the development (segment 2d).",
-            ],
-            columns=section_columns,
-            formats=section_formats,
-            labels=section_labels,
-        ),
-        TableSpec(
-            "M4. Verklärte Nacht: tempo marks",
-            MEASURED_DIR / "vn_marks.csv",
-            [
-                "The table shows each tempo mark with its bar number. "
-                "The work has 33 tempo marks in 418 bars: one mark for each 12.7 bars.",
-            ],
-            columns=["bar", "text"],
-            labels={"text": "Tempo mark"},
-            keep=lambda row: row["kind"] == "tempo",
-        ),
-        TableSpec(
-            "M5. Verklärte Nacht: words for tempo change and expression",
-            MEASURED_DIR / "vn_mark_counts.csv",
-            [
-                "The table shows the words that occur two times or more. "
-                "The spelling is the spelling of the source.",
-            ],
-            keep=lambda row: int(row["count"]) >= 2,
-        ),
-        TableSpec(
-            "M6. Verklärte Nacht: dynamic marks",
-            MEASURED_DIR / "vn_dynamics.csv",
-            [
-                "A level mark stays in effect until the subsequent level mark. "
-                "The soft levels (p and softer) are in effect for 64 percent of the time. "
-                "The middle levels (mp and mf) are in effect for only 11 percent.",
-            ],
-            formats={"share_of_time_in_effect": percent},
-        ),
-        TableSpec(
-            "M7. Verklärte Nacht: metres",
-            MEASURED_DIR / "vn_metres.csv",
-            ["The metres are the metres of the arrangement."],
-            formats={"share_of_bars": percent},
-        ),
-        TableSpec(
-            "M8. Verklärte Nacht: motion of the bass",
-            MEASURED_DIR / "vn_bass_motion.csv",
-            [
-                "The study took the lowest note at each quarter-note beat. "
-                "The table counts the interval between two different bass notes. "
-                "The most frequent move of the bass is the semitone.",
-            ],
-            formats={"share": percent},
-        ),
-        TableSpec(
-            "M9. Bartók, Out of Doors: the five pieces in one performance",
-            MEASURED_DIR / "ood_pieces.csv",
-            [
-                "The data come from a MIDI capture of one piano performance. "
-                "The key velocity is the force of each key stroke, from 0 to 127.",
-            ],
+            columns=["movement", "tune", "key_of_the_edition", "quarter_notes", "soprano", "bass",
+                     "chords_at_the_fermatas", "notes_outside_the_scale",
+                     "chords_with_a_semitone_clash", "bass_semitone_moves"],
             formats={
-                "minutes": number(2),
-                "note_starts_per_second": number(1),
-                "mean_key_velocity": number(0),
+                "notes_outside_the_scale": percent,
+                "chords_with_a_semitone_clash": percent,
+                "bass_semitone_moves": percent,
             },
         ),
         TableSpec(
-            "M10. Bartók, Fourteen Bagatelles: metres and chords",
-            MEASURED_DIR / "bagatelles.csv",
+            "M3. The chorale tunes of the Passion",
+            MEASURED_DIR / "chorale_tunes.csv",
             [
-                "Bagatelle no. 12 is an early form of the night music style. "
-                "It has five different metres in 44 bars.",
+                "The table gives the soprano of one setting of each tune, phrase by phrase, "
+                "in the music language of the project (a `'` is one octave up; `is` is a sharp, "
+                "`es` is a flat). The last column gives each note as semitones above the key note.",
             ],
+            columns=["tune", "movement", "key_of_the_edition", "phrase", "notes"],
+            formats={"notes": code},
+        ),
+        _line_spec(
+            "M4. The voice lines",
+            [
+                "Each row is one solo voice of one movement. "
+                '"Middle" is the pitch below which the voice is for one half of its time. '
+                "The voice is between the 5 % point and the 95 % point for 90 percent of its "
+                'time. The columns from "Repeated" to "Sixths or larger" give the moves from '
+                "note to note as shares of all moves.",
+            ],
+            lambda row: row["line"].startswith("voice"),
+        ),
+        _line_spec(
+            "M5. The lines of the instruments",
+            [
+                "Each row is one instrument line of one movement. "
+                "A line with more than one note at a time counts with its highest note.",
+            ],
+            lambda row: not row["line"].startswith("voice"),
+        ),
+        TableSpec(
+            "M6. The harmony and the texture of the movements",
+            MEASURED_DIR / "movement_harmony.csv",
+            [
+                "The tempo and the duration are those of the MIDI file of the edition: "
+                "they are a decision of the editor, not of Bach. "
+                '"Vagrant chords" are diminished and augmented chords and other chords that do '
+                "not belong to one key. "
+                'A "semitone clash" is a chord that has two notes one semitone apart: '
+                "passing notes and suspensions make most of them.",
+            ],
+            columns=["movement", "key", "metre", "bars", "seconds", "lines",
+                     "mean_lines_that_sound", "pitch_classes_in_one_bar", "chords_from_thirds",
+                     "chords_with_a_semitone_clash", "major_and_minor_triads", "dominant_chords",
+                     "vagrant_chords", "notes_outside_the_scale"],
             formats={
-                "chords_share_built_from_thirds": percent,
-                "chords_share_with_semitone_clash": percent,
-                "pitch_class_entropy_bits": number(2),
+                **dict.fromkeys(shares, percent),
+                "mean_lines_that_sound": number(1),
+                "pitch_classes_in_one_bar": number(1),
             },
         ),
         TableSpec(
-            "M13. Real orchestra recordings: loudness and stereo width",
-            MEASURED_DIR / "reference_recordings.csv",
+            "M7. The bass lines",
+            MEASURED_DIR / "bass_lines.csv",
             [
-                "The recordings are public-domain recordings of full orchestras (Musopen). "
-                "They are the reference for the sound of the audio master.",
-                "The loudness unit is the LUFS (ITU-R BS.1770). "
-                "The loudness range is the difference between the loud and the soft "
-                "passages (EBU Tech 3342). "
-                "The short-term values are relative to the integrated loudness. "
-                "The side level is the level of the difference of the two channels, "
-                "relative to their sum.",
+                "Each row is the continuo line of one movement. "
+                '"Longest pedal" is the longest time for which the bass stays on one note.',
             ],
+            columns=["movement", "lowest", "highest", "notes_per_quarter",
+                     "share_sixteenths_or_shorter", "share_eighths", "repeated_note", "semitone",
+                     "step", "fourth_or_fifth", "sixth_or_larger", "longest_pedal_quarters",
+                     "pedal_note"],
+            formats={**dict.fromkeys(bass_shares, percent), "notes_per_quarter": number(2)},
+            labels={"notes_per_quarter": "Notes in a quarter note",
+                    "share_sixteenths_or_shorter": "Sixteenths or shorter",
+                    "share_eighths": "Eighths", "step": "Steps",
+                    "longest_pedal_quarters": "Longest pedal (quarter notes)"},
         ),
         TableSpec(
-            "M14. Real orchestra recordings: tone balance",
-            MEASURED_DIR / "reference_tone_balance.csv",
+            "M8. The figures of the figured bass",
+            MEASURED_DIR / "figures.csv",
             [
-                "The table gives the level of each third-octave band, relative to the "
-                "total level, for the five recordings of table M13. "
-                "The master of the project must agree with the mean values from 50 Hz to 8 kHz. "
-                "Above 8 kHz, some of the recordings have no content, thus the values are not "
-                "a reliable target.",
+                "The table counts the figures in the text sources of the movements that have a "
+                "figured bass. The numbers of a figure are from the top to the bottom. "
+                "A `+` is a raised note, a `-` is a lowered note, a `!` is a natural sign; "
+                "a figure with only a sign changes the third. "
+                "The table shows the figures that come five times or more.",
             ],
+            formats={"share": percent, "figure": code},
         ),
-    ]
+    ]  # fmt: skip
 
 
 def _sourced_specs() -> list[TableSpec]:
     return [
         TableSpec(
-            "S1. Reference works",
+            "S1. The works of the study",
             TABLES_DIR / "works.csv",
-            ["The table lists the works that the study uses, and the reason for each work."],
+            [
+                "The table lists the works that the study team examined: works of Bach, "
+                "music for one voice of his time, and works of later composers that use the "
+                "music of Bach or the form of the Passion. "
+                'The column "Lesson for this work" gives what the new work takes from each.',
+            ],
             columns=[
                 "composer",
                 "work",
                 "year",
                 "forces",
                 "minutes",
-                "use_in_this_study",
+                "lesson_for_this_work",
                 "source",
+                "evidence",
             ],
         ),
         TableSpec(
-            "S2. Orchestra sizes",
-            TABLES_DIR / "forces.csv",
+            "S2. The movements of the St Matthew Passion",
+            TABLES_DIR / "bach_movements.csv",
             [
-                "Each number is the number of players. "
-                "A note in parentheses shows the auxiliary instruments.",
+                "One row for each section. NBA is the number of the Neue Bach-Ausgabe; the "
+                "letters divide a movement into its sections. "
+                "Voices: Ev = Evangelist, Ch I and Ch II = the two choirs, S A T B = the four "
+                "voice types. Instruments: Ft = flute, Ob = oboe, Oa = oboe d'amore, "
+                "Oc = oboe da caccia, Vn = violin, Vs = solo violin, Va = viola, "
+                "Vg = viola da gamba, Bc = continuo.",
             ],
             columns=[
-                "work",
-                "flutes",
-                "oboes",
-                "clarinets",
-                "bassoons",
-                "horns",
-                "trumpets",
-                "trombones",
-                "tubas",
-                "timpani_and_percussion",
-                "keyboards_and_harp",
-                "strings",
-                "special",
-                "source",
+                "nba",
+                "form",
+                "voices",
+                "key",
+                "metre",
+                "instruments",
+                "first_words",
+                "text_from",
             ],
         ),
         TableSpec(
-            "S3. Form and proportion",
-            TABLES_DIR / "form.csv",
-            ["The table gives the plan of each reference work and the positions of its events."],
+            "S3. Elements of the St Matthew Passion",
+            TABLES_DIR / "bach_elements.csv",
+            ["The table lists the elements of the work of Bach that the new work can use."],
         ),
         TableSpec(
-            "S4. Tempo",
-            TABLES_DIR / "tempo.csv",
-            ["The table gives metronome marks and durations from the scores and the recordings."],
-        ),
-        TableSpec(
-            "S5. Harmony",
-            TABLES_DIR / "harmony.csv",
-            [
-                'The column "Set type" gives the prime form of the pitch-class set. '
-                "The numbers are semitones above the lowest note of the most compact form.",
-            ],
-        ),
-        TableSpec(
-            "S6. Scales and modes",
-            TABLES_DIR / "scales.csv",
-            [
-                "The steps are distances from the tonic. "
-                "The unit is the semitone, or the cent for tunings that are not equal-tempered. "
-                "One semitone is 100 cents.",
-            ],
-        ),
-        TableSpec(
-            "S7. Themes and motives",
+            "S4. Motifs of the St Matthew Passion",
             TABLES_DIR / "motifs.csv",
-            ["The table gives the shapes of themes and the methods that change them."],
+            [
+                "The notes are in the music language of the project: `c'` is middle C, a `'` "
+                "is one octave up, a `,` is one octave down, `is` is a sharp, `es` is a flat, "
+                "and a number is a note value (`8` = eighth note). "
+                "A test makes sure that each line of notes is correct text of this language.",
+            ],
+            columns=[
+                "name",
+                "movement",
+                "key",
+                "metre",
+                "line",
+                "notes",
+                "words",
+                "character",
+                "source",
+                "evidence",
+            ],
+            formats={"notes": code},
         ),
         TableSpec(
-            "S8. Rhythm and metre",
-            TABLES_DIR / "rhythm.csv",
+            "S5. The chorales of the St Matthew Passion",
+            TABLES_DIR / "chorales.csv",
+            ["Eight tunes come in 17 movements."],
+        ),
+        TableSpec(
+            "S6. The voice and the instruments",
+            TABLES_DIR / "instruments.csv",
             [
-                "The table gives metres, rhythm patterns, "
-                "and methods for layers in different tempos."
+                "The measured ranges come from tables M4 and M5. "
+                "The ranges of this work are in the file `design/orchestra.toml`.",
             ],
         ),
         TableSpec(
-            "S9. Texture and orchestration",
-            TABLES_DIR / "texture.csv",
-            ["The table gives the orchestration devices of the three composers."],
-        ),
-        TableSpec(
-            "S10. Bartók's night music: list of works",
-            TABLES_DIR / "night_list.csv",
-            [
-                'The list is from the Wikipedia article "Night music (Bartók)" '
-                "(source key `wiki-stmatthew`). The article uses the list of Danchenka (1987).",
-            ],
-        ),
-        TableSpec(
-            "S12. Variation: how an idea comes again",
-            TABLES_DIR / "variation.csv",
-            [
-                "The table gives the methods of the reference composers for the return of an "
-                "idea. No row permits a return with no change.",
-            ],
-        ),
-        TableSpec(
-            "S13. Instrument techniques",
-            TABLES_DIR / "techniques.csv",
-            [
-                "The table lists ways to play that give an instrument more colours. "
-                "Table S9 gives the orchestration devices of the three composers.",
-            ],
-        ),
-        TableSpec(
-            "S14. Notes that are not in the chord",
-            TABLES_DIR / "colour.csv",
-            [
-                "The table gives the types of notes outside the chord, and the chords that "
-                "keep such notes.",
-            ],
-        ),
-        TableSpec(
-            "S15. More devices of modern orchestral writing",
+            "S7. Devices of counterpoint and form",
             TABLES_DIR / "devices.csv",
             [
-                "The table gives devices of composers after 1900. "
-                "The first edition of the study did not have them."
+                "The first part of the table has the devices of the time of Bach. "
+                "The second part has devices of later music that the study team examined "
+                "for the new work.",
             ],
         ),
         TableSpec(
-            "S16. The piano as a soloist with the orchestra",
-            TABLES_DIR / "concertante.csv",
-            [
-                "The owner of the project asked for a piano interlude that is virtuosic, "
-                '"almost like a small piano concerto". The table gives how the reference '
-                "composers and two other composers write for a solo piano with an orchestra.",
-            ],
+            "S8. Figures of musical speech",
+            TABLES_DIR / "rhetoric.csv",
+            ["The names are those of the German theory of the 17th and 18th centuries."],
         ),
         TableSpec(
-            "S11. Night music and melody from different regions of the world",
-            TABLES_DIR / "world.csv",
-            [
-                "The table lists possible material from different regions. "
-                "Most rows have the code K: the study did not read a source for them. "
-                "The design stage must check the selected rows with primary sources.",
-                "Each tradition has its own meaning and context. "
-                "The new work must use this material with respect and with exact knowledge.",
-            ],
+            "S9. Performance practice",
+            TABLES_DIR / "practice.csv",
+            [],
         ),
     ]
+
+
+PROFILE_TITLES = {
+    "All": 'P1. Profile "All": the full work',
+    "Voice": 'P2. Profile "Voice": the alto',
+    "Solo instrument": 'P3. Profile "Solo instrument": the partner of the voice in an aria',
+    "Bass": 'P4. Profile "Bass": the continuo line',
+    "Aria": 'P5. Profile "Aria": a number for the voice with instruments',
+    "Chorus": 'P6. Profile "Chorus": a number for the full orchestra',
+    "Chorale": 'P7. Profile "Chorale": a chorale setting',
+}
 
 
 def render_profiles() -> str:
     """Render the style profiles, one table for each profile."""
     _, rows = read_table(TABLES_DIR / "profiles.csv")
     parts = []
-    titles = {
-        "All": 'P1. Profile "All": the full work',
-        "Transfigured": 'P2. Profile "Transfigured": the Schoenberg zone',
-        "Night": 'P3. Profile "Night": the Bartók zone',
-        "Theatre": 'P4. Profile "Theatre": the Corigliano zone',
-    }
-    for profile, title in titles.items():
+    for profile, title in PROFILE_TITLES.items():
         chosen = [row for row in rows if row["profile"] == profile]
         parts.append(f"### {title}")
         parts.append(
             markdown_table(
                 ["Group", "Parameter", "Low", "High", "Unit", "Basis", "Code"],
                 [
-                    [
-                        row["group"],
-                        row["parameter"],
-                        row["low"],
-                        row["high"],
-                        row["unit"],
-                        row["basis"],
-                        row["evidence"],
-                    ]
+                    [row["group"], row["parameter"], row["low"], row["high"], row["unit"],
+                     row["basis"], row["evidence"]]
                     for row in chosen
                 ],
             )
-        )
-    path = (TABLES_DIR / "profiles.csv").as_posix()
-    parts.append(f"Data file: [`{path}`](../{path})")
+        )  # fmt: skip
+    parts.append("Data file: [`research/tables/profiles.csv`](../research/tables/profiles.csv)")
     return "\n\n".join(parts)
 
 
@@ -667,81 +477,20 @@ def build() -> str:
 
     parts.append("## Part 1: Measured tables")
     parts.append(
-        "The study code made all tables of this part. "
-        "The directory [`research/measured`](../research/measured) has the full data, "
-        "which includes one row for each bar of *Verklärte Nacht* "
-        "([`vn_bars.csv`](../research/measured/vn_bars.csv))."
+        "The study code made all tables of this part from the open data. "
+        "The directory [`research/measured`](../research/measured) has the data files."
+    )
+    parts.append("### M1. The style of the four-part chorales")
+    parts.append(
+        "The table compares all 370 chorale settings of the edition with the 11 settings "
+        "of the St Matthew Passion. A share is a part of the moves of a voice, of the note "
+        "time, or of the sounding time."
+    )
+    parts.append(render_chorale_style())
+    parts.append(
+        "Data file: [`research/measured/chorale_style.csv`](../research/measured/chorale_style.csv)"
     )
     parts += [spec.render() for spec in _measured_specs()]
-    parts.append("### M11. Comparison of all measured works")
-    parts.append(
-        '"Chord time" is the time in which three or more pitch classes sound together. '
-        'A "semitone clash" is two notes that are a semitone apart (in all octaves). '
-        'A "cluster" is three or more adjacent semitones. '
-        'A "window" is four quarter notes (score data) or four seconds (performance data). '
-        'The "top line" is the highest note at each note start.'
-    )
-    parts.append("Abbreviations: VN = *Verklärte Nacht*. OoD = *Out of Doors*. Bag. = Bagatelle.")
-    parts.append(render_fingerprints())
-    parts.append(
-        "Data file: [`research/measured/fingerprints.csv`](../research/measured/fingerprints.csv)"
-    )
-    parts.append("### M12. The most frequent sonorities")
-    parts.append(
-        "A sonority is the set of pitch classes that sound at one moment. "
-        'A name of the form "set type (0 1 2 3 4)" gives the semitone steps of a set '
-        "that has no chord name."
-    )
-    parts.append(
-        render_sonorities(
-            [
-                "Schoenberg: Verklärte Nacht, complete",
-                "Bartók: Out of Doors, 4. The Night's Music",
-                "Bartók: Fourteen Bagatelles op. 6, complete",
-            ]
-        )
-    )
-    parts.append(
-        "Data file: [`research/measured/sonorities.csv`](../research/measured/sonorities.csv)"
-    )
-
-    parts.append("### M15. Literal repetition: Verklärte Nacht and the new work")
-    parts.append(
-        "The table shows how frequently a bar comes again with no change. "
-        "Each value is a share of the bars that have notes. "
-        '"The same" means the same notes at the same positions with the same lengths. '
-        "A voice is one player of the new work, or one voice of the piano arrangement of "
-        "*Verklärte Nacht*. An orchestra has more voices with accompaniment figures than a "
-        "piano arrangement: thus the values for one voice are not fully comparable."
-    )
-    parts.append(render_work_repetition())
-    parts.append(
-        "Data files: [`research/measured/repetition.csv`](../research/measured/repetition.csv), "
-        "[`research/measured/work_repetition.csv`](../research/measured/work_repetition.csv)"
-    )
-    parts.append("### M16. The new work: harmony")
-    parts.append(
-        "The table measures the new work with the method of table M11. "
-        '"The turn" is the change from the dark half to the light half of the work '
-        '(the start of part 4). Part 3 is the zone of the profile "Night": '
-        'the ranges of the profile "Transfigured" do not apply to it.'
-    )
-    parts.append(render_work_harmony())
-    parts.append(
-        "Data file: [`research/measured/work_harmony.csv`](../research/measured/work_harmony.csv)"
-    )
-    parts.append("### M17. The new work: use of the instruments")
-    parts.append(
-        '"Range in use" is the distance from the lowest note to the highest note of the player, '
-        "as a part of the range of the instrument. "
-        "The three subsequent columns divide the range of the instrument into three equal parts. "
-        'The column "Techniques" lists each way to play that is not the usual way.'
-    )
-    parts.append(render_work_instruments())
-    parts.append(
-        "Data file: "
-        "[`research/measured/work_instruments.csv`](../research/measured/work_instruments.csv)"
-    )
 
     parts.append("## Part 2: Sourced tables")
     parts.append(
@@ -756,11 +505,6 @@ def build() -> str:
         "Each range has a low value and a high value. "
         "The study team set each range around a measured value or a sourced value. "
         'The column "Basis" gives that value.'
-    )
-    parts.append(
-        'The profile "All" applies to the full work. '
-        "The other three profiles apply to zones of the work. "
-        "The design stage will decide the sequence and the mix of the zones."
     )
     parts.append(render_profiles())
 

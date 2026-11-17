@@ -1,0 +1,36 @@
+profile,group,parameter,low,high,unit,basis,evidence
+All,Form,Number of numbers,12,16,numbers,"Lang: 15 numbers in 35 minutes. Bach: 68 movements in about 165 minutes. BWV 170: 5 movements in 24 minutes",R
+All,Form,Length of an aria number,3,6.5,minutes,"The five arias of the Passion in the corpus have 4.1 to 6.4 minutes at the tempo of the edition",M
+All,Form,Position of the death of Jesus,0.70,0.85,share of the duration,"Lang: number 11 of 15 (0.73 by number). Bach: movement 61 of 68 (0.90 by number)",R
+All,Form,Layers of text,3,3,layers,"Bach: Gospel text, poems, chorales. Lang keeps story numbers and response numbers in turn",R
+All,Harmony,Different pitch classes in one bar,6.5,8.5,pitch classes,"The 14 movements of the corpus have 5.6 to 9.0 (middle value 7.3); the plain chorales have 7.0 in four quarter notes",M
+All,Harmony,Notes outside the scale of the number,0.03,0.12,share of the note time,"The 14 movements have 0.03 to 0.12; the chorales have 0.03 (middle value)",M
+All,Harmony,Chords built from thirds,0.60,0.90,share of the chord time,"The 14 movements have 0.49 to 0.89; the chorales have 0.88 (middle value)",M
+All,Texture,Lines that sound at the same time in a number for the voice,2,5.5,lines,"The arias of the corpus have 2.0 to 5.2 lines (middle value 4.3)",M
+All,Texture,Lines that sound at the same time in a number for the full orchestra,6.5,10.5,lines,"The choruses of the corpus have 6.6 to 10.5 lines",M
+Voice,Range,Lowest note,A3,B3,pitch,"Alto lines of the corpus: A3 (""Et misericordia""), B3 (""Erbarme dich""), C4 (""Können Tränen"")",M
+Voice,Range,Highest note,D5,E5,pitch,"Alto lines of the corpus: C-sharp 5, E-flat 5, E5. F5 is possible one time at the highest point of the work",M
+Voice,Range,Middle of the voice (the median pitch),F-sharp 4,A4,pitch,"Alto lines of the corpus: F-sharp 4, A4, A4",M
+Voice,Range,Zone of 90 percent of the time,C-sharp 4,D5,pitch,"Alto lines of the corpus: the 5th percentile is C-sharp 4 to E-flat 4, the 95th percentile is B4 to D5",M
+Voice,Line,Moves by step (semitone or whole tone),0.70,0.76,share of the moves,"Alto lines of the corpus: 0.72, 0.73, 0.75",M
+Voice,Line,Moves by semitone,0.34,0.38,share of the moves,"Alto lines of the corpus: 0.34, 0.37, 0.38",M
+Voice,Line,Moves by a third,0.05,0.15,share of the moves,"Alto lines of the corpus: 0.05, 0.10, 0.14",M
+Voice,Line,Moves by a sixth or more,0.02,0.06,share of the moves,"Alto lines of the corpus: 0.02, 0.05, 0.06. These are the calls and the cries",M
+Voice,Line,Notes for each quarter note in an aria,0.8,1.25,notes,"Alto lines of the corpus: 0.82, 0.94, 1.23",M
+Voice,Time,Share of an aria in which the voice sings,0.50,0.60,share of the duration,"Alto lines of the corpus: 0.50, 0.55, 0.60. The instruments have the other time",M
+Solo instrument,Line,Notes for each quarter note,1.7,2.5,notes,"Solo violin of ""Erbarme dich"": 2.2. Flute of ""Aus Liebe"": 2.5. Flute of BWV 198: 1.9",M
+Solo instrument,Line,Notes of a sixteenth or shorter,0.60,0.85,share of the notes,"Solo violin: 0.62. Flutes: 0.66 and 0.85",M
+Bass,Line,Notes for each quarter note in an aria,0.75,1.7,notes,"Continuo lines of the arias of the corpus: 0.75 to 1.66",M
+Bass,Line,Moves by semitone,0.07,0.31,share of the moves,"Continuo lines of the corpus: 0.05 to 0.31; the chorale basses have 0.26 (middle value)",M
+Bass,Line,Repeated notes in a number with a pulse bass,0.55,0.75,share of the moves,"""Erbarme dich"": 0.59. Crucifixus: 0.70. St John Passion, movement 1: 0.71",M
+Bass,Line,Longest pedal note,9,48,quarter notes,"""Wir setzen uns"": 9. ""O Mensch, bewein"": 13. St John Passion, movement 1: 48",M
+Aria,Harmony,Chords with a semitone clash,0.13,0.28,share of the chord time,"The arias of the corpus have 0.13 to 0.28",M
+Aria,Harmony,Major and minor triads,0.20,0.35,share of the sounding time,"The arias of the corpus with three or more lines have 0.21 to 0.35",M
+Chorus,Harmony,Chords with a semitone clash,0.15,0.58,share of the chord time,"The choruses of the corpus have 0.15 to 0.58. The highest values are in the opening chorus of the St John Passion and in ""Qui tollis""",M
+Chorale,Form,Length of a setting,44,64,quarter notes,"The 11 settings of the Passion in the edition of the chorales",M
+Chorale,Form,Phrases,4,8,phrases,"The 11 settings of the Passion",M
+Chorale,Harmony,Major and minor triads,0.50,0.63,share of the sounding time,"The 11 settings of the Passion. All 370 chorales: 0.61 (middle value)",M
+Chorale,Harmony,Chords with a semitone clash,0.03,0.16,share of the chord time,"The 11 settings of the Passion. All 370 chorales: 0.07 (middle value)",M
+Chorale,Harmony,Notes outside the scale,0.026,0.063,share of the note time,"The 11 settings of the Passion. All 370 chorales: 0.029 (middle value)",M
+Chorale,Line,Semitone moves of the bass,0.16,0.40,share of the moves,"The 11 settings of the Passion. The last setting of the Passion chorale has 0.375",M
+Chorale,Line,Note starts off the beat for each quarter note,0.58,1.09,note starts,"The 11 settings of the Passion: the passing notes of the lower voices",M

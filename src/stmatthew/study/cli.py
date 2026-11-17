@@ -15,6 +15,11 @@ def main(argv: list[str] | None = None) -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     fetch = commands.add_parser("fetch", help="download the open data files into the cache")
     fetch.add_argument("--force", action="store_true", help="download again")
+    fetch.add_argument(
+        "--record",
+        action="store_true",
+        help="write the checksums of the downloaded files into research/corpus.sha256",
+    )
     commands.add_parser("measure", help="measure the data and write research/measured/*.csv")
     commands.add_parser("report", help="write docs/style-study.md from the tables")
     commands.add_parser("check", help="check the tables for errors")
@@ -22,13 +27,15 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.command in ("fetch", "all"):
-        for path in corpus.fetch_all(force=getattr(args, "force", False)):
-            print(f"ready: {path}")
+        paths = corpus.fetch_all(force=getattr(args, "force", False))
+        print(f"ready: {len(paths)} files in {corpus.CACHE_DIR}")
+        if getattr(args, "record", False):
+            print(f"checksums: {corpus.write_checksums()}")
     if args.command in ("measure", "all"):
         from . import measure
 
-        measure.measure_all()
-        print(f"measured tables: {measure.OUTPUT_DIR}")
+        for path in measure.measure_all():
+            print(f"measured: {path}")
     if args.command in ("check", "all"):
         from . import report
 

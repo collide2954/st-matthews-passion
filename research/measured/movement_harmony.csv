@@ -1,0 +1,15 @@
+movement,work,key,metre,bars,quarter_notes_in_a_minute,seconds,lines,mean_lines_that_sound,pitch_classes_that_sound_together,pitch_classes_in_one_bar,chords_from_thirds,chords_with_a_semitone_clash,major_and_minor_triads,dominant_chords,vagrant_chords,other_seventh_chords,time_with_the_key_note_in_the_bass,notes_outside_the_scale
+"39. Erbarme dich (aria, alto)",St Matthew Passion,B minor,12/8,54,52,373,6,5.0844,3.5875,8.037,0.7052,0.2762,0.2721,0.1463,0.1142,0.1138,0.2245,0.0588
+"52. Können Tränen meiner Wangen (aria, alto)",St Matthew Passion,G minor,3/4,90,66,246,3,2.0335,1.7714,5.5824,0.6745,0.2013,0.0441,0.0167,0.0214,0.0158,0.1719,0.0535
+"49. Aus Liebe will mein Heiland sterben (aria, soprano)",St Matthew Passion,A minor,3/4,74,52,255,4,3.2733,2.885,7.1757,0.7586,0.1475,0.2505,0.0962,0.1464,0.106,0.2084,0.0861
+"8. Blute nur, du liebes Herz (aria, soprano)",St Matthew Passion,B minor,4/4,73,64,275,7,5.1764,2.9735,7.2703,0.7674,0.1302,0.3031,0.0411,0.1832,0.0377,0.1901,0.0521
+"65. Mache dich, mein Herze, rein (aria, bass)",St Matthew Passion,B-flat major,12/8,80,75,385,5,4.1497,3.118,7.3086,0.7302,0.168,0.3467,0.0925,0.0426,0.1076,0.183,0.0501
+"29. O Mensch, bewein dein Sünde groß (chorale fantasia)",St Matthew Passion,E major,4/4,98,60,393,10,6.6005,3.9952,7.899,0.6479,0.4164,0.2602,0.1743,0.0744,0.124,0.2137,0.1169
+68. Wir setzen uns mit Tränen nieder (chorus),St Matthew Passion,C minor,3/4,128,66,349,16,10.4622,3.4242,6.6094,0.8188,0.1824,0.4104,0.168,0.1426,0.0792,0.2018,0.0509
+Crucifixus (chorus on a ground bass),Mass in B minor,E minor,3/2,53,136,140,10,6.9119,3.6336,6.2264,0.8901,0.1481,0.4088,0.1572,0.2469,0.066,0.2421,0.0771
+Qui tollis peccata mundi (chorus),Mass in B minor,B minor,3/4,50,56,162,11,9.4007,4.2517,7.74,0.6083,0.4917,0.2053,0.1424,0.1093,0.1474,0.1788,0.0981
+"Et misericordia (duet, alto and tenor)",Magnificat,E minor,12/8,35,72,175,6,4.269,3.4429,7.8286,0.7887,0.2268,0.2857,0.1643,0.1571,0.1214,0.2738,0.0904
+"13. Ach, mein Sinn (aria, tenor)",St John Passion,F# minor,3/4,91,96,170,5,4.3722,3.488,6.7033,0.7783,0.1771,0.2059,0.2772,0.1365,0.079,0.1682,0.0605
+"1. Herr, unser Herrscher (chorus)",St John Passion,G minor,4/4,152,60,609,10,8.0686,4.4942,8.3595,0.4892,0.5765,0.1202,0.1397,0.124,0.1091,0.4822,0.0682
+"1. Lass, Fürstin, lass noch einen Strahl (chorus)","Trauerode, BWV 198",B minor,4/4,69,42,394,14,10.3954,3.6612,8.9565,0.7428,0.2989,0.2894,0.1685,0.1603,0.0865,0.1658,0.0893
+"8. Der Ewigkeit saphirnes Haus (aria, tenor)","Trauerode, BWV 198",E minor,3/4,95,58,295,7,5.0533,3.3138,6.9684,0.7093,0.2626,0.2965,0.1026,0.0921,0.0982,0.1491,0.0335

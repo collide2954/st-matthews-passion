@@ -1,0 +1,11 @@
+topic,content,value_for_this_work,source,evidence
+Period instruments,"Historically informed performance uses the instruments and the manner of playing of the time of the work. Period instruments have a different timbre and temperament from modern instruments","The work is for period instruments. The audio uses samples of modern instruments: each difference is in the audio document",wp-hip,R
+Pitch,"Baroque orchestras of today usually play at a' = 415 Hz, about one semitone below the modern pitch","The score is in the written keys. The audio is one semitone lower than a' = 440 Hz",reference,K
+Size of the string group,"The orchestras of Bach were small: two or three players for each violin part","4 first violins, 4 second violins, 3 violas, 2 violoncellos, 1 violone",reference,K
+Recitative,"In simple recitative the singer has the rhythm of speech, and each syllable usually has one note. The continuo plays short chords","The story numbers of the alto. The rhythm follows the German words",wp-recitative,R
+Recitative with instruments,"The instruments have one fixed figure or long chords. The voice is more melodic than in simple recitative","The numbers before the arias; the words of Jesus",wp-smp; wp-vox-christi,R
+Continuo,"A bass line with figures. A keyboard instrument or a lute makes the chords; bass instruments play the line","The score gives the bass line with figures and a written part for each chord instrument",wp-figured-bass,R
+Da capo aria,"The usual form of a baroque aria: a first part, a second part, and the first part again","Not used in its full form: a return is always changed and shorter",wp-smp; reference,"R, K"
+Ornaments,"The voice and the solo instruments add appoggiaturas, trills, and slides. Many are written in the sources as small notes","Written in the score as small notes and trill signs","uma-edition",R
+Voice of the alto,"A contralto or a countertenor can sing an alto part of the baroque period","One singer: a mezzo-soprano or a countertenor",wp-nisi; wp-alto,R
+Siciliano,"A slow movement in 6/8 or 12/8 with lilting rhythms, usually in a minor key; it has a pastoral mood and frequently dotted rhythms","The metre of the opening and of the number of mercy",wp-siciliana,R

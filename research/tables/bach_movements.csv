@@ -1,0 +1,104 @@
+nba,bwv,part,form,voices,key,metre,instruments,first_words,text_from,source,evidence
+1,1,1,chorus with a chorale,"Chorale S, Ch I, Ch II",E minor,12/8,2Ft 2Ob 2Vn Va Bc,"Kommt, ihr Töchter, helft mir klagen + chorale O Lamm Gottes, unschuldig as cantus firmus",Picander + Nicolaus Decius,wp-smp-structure,R
+2,2,1,Gospel recitative,"Ev, Jesus",G major to B minor,4/4,2Vn Va Bc,Da Jesus diese Rede vollendet hatte,Mt 26:1–2,wp-smp-structure,R
+3,3,1,chorale,Chorale,B minor,4/4,2Ft 2Ob 2Vn Va Bc,Herzliebster Jesu,Johann Heermann,wp-smp-structure,R
+4a,4,1,Gospel recitative,Ev,D major to C major,4/4,Bc,Da versammleten sich die Hohenpriester,Mt 26:3–4,wp-smp-structure,R
+4b,5,1,chorus of the crowd,"Ch I, Ch II",C major,4/4,2Ft 2Ob 2Vn Va Bc,Ja nicht auf das Fest,Mt 26:5,wp-smp-structure,R
+4c,6,1,Gospel recitative,Ev,C major to A minor,4/4,Bc,Da nun Jesus war zu Bethanien,Mt 26:6–8a,wp-smp-structure,R
+4d,7,1,chorus of the crowd,Ch I,A minor to D minor,4/4,2Ft 2Ob 2Vn Va Bc,Wozu dienet dieser Unrat,Mt 26:8b–9,wp-smp-structure,R
+4e,8,1,Gospel recitative,"Ev, Jesus",B-flat major to E minor,4/4,2Vn Va Bc,Da das Jesus merkete,Mt 26:10–13,wp-smp-structure,R
+5,9,1,recitative with instruments,Rec A,B minor to F-sharp minor,4/4,2Ft Bc,Du lieber Heiland du,Salomo Franck,wp-smp-structure,R
+6,10,1,aria,Aria A,F-sharp minor,3/8,2Ft Bc,Buß und Reu,Picander,wp-smp-structure,R
+7,11,1,Gospel recitative,"Ev, Judas",D major to B minor,4/4,Bc,Da ging hin der Zwölfen einer,Mt 26:14–16,wp-smp-structure,R
+8,12,1,aria,Aria S,B minor,4/4,2Ft 2Vn Va Bc,"Blute nur, du liebes Herz!",Picander,wp-smp-structure,R
+9a,13,1,Gospel recitative,Ev,G major,4/4,Bc,Aber am ersten Tage der süßen Brot,Mt 26:17a,wp-smp-structure,R
+9b,14,1,chorus of the crowd,Ch I,G major,3/4,2Ft 2Ob 2Vn Va Bc,"Wo willst du, daß wir dir bereiten",Mt 26:17b,wp-smp-structure,R
+9c,15,1,Gospel recitative,"Ev, Jesus",G major to C major,4/4,2Vn Va Bc,Er sprach: Gehet hin in die Stadt,Mt 26:18–21,wp-smp-structure,R
+9d,15,1,Gospel recitative,Ev,B-flat minor to F minor,4/4,Bc,Und sie wurden sehr betrübt,Mt 26:22a,wp-smp-structure,R
+9e,15,1,chorus of the crowd,Ch I,F minor to C minor,4/4,2Ft 2Ob 2Vn Va Bc,"Herr, bin ich's?",Mt 26:22b,wp-smp-structure,R
+10,16,1,chorale,Chorale,A-flat major,4/4,2Ob 2Vn Va Bc,"Ich bin's, ich sollte büßen",Paul Gerhardt,wp-smp-structure,R
+11,17,1,Gospel recitative,"Ev, Jesus, Judas",F minor to G major,4/4–6/4,2Vn Va Bc,Er antwortete und sprach,Mt 26:23–29,wp-smp-structure,R
+12,18,1,recitative with instruments,Rec S,E minor to C major,4/4,2Oa Bc,Wiewohl mein Herz in Tränen schwimmt,Picander,wp-smp-structure,R
+13,19,1,aria,Aria S,G major,6/8,2Oa Bc,Ich will dir mein Herze schenken,Picander,wp-smp-structure,R
+14,20,1,Gospel recitative,"Ev, Jesus",B minor to E major,4/4,2Vn Va Bc,Und da sie den Lobgesang gesprochen hatten,Mt 26:30–32,wp-smp-structure,R
+15,21,1,chorale,Chorale,E major,4/4,2Ft 2Ob 2Vn Va Bc,"Erkenne mich, mein Hüter",Paul Gerhardt,wp-smp-structure,R
+16,22,1,Gospel recitative,"Ev, Jesus, Peter",A major to G minor,4/4,2Vn Va Bc,Petrus aber antwortete,Mt 26:33–35,wp-smp-structure,R
+17,23,1,chorale,Chorale,E-flat major,4/4,2Ob 2Vn Va Bc,Ich will hier bei dir stehen,Paul Gerhardt,wp-smp-structure,R
+18,24,1,Gospel recitative,"Ev, Jesus",F major to A-flat major,4/4,2Vn Va Bc,Da kam Jesus mit ihnen zu einem Hofe,Mt 26:36–38,wp-smp-structure,R
+19,25,1,recitative with instruments,"Rec T, Ch II Chorale",F minor to G major,4/4,2Fl 2Oc 2Vn Va Bc,O Schmerz! Hier zittert das gequälte Herz,Picander + Johann Heermann,wp-smp-structure,R
+20,26,1,aria,"Aria T, Ch II",C minor,4/4,2Ft Ob 2Vn Va Bc,Ich will bei meinem Jesu wachen,Picander,wp-smp-structure,R
+21,27,1,Gospel recitative,"Ev, Jesus",B major to G minor,4/4,2Vn Va Bc,Und ging hin ein wenig,Mt 26:39,wp-smp-structure,R
+22,28,1,recitative with instruments,Rec B,D minor to B-flat major,4/4,2Vn Va Bc,Der Heiland fällt vor seinem Vater nieder,Picander,wp-smp-structure,R
+23,29,1,aria,Aria B,G minor,3/8,2Vn Bc,Gerne will ich mich bequemen,Picander,wp-smp-structure,R
+24,30,1,Gospel recitative,"Ev, Jesus",F major to B minor,4/4,2Vn Va Bc,Und er kam zu seinen Jüngern,Mt 26:40–42,wp-smp-structure,R
+25,31,1,chorale,Chorale,B minor,4/4,2Ft 2Ob 2Vn Va Bc,"Was mein Gott will, das g'scheh allzeit","Albert, Duke of Prussia",wp-smp-structure,R
+26,32,1,Gospel recitative,"Ev, Jesus, Judas",D major to G major,4/4,2Vn Va Bc,Und er kam und fand sie aber schlafend,Mt 26:43–50,wp-smp-structure,R
+27a,33,1,aria,"Aria S A, Ch II",E minor,4/4,2Ft 2Ob 2Vn Va Bc,So ist mein Jesus nun gefangen,Picander,wp-smp-structure,R
+27b,33,1,chorus,"Ch I, Ch II",E minor,3/8,2Ft 2Ob 2Vn Va Bc,"Sind Blitze, sind Donner in Wolken verschwunden?",Barthold Heinrich Brockes,wp-smp-structure,R
+28,34,1,Gospel recitative,"Ev, Jesus",F-sharp major to C-sharp minor,4/4,2Vn Va Bc,"Und siehe, einer aus denen",Mt 26:51–56,wp-smp-structure,R
+29,35,1,chorale fantasia,Chorale fantasia,E major,4/4,2Ft 2Oa 2Vn Va Bc,"O Mensch, bewein dein Sünde groß",Sebald Heyden,wp-smp-structure,R
+30,36,2,aria,"Aria A, Ch II",B minor,3/8,Ft Oa 2Vn Va Bc,Ach! nun ist mein Jesus hin!,Picander,wp-smp-structure,R
+31,37,2,Gospel recitative,Ev,B major to D minor,4/4,Bc,Die aber Jesum gegriffen hatten,Mt 26:57–60a,wp-smp-structure,R
+32,38,2,chorale,Chorale,B-flat major,4/4,2Ft 2Ob 2Vn Va Bc,Mir hat die Welt trüglich gericht',Adam Reusner,wp-smp-structure,R
+33,39,2,Gospel recitative,"Ev, 2 witnesses, high priest",G minor,4/4,Bc,Und wiewohl viel falsche Zeugen herzutraten,Mt 26:60b–63a,wp-smp-structure,R
+34,40,2,recitative with instruments,Rec T,A major to A minor,4/4,2Ob Vg Bc,Mein Jesus schweigt,Picander,wp-smp-structure,R
+35,41,2,aria,Aria T,A minor,4/4,Vg Bc,Geduld! Wenn mich falsche Zungen stechen,Picander,wp-smp-structure,R
+36a,42,2,Gospel recitative,"Ev, Jesus, high priest",E minor,4/4,2Vn Va Bc,Und der Hohepriester antwortete,Mt 26:63b–66a,wp-smp-structure,R
+36b,42,2,chorus of the crowd,"Ch I, Ch II",G major,4/4,2Ft 2Ob 2Vn Va Bc,Er ist des Todes schuldig!,Mt 26:66b,wp-smp-structure,R
+36c,43,2,Gospel recitative,Ev,C major to D minor,4/4,Bc,Da speieten sie aus,Mt 26:67,wp-smp-structure,R
+36d,43,2,chorus of the crowd,"Ch I, Ch II",D minor to F major,4/4,2Ft 2Ob 2Vn Va Bc,"Weissage uns, Christe",Mt 26:68,wp-smp-structure,R
+37,44,2,chorale,Chorale,F major,4/4,2Ft 2Ob 2Vn Va Bc,Wer hat dich so geschlagen,Paul Gerhardt,wp-smp-structure,R
+38a,45,2,Gospel recitative,"Ev, Peter, 2 maids",A major to D major,4/4,Bc,Petrus aber saß draußen,Mt 26:69–73a,wp-smp-structure,R
+38b,45,2,chorus of the crowd,Ch II,D major to A major,4/4,2Ft Ob 2Vn Va Bc,"Wahrlich, du bist auch einer",Mt 26:73b,wp-smp-structure,R
+38c,46,2,Gospel recitative,"Ev, Peter",C-sharp major to F-sharp minor,4/4,Bc,"Da hub er an, sich zu verfluchen",Mt 26:74–75,wp-smp-structure,R
+39,47,2,aria,Aria A,B minor,12/8,Vs 2Vn Va Bc,Erbarme dich,Picander,wp-smp-structure,R
+40,48,2,chorale,Chorale,F-sharp minor to A major,4/4,2Ft 2Ob 2Vn Va Bc,Bin ich gleich von dir gewichen,Johann Rist,wp-smp-structure,R
+41a,49,2,Gospel recitative,"Ev, Judas",F-sharp minor to B major,4/4,Bc,Des Morgens aber hielten alle Hohepriester,Mt 27:1–4a,wp-smp-structure,R
+41b,49,2,chorus of the crowd,"Ch I, Ch II",B major to E minor,3/4,2Ft 2Ob 2Vn Va Bc,Was gehet uns das an?,Mt 27:4b,wp-smp-structure,R
+41c,50,2,Gospel recitative,"Ev, 2 high priests",A minor to B minor,4/4,Bc,Und er warf die Silberlinge in den Tempel,Mt 27:5–6,wp-smp-structure,R
+42,51,2,aria,Aria B,G major,4/4,Vs 2Vn Va Bc,Gebt mir meinen Jesum wieder!,Picander,wp-smp-structure,R
+43,52,2,Gospel recitative,"Ev, Jesus, Pilate",E minor to D major,4/4,2Vn Va Bc,Sie hielten aber einen Rat,Mt 27:7–14,wp-smp-structure,R
+44,53,2,chorale,Chorale,D major,4/4,2Ft 2Ob 2Vn Va Bc,Befiehl du deine Wege,Paul Gerhardt,wp-smp-structure,R
+45a,54,2,Gospel recitative,"Ev, Pilate, his wife, Ch I, Ch II",E major to A minor,4/4,Bc,Auf das Fest aber hatte der Landpfleger Gewohnheit,Mt 27:15–22a,wp-smp-structure,R
+45b,54,2,chorus of the crowd,Ch I & II,A minor to B major,4/4,2Ft 2Ob 2Vn Va Bc,Laß ihn kreuzigen!,Mt 27:22b,wp-smp-structure,R
+46,55,2,chorale,Chorale,B minor,4/4,2Ft 2Ob 2Vn Va Bc,Wie wunderbarlich ist doch diese Strafe!,Johann Heermann,wp-smp-structure,R
+47,56,2,Gospel recitative,"Ev, Pilate",B minor,4/4,Bc,Der Landpfleger sagte,Mt 27:23a,wp-smp-structure,R
+48,57,2,recitative with instruments,Rec S,E minor to C major,4/4,2Oc Bc,Er hat uns allen wohlgetan,Picander,wp-smp-structure,R
+49,58,2,aria,Aria S,A minor,3/4,Ft 2Oc,Aus Liebe will mein Heiland sterben,Picander,wp-smp-structure,R
+50a,59,2,Gospel recitative,Ev,E minor,4/4,Bc,Sie schrieen aber noch mehr,Mt 27:23b,wp-smp-structure,R
+50b,59,2,chorus of the crowd,Ch I & II,B minor to C-sharp major,4/4,2Ft 2Ob 2Vn Va Bc,Laß ihn kreuzigen!,Mt 27:23c,wp-smp-structure,R
+50c,59,2,Gospel recitative,"Ev, Pilate",C-sharp major to B minor,4/4,Bc,Da aber Pilatus sahe,Mt 27:24–25a,wp-smp-structure,R
+50d,59,2,chorus of the crowd,Ch I & II,B minor to D major,4/4,2Ft 2Ob 2Vn Va Bc,Sein Blut komme über uns,Mt 27:25b,wp-smp-structure,R
+50e,59,2,Gospel recitative,Ev,D major to E minor,4/4,Bc,Da gab er ihnen Barrabam los,Mt 27:26,wp-smp-structure,R
+51,60,2,recitative with instruments,Rec A,F major to G minor,4/4,2Vn Va Bc,Erbarm es Gott!,Picander,wp-smp-structure,R
+52,61,2,aria,Aria A,G minor,3/4,2Vn Bc,Können Tränen meiner Wangen,Picander,wp-smp-structure,R
+53a,62,2,Gospel recitative,Ev,F major to D minor,4/4,Bc,Da nahmen die Kriegsknechte,Mt 27:27–29a,wp-smp-structure,R
+53b,62,2,chorus of the crowd,"Ch I, Ch II",D minor to A major,4/4,2Ft 2Ob 2Vn Va Bc,"Gegrüßet seist du, Jüdenkönig!",Mt 27:29b,wp-smp-structure,R
+53c,62,2,Gospel recitative,Ev,D minor,4/4,Bc,Und speieten ihn an,Mt 27:30,wp-smp-structure,R
+54,63,2,chorale,Chorale,D minor to F major,4/4,2Ft 2Ob 2Vn Va Bc,O Haupt voll Blut und Wunden,Paul Gerhardt,wp-smp-structure,R
+55,64,2,Gospel recitative,Ev,A minor,4/4,Bc,Und da sie ihn verspottet hatten,Mt 27:31–32,wp-smp-structure,R
+56,65,2,recitative with instruments,Rec B,F major to D minor,4/4,2Ft Vg Bc,Ja freilich will in uns,Picander,wp-smp-structure,R
+57,66,2,aria,Aria B,D minor,4/4,Vg Bc,"Komm, süßes Kreuz",Picander,wp-smp-structure,R
+58a,67,2,Gospel recitative,Ev,C major to F-sharp major,4/4,Bc,Und da sie an die Stätte kamen,Mt 27:33–39,wp-smp-structure,R
+58b,67,2,chorus of the crowd,"Ch I, Ch II",F-sharp major to B minor,4/4,2Ft 2Ob 2Vn Va Bc,Der du den Tempel Gottes zerbrichst,Mt 27:40,wp-smp-structure,R
+58c,67,2,Gospel recitative,Ev,F-sharp major to E minor,4/4,Bc,Desgleichen auch die Hohenpriester,Mt 27:41,wp-smp-structure,R
+58d,67,2,chorus of the crowd,"Ch I, Ch II",E minor,4/4,2Ft 2Ob 2Vn Va Bc,Andern hat er geholfen,Mt 27:42–43,wp-smp-structure,R
+58e,68,2,Gospel recitative,Ev,G major to C minor,4/4,Bc,Desgleichen schmäheten ihn,Mt 27:44,wp-smp-structure,R
+59,69,2,recitative with instruments,Rec A,A-flat major,4/4,2Oc Bc,Ach Golgatha,Picander,wp-smp-structure,R
+60,70,2,aria,"Aria A, Ch II",E-flat major,4/4,2Ob 2Oc 2Vn Va Bc,"Sehet, Jesus hat die Hand",Picander,wp-smp-structure,R
+61a,71,2,Gospel recitative,"Ev, Jesus",E-flat major to C minor,4/4,Bc,Und von der sechsten Stunde an,Mt 27:45–47a,wp-smp-structure,R
+61b,71,2,chorus of the crowd,Ch I,C minor to F major,4/4,2Ob 2Vn Va Bc,Der rufet dem Elias!,Mt 27:47b,wp-smp-structure,R
+61c,71,2,Gospel recitative,Ev,F major to G minor,4/4,Bc,Und bald lief einer unter ihnen,Mt 27:48–49a,wp-smp-structure,R
+61d,71,2,chorus of the crowd,Ch II,G minor to D minor,4/4,2Ft Ob 2Vn Va Bc,Halt! laß sehen,Mt 27:49b,wp-smp-structure,R
+61e,71,2,Gospel recitative,Ev,D minor to A minor,4/4,Bc,Aber Jesus schriee abermal laut,Mt 27:50,wp-smp-structure,R
+62,72,2,chorale,Chorale,A minor,4/4,2Ft 2Ob 2Vn Va Bc,Wenn ich einmal soll scheiden,Paul Gerhardt,wp-smp-structure,R
+63a,73,2,Gospel recitative,Ev,C major to A-flat major,4/4,Bc,"Und siehe da, der Vorhang im Tempel zerriß",Mt 27:51–54a,wp-smp-structure,R
+63b,73,2,chorus of the crowd,Ch I & II,A-flat major,4/4,2Ft Ob 2Vn Va Bc,"Wahrlich, dieser ist Gottes Sohn gewesen",Mt 27:54b,wp-smp-structure,R
+63c,73,2,Gospel recitative,Ev,E-flat major to B-flat major,4/4,Bc,Und es waren viel Weiber da,Mt 27:55–59,wp-smp-structure,R
+64,74,2,recitative with instruments,Rec B,G minor,4/4,2Vn Va Bc,"Am Abend, da es kühle war",Salomo Franck,wp-smp-structure,R
+65,75,2,aria,Aria B,B-flat major,12/8,2Oc 2Vn Va Bc,"Mache dich, mein Herze, rein",Picander,wp-smp-structure,R
+66a,76,2,Gospel recitative,Ev,G minor to E-flat major,4/4,Bc,Und Joseph nahm den Leib,Mt 27:59–62,wp-smp-structure,R
+66b,76,2,chorus of the crowd,"Ch I, Ch II",E-flat major to D major,4/4,2Ft 2Ob 2Vn Va Bc,"Herr, wir haben gedacht",Mt 27:63–64,wp-smp-structure,R
+66c,76,2,Gospel recitative,"Ev, Pilate",G minor to E-flat major,4/4,Bc,Pilatus sprach zu ihnen,Mt 27:65–66,wp-smp-structure,R
+67,77,2,recitative with instruments,"Rec S A T B, Ch II",E-flat major to C minor,4/4,2Ft 2Ob 2Vn Va Bc,Nun ist der Herr zur Ruh gebracht,Picander,wp-smp-structure,R
+68,78,2,chorus,"Ch I, Ch II",C minor,3/4,2Ft 2Ob 2Vn Va Bc,Wir setzen uns mit Tränen nieder,Picander,wp-smp-structure,R

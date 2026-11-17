@@ -1,0 +1,14 @@
+movement,work,lowest,highest,notes_per_quarter,share_sixteenths_or_shorter,share_eighths,share_longer,repeated_note,semitone,step,third,fourth_or_fifth,sixth_or_larger,longest_pedal_quarters,pedal_note,share_of_time_silent
+"39. Erbarme dich (aria, alto)",St Matthew Passion,C#2,E4,1.6563,0,0.957,0.043,0.5906,0.0799,0.1657,0.1228,0.0936,0.0273,7.5,E3,0.13
+"52. Können Tränen meiner Wangen (aria, alto)",St Matthew Passion,C2,E4,1.4834,0.3333,0.3284,0.3383,0.005,0.0677,0.2055,0.3183,0.2531,0.218,1.75,E-flat3,0.2509
+"8. Blute nur, du liebes Herz (aria, soprano)",St Matthew Passion,D2,G4,1.1502,0,0.7834,0.2166,0.1132,0.239,0.4811,0.1101,0.1667,0.1289,2.5,B2,0.2969
+"65. Mache dich, mein Herze, rein (aria, bass)",St Matthew Passion,C2,C4,1.4075,0,0.6233,0.3767,0.1443,0.1057,0.3616,0.0997,0.0625,0.3318,2,F2,0.0208
+"29. O Mensch, bewein dein Sünde groß (chorale fantasia)",St Matthew Passion,C#2,C#4,1.631,0.7707,0.1357,0.0936,0.4353,0.1375,0.3592,0.0534,0.068,0.0841,13.25,E2,0.1158
+68. Wir setzen uns mit Tränen nieder (chorus),St Matthew Passion,C2,E-flat4,1.3229,0,0.6555,0.3445,0.2093,0.1087,0.2696,0.2837,0.1207,0.1167,9,C2,0.0872
+Crucifixus (chorus on a ground bass),Mass in B minor,D2,E3,0.9843,0,0,1,0.6955,0.2115,0.2179,0,0.0417,0.0449,6,B2,0
+Qui tollis peccata mundi (chorus),Mass in B minor,C2,B3,0.4636,0,0.0143,0.9857,0.0333,0.1667,0.2667,0.1667,0.3667,0.1667,3,F#2,0.5232
+"Et misericordia (duet, alto and tenor)",Magnificat,C2,D4,1.3476,0,0.53,0.47,0.2943,0.1064,0.1667,0.0319,0.0532,0.4539,3,B2,0
+"13. Ach, mein Sinn (aria, tenor)",St John Passion,C#2,E4,1.0221,0.2734,0.1187,0.6079,0.0618,0.3055,0.6255,0.1309,0.0764,0.1055,8,C#3,0.0414
+"1. Herr, unser Herrscher (chorus)",St John Passion,C2,F3,2.2414,0.2315,0.7663,0.0022,0.7056,0.1204,0.2423,0.0059,0.0433,0.0029,48,G2,0.0066
+"1. Lass, Fürstin, lass noch einen Strahl (chorus)","Trauerode, BWV 198",C#2,E4,1.6196,0,0.9978,0.0022,0.0025,0.0529,0.1008,0.0327,0.0554,0.8086,4,B2,0.1775
+"8. Der Ewigkeit saphirnes Haus (aria, tenor)","Trauerode, BWV 198",C2,C4,0.7544,0,0.1767,0.8233,0.0152,0.1667,0.4015,0.1212,0.3788,0.0833,3,E2,0.3035

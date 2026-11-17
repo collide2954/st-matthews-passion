@@ -1,0 +1,12 @@
+movement,tune,edition_number,key_of_the_edition,metre,quarter_notes,soprano,bass,chords_at_the_fermatas,last_chord,notes_outside_the_scale,chords_with_a_semitone_clash,vagrant_chords,bass_semitone_moves,starts_off_the_beat_for_each_quarter
+3,Herzliebster Jesu,78,B minor,4/4,44,F#4 to G5,F#2 to D4,V bIII V I,I,0.0312,0.1163,0.0625,0.2745,0.7273
+10,"O Welt, ich muss dich lassen",117,A-flat major,4/4,48,E-flat4 to E-flat5,A-flat2 to C#4,I V V VI III I,I,0.0339,0.1522,0.0729,0.3393,0.9167
+15 and 17,Herzlich tut mich verlangen,98,D major,4/4,48,E4 to E5,D2 to B3,I vi I VI V I,I,0.0417,0.0568,0.0521,0.2083,0.625
+25,"Was mein Gott will, das g'scheh allzeit",115,B minor,4/4,48,F#4 to E5,A-flat2 to B3,bIII i bVII V bIII I,I,0.0286,0.0745,0.1354,0.3393,0.9167
+32,"In dich hab ich gehoffet, Herr",118,B-flat major,4/4,44,B-flat4 to G5,A2 to B-flat3,I V V ii IV I,I,0.0625,0.069,0.1591,0.4038,0.8636
+37,"O Welt, ich muss dich lassen",50,F major,4/4,48,C4 to C5,F2 to D4,I V V VI V I,I,0.0286,0.0874,0.0521,0.25,0.875
+40,"Werde munter, mein Gemüte",121,A major,4/4,64,A4 to G5,E2 to B3,V I V I ii IV V I,I,0.0264,0.1614,0.0547,0.1622,1.0938
+44,Herzlich tut mich verlangen,80,D major,4/4,48,E4 to E5,F#2 to B3,I vi I VI V I,I,0.0573,0.0698,0.0833,0.3061,0.6667
+46,Herzliebster Jesu,105,B minor,4/4,44,F#4 to G5,B2 to D4,V bIII i I,I,0.0369,0.0581,0.0909,0.3542,0.6136
+54,Herzlich tut mich verlangen,74,F major,4/4,48,G4 to G5,G2 to D4,I vi I VI V I,I,0.0495,0.0745,0.0521,0.1957,0.5833
+62,Herzlich tut mich verlangen,89,B minor,4/4,48,E4 to E5,F#2 to C#4,bIII i bIII I bVII V,V,0.0547,0.0316,0.0938,0.375,0.6042

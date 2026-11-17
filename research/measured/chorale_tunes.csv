@@ -1,0 +1,37 @@
+tune,movement,key_of_the_edition,phrase,notes,semitones_above_the_key_note
+Herzliebster Jesu,3,B minor,1,b'4 b'4 b'4 ais'8 gis'8 fis'4 b'4 cis''4 d''4 d''4 e''4 d''4 cis''4\fermata,0 0 0 11 9 7 0 2 3 3 5 3 2
+Herzliebster Jesu,3,B minor,2,cis''4 d''4 e''4 fis''8 e''8 d''4 g''4 g''4 fis''8 e''8 fis''4 e''2 d''4\fermata,2 3 5 7 5 3 8 8 7 5 7 5 3
+Herzliebster Jesu,3,B minor,3,d''4 cis''4 b'4 a'4 fis'8 g'8 a'4 a'4 b'4 a'4 g'2 fis'4\fermata,3 2 0 10 7 8 10 10 0 10 8 7
+Herzliebster Jesu,3,B minor,4,fis''4 e''4 d''4 cis''2 b'2.\fermata,7 5 3 2 0
+"O Welt, ich muss dich lassen",10,A-flat major,1,c''4 as'4 bes'4 c''8 des''8 es''4 des''2 c''4\fermata,4 0 2 4 5 7 5 4
+"O Welt, ich muss dich lassen",10,A-flat major,2,c''8 des''8 es''4 es''4 bes'4 c''4 as'2 g'4\fermata,4 5 7 7 2 4 0 11
+"O Welt, ich muss dich lassen",10,A-flat major,3,es'4 as'4 bes'4 c''4 c''4 bes'2.\fermata,7 0 2 4 4 2
+"O Welt, ich muss dich lassen",10,A-flat major,4,c''4 as'4 bes'4 c''8 des''8 es''4 des''2 c''4\fermata,4 0 2 4 5 7 5 4
+"O Welt, ich muss dich lassen",10,A-flat major,5,c''8 des''8 es''4 es''4 bes'4 c''4 as'2 g'4\fermata,4 5 7 7 2 4 0 11
+"O Welt, ich muss dich lassen",10,A-flat major,6,es'4 as'4 bes'4 c''4 des''4 c''4 bes'4 as'4\fermata,7 0 2 4 5 4 2 0
+Herzlich tut mich verlangen,15 and 17,D major,1,fis'4 b'4 a'4 g'4 fis'4 e'2 fis'4\fermata,4 9 7 5 4 2 4
+Herzlich tut mich verlangen,15 and 17,D major,2,cis''4 d''4 d''4 cis''8 b'8 cis''4 b'2.\fermata,11 0 0 11 9 11 9
+Herzlich tut mich verlangen,15 and 17,D major,3,d''4 cis''8 b'8 a'4 b'4 cis''4 d''2 d''4\fermata,0 11 9 7 9 11 0 0
+Herzlich tut mich verlangen,15 and 17,D major,4,a'4 b'4 a'4 g'4 g'4 fis'2.\fermata,7 9 7 5 5 4
+Herzlich tut mich verlangen,15 and 17,D major,5,d''4 cis''8 d''8 e''4 d''4 cis''4 b'2 cis''4\fermata,0 11 0 2 0 11 9 11
+Herzlich tut mich verlangen,15 and 17,D major,6,fis'4 g'4 fis'4 e'4 a'4 fis'2.\fermata,4 5 4 2 7 4
+"Was mein Gott will, das g'scheh allzeit",25,B minor,1,fis'8 g'8 a'4 b'4 a'4 d''4 d''4 cis''4 d''4\fermata,7 8 10 0 10 3 3 2 3
+"Was mein Gott will, das g'scheh allzeit",25,B minor,2,d''4 cis''4 b'4 e''4 d''8 cis''8 cis''2 b'4\fermata,3 2 0 5 3 2 2 0
+"Was mein Gott will, das g'scheh allzeit",25,B minor,3,b'4 b'4 b'4 cis''8 b'8 a'4 a'4 gis'4 a'4\fermata,0 0 0 2 0 10 10 9 10
+"Was mein Gott will, das g'scheh allzeit",25,B minor,4,a'4 b'4 cis''4 d''4 cis''4 b'2 cis''4\fermata,10 0 2 3 2 0 2
+"Was mein Gott will, das g'scheh allzeit",25,B minor,5,fis'8 g'8 a'4 b'4 a'4 d''4 d''4 cis''4 d''4\fermata,7 8 10 0 10 3 3 2 3
+"Was mein Gott will, das g'scheh allzeit",25,B minor,6,d''4 cis''4 b'4 e''4 d''8 cis''8 cis''2 b'4\fermata,3 2 0 5 3 2 2 0
+"In dich hab ich gehoffet, Herr",32,B-flat major,1,bes'4 bes'4 f''4 f''4 es''8 d''8 c''4 d''4 es''8 d''8 c''4 bes'4\fermata,0 0 7 7 5 4 2 4 5 4 2 0
+"In dich hab ich gehoffet, Herr",32,B-flat major,2,bes'4 c''4 d''4 es''4 c''4 f''4 g''4 f''4\fermata,0 2 4 5 2 7 9 7
+"In dich hab ich gehoffet, Herr",32,B-flat major,3,d''4 d''8 es''8 f''4 es''4 d''8 c''8 bes'8 c''8 d''8 c''8 c''4\fermata,4 4 5 7 5 4 2 0 2 4 2 2
+"In dich hab ich gehoffet, Herr",32,B-flat major,4,d''4 bes'8 c''8 d''4 es''4\fermata,4 0 2 4 5
+"In dich hab ich gehoffet, Herr",32,B-flat major,5,d''4 c''4 d''4 es''4\fermata,4 2 4 5
+"In dich hab ich gehoffet, Herr",32,B-flat major,6,d''4 c''4 bes'4 f''4. es''8 d''4 es''8 d''8 c''2 bes'4\fermata,4 2 0 7 5 4 5 4 2 0
+"Werde munter, mein Gemüte",40,A major,1,cis''4 d''4 e''4 e''4 d''4 cis''4 b'4 b'4\fermata,4 5 7 7 5 4 2 2
+"Werde munter, mein Gemüte",40,A major,2,cis''4 d''4 e''4 d''8 cis''8 b'4. a'8 a'2\fermata,4 5 7 5 4 2 0 0
+"Werde munter, mein Gemüte",40,A major,3,cis''4 d''4 e''4 e''4 d''4 cis''4 b'4 b'4\fermata,4 5 7 7 5 4 2 2
+"Werde munter, mein Gemüte",40,A major,4,cis''4 d''4 e''4 d''8 cis''8 b'4. a'8 a'2\fermata,4 5 7 5 4 2 0 0
+"Werde munter, mein Gemüte",40,A major,5,b'4 cis''4 d''8 cis''8 d''8 e''8 cis''4 cis''4 b'2\fermata,2 4 5 4 5 7 4 4 2
+"Werde munter, mein Gemüte",40,A major,6,d''4 e''4 fis''4 e''8 fis''16 g''16 fis''4 e''8 d''8 d''2\fermata,5 7 9 7 9 10 9 7 5 5
+"Werde munter, mein Gemüte",40,A major,7,cis''4 d''4 e''4 e''4 d''4 cis''4 b'4 b'4\fermata,4 5 7 7 5 4 2 2
+"Werde munter, mein Gemüte",40,A major,8,cis''4 d''4 e''4 a'8 b'8 cis''4 b'8 a'8 a'4 a'4\fermata,4 5 7 0 2 4 2 0 0 0
