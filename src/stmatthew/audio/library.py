@@ -74,6 +74,12 @@ def fetch(name: str) -> Path:
     """Download one library into the cache (if it is not there) and return its directory."""
     library = LIBRARIES[name]
     target = SAMPLES_DIR / name
+    if target.is_symlink():
+        # A link to the library of a different project on this computer: the code
+        # reads the files, and it does not change that directory.
+        if not target.exists():
+            raise RuntimeError(f"the link {target} goes to a directory that is not there")
+        return target
     if (target / ".git").exists():
         if library.paths:
             _add_missing_paths(target, library.paths)
@@ -105,6 +111,8 @@ def _add_missing_paths(target: Path, paths: tuple[str, ...]) -> None:
 # ----------------------------------------------------------------------------
 
 NOTE_RE = re.compile(r"(?<![A-Za-z])([A-Ga-g])(#|b)?(-?\d)(?![0-9A-Za-z#])")
+# The name of an organ sample: the number of the key (the MIDI number) and its note.
+KEY_RE = re.compile(r"(\d{3})-[A-G]#?")
 PITCH_CLASS = {"c": 0, "d": 2, "e": 4, "f": 5, "g": 7, "a": 9, "b": 11}
 
 
@@ -148,6 +156,10 @@ class Sample:
 
 def _name_pitch_class(name: str) -> tuple[int, int] | None:
     """Return (pitch class, octave number in the name) from a file name."""
+    key = KEY_RE.fullmatch(name)
+    if key:
+        number = int(key.group(1))
+        return number % 12, number // 12 - 1
     matches = NOTE_RE.findall(name)
     if not matches:
         return None

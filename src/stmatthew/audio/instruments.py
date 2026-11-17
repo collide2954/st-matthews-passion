@@ -56,6 +56,11 @@ class Sound:
     # A louder note is brighter. This is the change of the high frequencies (dB)
     # from a middle loudness to the loudest playing. None = the value of the family.
     bright_db: float | None = None
+    # The stops of an organ that sound together with the samples of the key `sustain`.
+    # Each stop is: the key of its samples, the loudness (0 to 1) from which it sounds,
+    # its level in relation to the first stop, and its pitch above the written note in
+    # semitones (12 for a stop of 4 feet).
+    stops: tuple[tuple[str, float, float, int], ...] = ()
 
 
 RR = r"(?:_rr|_RR|_)(?P<rr>\d)"
@@ -624,6 +629,78 @@ SOUNDS: dict[str, Sound] = {
         release=0.08,
         lowcut_hz=350,
     ),
+    # ------------------------------------------------------ the baroque orchestra
+    # The organ of the continuo group: a small organ with stopped pipes. The samples
+    # are single stops of a pipe organ. A dynamic mark of the organ part is a
+    # registration, because an organ pipe has only one loudness:
+    #   to p: Gedackt 8'.  mp and mf: with the flute 4'.  f: with the open diapason
+    #   8'.  ff: with the principal 4'.
+    "organ": Sound(
+        {
+            "sustain": (sso("Organ/swell-gedact8ft", low_hz=50, high_hz=2200),),
+            "flute4": (sso("Organ/great-flute4ft", low_hz=100, high_hz=4400),),
+            "diapason8": (sso("Organ/great-opendiapason8ft", low_hz=50, high_hz=2200),),
+            "principal4": (sso("Organ/great-principal4ft", low_hz=100, high_hz=4400),),
+        },
+        "keyboards",
+        loud_db=-13,
+        range_db=30,
+        release=0.25,
+        lead=0.03,
+        detune_cents=1.0,
+        timing_ms=6.0,
+        lowcut_hz=45,
+        bright_db=0.0,
+        stops=(
+            ("flute4", 0.44, 0.6, 12),
+            ("diapason8", 0.66, 1.3, 0),
+            ("principal4", 0.78, 0.9, 12),
+        ),
+    ),
+    "harpsichord": Sound(
+        {
+            "sustain": (
+                sso(
+                    "Harpsichord/Sustains/Low",
+                    r"HarpsiRH_Low_Far_.*_rr(?P<rr>\d)",
+                    held=False,
+                    low_hz=40,
+                    high_hz=3000,
+                ),
+            )
+        },
+        "keyboards",
+        loud_db=-15,
+        range_db=10,
+        decays=True,
+        lowcut_hz=40,
+        bright_db=0.0,
+    ),
+    # One player of the viola da gamba: the samples are those of one violoncello.
+    "viola da gamba": Sound(
+        {
+            "sustain": (sso("Cello", r"cello-[a-g]#?\d", low_hz=50, high_hz=1500),),
+            "pizzicato": (sso("Cello", r"cello-piz-rr(?P<rr>\d)-.*", held=False),),
+        },
+        "strings",
+        loud_db=-13,
+        range_db=34,
+        release=0.2,
+        lead=0.05,
+        lowcut_hz=45,
+    ),
+    # The voice. The samples are a group of women who sing the vowel "ah". This is a
+    # stand-in: the project has no samples of a solo singer who sings words.
+    "alto voice": Sound(
+        {"sustain": (sso("Chorus", r"chorus-female-.*", low_hz=150, high_hz=1200),)},
+        "voice",
+        loud_db=-9,
+        range_db=26,
+        release=0.22,
+        lead=0.06,
+        lowcut_hz=140,
+        max_shift=12,
+    ),
 }
 
 _HIT = {"pitched": False, "held": False}
@@ -752,6 +829,12 @@ ALIASES = {
     "contrabass clarinet": "bass clarinet",
     "tuned gongs": "tubular bells",
     "taiko": "bass drum",
+    # The baroque instruments that have no samples in the open libraries.
+    "recorder": "flute",
+    "oboe d'amore": "English horn",
+    "oboe da caccia": "English horn",
+    "violone": "double bass",
+    "theorbo": "harp",
 }
 
 

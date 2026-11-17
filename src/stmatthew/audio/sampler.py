@@ -50,6 +50,7 @@ BRIGHTNESS = {
     "percussion": (3000.0, 3.0),
     "plucked": (2500.0, 4.0),
     "keyboards": (2500.0, 4.0),
+    "voice": (2200.0, 5.0),
 }
 MIDDLE_LEVEL = 0.6  # the loudness with no change of the brightness (mezzo forte)
 
@@ -359,27 +360,42 @@ def render_player(
             voices = 1  # one player of the section plays alone
             divisi = SOLO_GAIN
         nearest = bank.pitches(key, note.midi)
-        plan: list[tuple[str, int, float]] = []  # sample key, sampled pitch, weight
+        # One row: the sample key, the sampled pitch, the weight, and the pitch of the
+        # sound above the written note in semitones.
+        plan: list[tuple[str, int, float, float]] = []
         for number in range(voices):
             candidates = [p for p in nearest if abs(p - note.midi) <= sound.max_shift]
             if not candidates:
                 candidates = nearest[:1]
             plan.append(
-                (key, candidates[min(number, len(candidates) - 1)], 1.0 if number == 0 else 0.7)
+                (
+                    key,
+                    candidates[min(number, len(candidates) - 1)],
+                    1.0 if number == 0 else 0.7,
+                    0.0,
+                )
             )
         if key == "sustain" and bank.has("second") and voices > 1:
             second = bank.pitches("second", note.midi)
             if second and abs(second[0] - note.midi) <= sound.max_shift:
-                plan.append(("second", second[0], 0.6))
-        norm = float(np.sqrt(sum(weight**2 for _, _, weight in plan)))
+                plan.append(("second", second[0], 0.6, 0.0))
+        if key == "sustain":
+            # The stops of an organ: the loudness of the note selects them.
+            for stop, from_level, stop_weight, semitones in sound.stops:
+                if note.level < from_level or not bank.has(stop):
+                    continue
+                pipes = bank.pitches(stop, note.midi + semitones)
+                if pipes and abs(pipes[0] - (note.midi + semitones)) <= sound.max_shift:
+                    plan.append((stop, pipes[0], stop_weight, float(semitones)))
+        norm = float(np.sqrt(sum(weight**2 for _, _, weight, _ in plan)))
 
-        for voice_number, (sample_key, nominal, weight) in enumerate(plan):
+        for voice_number, (sample_key, nominal, weight, above) in enumerate(plan):
             jitter = float(np.clip(random.normal(0.0, sound.timing_ms / 1000.0), -0.03, 0.03))
             spread = float(random.uniform(0.0, 0.018)) if voice_number else 0.0
             detune = float(random.normal(0.0, sound.detune_cents if voices > 1 else 2.0))
             for choice in bank.choose(sample_key, nominal, level, int(index) + voice_number):
                 sample = choice.sample
-                cents = int(round(((note.midi - sample.midi) * 100.0 + detune) / 5.0)) * 5
+                cents = int(round(((note.midi + above - sample.midi) * 100.0 + detune) / 5.0)) * 5
                 if sound.unpitched:
                     cents = 0
                 audio = CACHE.get(sample, cents)

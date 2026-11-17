@@ -150,9 +150,10 @@ def test_spiccato_makes_short_notes():
     assert text.count("<staccato/>") == 4  # the four eighth notes, not the half note
 
 
-def test_the_mixer_gets_the_levels_of_some_instruments():
+def test_the_mixer_gets_the_levels_of_some_instruments(monkeypatch):
     from stmatthew.audio import musescore
 
+    monkeypatch.setattr(musescore, "TRIM_DB", {"Taiko": -9.0})
     score = (
         '<Part id="1"><Staff id="1"/><trackName>Timpani</trackName>'
         '<Instrument id="timpani"><longName>Timpani</longName></Instrument></Part>'

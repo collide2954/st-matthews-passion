@@ -58,6 +58,28 @@ SOUNDS = {
     "viola": ("Violas", "strings.group"),
     "violoncello": ("Violoncellos", "strings.group"),
     "double bass": ("Contrabasses", "strings.group"),
+    # The baroque orchestra. Muse Sounds have no baroque instruments: each
+    # instrument gets the modern instrument that is nearest to it. The organ
+    # is not in this table: the sampler of this project plays it with the
+    # samples of a pipe organ.
+    "recorder": ("Flute", "wind.flutes.flute"),
+    "oboe d'amore": ("English Horn", "wind.reed.english-horn"),
+    "oboe da caccia": ("English Horn", "wind.reed.english-horn"),
+    "viola da gamba": ("Violoncello", "strings.cello"),
+    "violone": ("Contrabasses", "strings.group"),
+    "theorbo": ("Harp", "pluck.harp"),
+    "harpsichord": ("Harpsichord", "keyboard.harpsichord"),
+}
+
+# The voice. No sound library of the project has a solo singer. An instrument
+# or a group of singers on one vowel is the stand-in for the voice: the setting
+# `source()` of `audio/voice.py` gives its name. An entry of this table is a
+# part for the playback program. A stand-in with no entry is a sound of the
+# sampler of this project.
+VOICE = "alto voice"
+VOICE_STAND_INS = {
+    "clarinet": ("B♭ Clarinet", "wind.reed.clarinet.bflat"),
+    "horn": ("Horn in F", "brass.french-horn"),
 }
 
 # Unpitched percussion: the name of the part, the sound identifier, and the
@@ -127,8 +149,24 @@ TECHNIQUE_WORDS = {
 }
 
 
+def voice_stand_in() -> str:
+    """Return the name of the stand-in for the voice (see `audio/voice.py`)."""
+    from ..audio import voice
+
+    return voice.source()
+
+
+def sound_of(instrument: str, solo: bool = False) -> tuple[str, str]:
+    """Return the name of the part and the sound identifier for an instrument."""
+    if instrument == VOICE:
+        return VOICE_STAND_INS[voice_stand_in()]
+    return (SOLO_SOUNDS if solo else SOUNDS)[instrument]
+
+
 def can_play(instrument: str) -> bool:
     """Return true if the playback program has a sound for the instrument."""
+    if instrument == VOICE:
+        return voice_stand_in() in VOICE_STAND_INS
     return instrument in SOUNDS or instrument in UNPITCHED
 
 
@@ -436,6 +474,7 @@ def _note_xml(
 # to the subsequent note of the voice, but not more than this time.
 RING_SECONDS = {
     "harp": 6.0,
+    "theorbo": 3.0,
     "celesta": 3.0,
     "piano": 5.0,
     "vibraphone": 8.0,
@@ -458,7 +497,7 @@ RING_SECONDS = {
 # accent has a fixed length. A measurement with a note of 12 s gave: trombone 4.6 s,
 # double basses 6.5 s, violins 7.4 s. The other instruments have no limit. The
 # values here are a little smaller. A longer note has no such mark in the file.
-ACCENT_SECONDS = {"tenor trombone": 3.9, "double bass": 5.5, "violin": 6.3}
+ACCENT_SECONDS = {"tenor trombone": 3.9, "double bass": 5.5, "violone": 5.5, "violin": 6.3}
 ACCENT_MARKS = ("accent", "marcato")
 SHORT_MARKS = ("staccato", "staccatissimo")
 
@@ -681,7 +720,7 @@ def score(
             )
             drums = {written: f"P{number}-I{pitch}" for written, pitch in table.items()}
         else:
-            name, sound = (SOLO_SOUNDS if solo else SOUNDS)[instrument]
+            name, sound = sound_of(instrument, solo)
             tags = "<solo/>" if solo or sound != "strings.group" else "<ensemble/>"
             instruments_xml = (
                 f'<score-instrument id="P{number}-I1"><instrument-name>{escape(name)}'

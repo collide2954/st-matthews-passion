@@ -60,28 +60,22 @@ class Seat:
     y: float
 
 
-# Seats of the players. The violins sit left and right of the conductor, as in
-# the orchestras of Schoenberg's and Bartók's time.
+# Seats of the players: the plan of the stage in the score (see `frontmatter.py`).
+# The alto stands at the front, left of the conductor. The violins sit left and
+# right. The continuo group is in the middle, with the organ at the back.
 SEATS: dict[str, Seat] = {
-    "vn1": Seat(-5.5, 2.6), "vn2": Seat(5.2, 2.6), "va": Seat(2.4, 4.6), "vc": Seat(-2.2, 4.6),
-    "cb": Seat(-6.8, 6.6),
-    "fl1": Seat(-1.0, 7.0), "fl2": Seat(-2.0, 7.0), "fl3": Seat(-3.0, 7.0),
-    "ob1": Seat(1.0, 7.0), "ob2": Seat(2.0, 7.0), "ob3": Seat(3.0, 7.0),
-    "cl1": Seat(-1.0, 8.3), "cl2": Seat(-2.0, 8.3), "cl3": Seat(-3.0, 8.3), "cbcl": Seat(-4.0, 8.3),
-    "bn1": Seat(1.0, 8.3), "bn2": Seat(2.0, 8.3), "bn3": Seat(3.0, 8.3),
-    "hn1": Seat(-2.6, 9.7), "hn2": Seat(-3.6, 9.7), "hn3": Seat(-4.6, 9.7),
-    "hn4": Seat(-5.6, 9.7), "hn5": Seat(-3.1, 10.8), "hn6": Seat(-4.1, 10.8),
-    "tpt1": Seat(0.6, 9.8), "tpt2": Seat(1.6, 9.8), "tpt3": Seat(2.6, 9.8),
-    "tbn1": Seat(3.8, 9.8), "tbn2": Seat(4.8, 9.8), "btbn": Seat(5.8, 9.8), "tuba": Seat(6.8, 9.8),
-    "timp": Seat(0.0, 11.6),
-    "perc1": Seat(-7.5, 11.4), "perc2": Seat(-5.5, 11.8), "perc3": Seat(-3.5, 12.0),
-    "perc4": Seat(3.0, 12.0), "perc5": Seat(-1.5, 12.2), "perc6": Seat(5.0, 11.8),
-    "harp": Seat(-8.2, 5.6), "pno": Seat(-8.8, 8.2), "cel": Seat(-7.6, 9.4),
-    "cimb": Seat(7.8, 5.6), "mand": Seat(6.6, 4.2), "acc": Seat(7.8, 7.6),
+    "alto": Seat(-2.2, 1.1),
+    "vn1": Seat(-4.6, 3.2), "vn2": Seat(4.6, 3.2), "va": Seat(4.1, 5.6),
+    "hpd": Seat(0.0, 3.2),
+    "vne": Seat(-6.3, 5.7), "vc": Seat(-3.6, 5.6), "lute": Seat(-1.0, 5.3),
+    "gamba": Seat(1.0, 5.3),
+    "fl1": Seat(-2.4, 7.6), "fl2": Seat(-3.9, 7.6),
+    "org": Seat(0.0, 7.4),
+    "ob1": Seat(2.4, 7.6), "ob2": Seat(3.9, 7.6), "bn": Seat(5.7, 7.6),
 }  # fmt: skip
 
 # A string section is some metres wide. Each group of the section has its own seat.
-SECTION_OFFSETS = [(0.0, 0.0), (-1.6, 0.9), (1.6, 1.0), (0.4, 1.9)]
+SECTION_OFFSETS = [(0.0, 0.0), (-1.2, 0.5), (1.2, 0.6), (0.3, 1.1)]
 
 
 def seat_of(player_id: str, group: int = 0) -> Seat:
