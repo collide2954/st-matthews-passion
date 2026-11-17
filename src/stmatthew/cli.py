@@ -148,6 +148,33 @@ def build_video(mobile: bool = False) -> None:
     print(f"video: {path}")
 
 
+def show_ears(
+    bars: tuple[int, int] | None, step: str = "1", players: str = "", brief: bool = False
+) -> None:
+    """Print the notes that sound together at each step of some bars (see `compose/ears.py`)."""
+    from fractions import Fraction
+
+    from .compose import ears
+    from .work import build
+
+    work = build()
+    first, last = bars or (1, len(work.structure.bars))
+    names = players.split(",") if players else None
+    found = ears.moments(work, first, last, Fraction(step), names)
+    if not brief:
+        for line in ears.report(found):
+            print(line)
+    for name, value in ears.summary(found).items():
+        print(f"{name:28s} {value:.2f}")
+    for parallel in ears.parallels(work, first, last, names):
+        print(parallel)
+    for name, value in ears.voice_summary(work).items():
+        print(f"voice: {name:42s} {value:.2f}")
+    long = [phrase for phrase in ears.phrases(work) if phrase.seconds > 9.0]
+    for phrase in long:
+        print(f"voice: a phrase of {phrase.seconds:.1f} s starts in bar {phrase.bar}")
+
+
 def show_stats() -> None:
     """Print the numbers of the work as a table."""
     from .compose.stats import measure
@@ -210,6 +237,7 @@ def main(argv: list[str] | None = None) -> int:
         choices=[
             "check",
             "stats",
+            "ears",
             "ly",
             "score",
             "parts",
@@ -224,7 +252,16 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
     parser.add_argument(
-        "--bars", metavar="FIRST-LAST", help="render only these bars (command: audio)"
+        "--bars", metavar="FIRST-LAST", help="only these bars (commands: audio, ears)"
+    )
+    parser.add_argument(
+        "--step", default="1", help="the step of the report in quarter notes (command: ears)"
+    )
+    parser.add_argument(
+        "--players", default="", help="only these players, with commas (command: ears)"
+    )
+    parser.add_argument(
+        "--brief", action="store_true", help="print only the summary (command: ears)"
     )
     parser.add_argument(
         "--engine",
@@ -256,6 +293,9 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if check_work() else 0
     if args.command == "stats":
         show_stats()
+        return 0
+    if args.command == "ears":
+        show_ears(bars, args.step, args.players, args.brief)
         return 0
     if args.command == "chart":
         draw_chart()

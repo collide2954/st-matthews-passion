@@ -59,8 +59,9 @@ def write(work: Work) -> None:
 
     s.sing("alto", VOICE, WORDS)
 
-    # The recitative: harpsichord and violoncello.
-    s.write("hpd.rh", r"<g c' e'>2\mf\arpeggio <g c' es'> | <f as bes>2. r4 | R1*16 |")
+    # The recitative: harpsichord and violoncello. The right hand holds its chord while
+    # the bass goes from E to E-flat: the top note does not go in octaves with the bass.
+    s.write("hpd.rh", r"<g c' g'>2\mf\arpeggio <g c' g'> | <as bes f'>2. r4 | R1*16 |")
     s.write("hpd.lh", r"e2\mf es | d2. r4 | R1*16 |")
 
     # The chorale. All instruments: mf; softer for "im letzten Todesstoß" and for the last phrase.

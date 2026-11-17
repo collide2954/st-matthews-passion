@@ -309,7 +309,15 @@ def _check_bar_lines(
                     f"in bar {bar_index} of the section)"
                 )
         elif isinstance(element, music.Note | music.Rest):
-            position += element.duration * scale
+            end = position + element.duration * scale
+            full_bars = isinstance(element, music.Rest) and element.kind == "R"
+            if not full_bars and any(position < boundary < end for boundary in boundaries):
+                bar_index = sum(1 for b in boundaries if b <= position)
+                raise WorkError(
+                    f"a note or a rest goes across a bar line (it starts at {position} quarter "
+                    f"notes, in bar {bar_index} of the section): write two tied notes"
+                )
+            position = end
         elif isinstance(element, music.Group):
             if element.kind == "grace":
                 continue
