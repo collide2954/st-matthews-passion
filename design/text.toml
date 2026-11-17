@@ -1,0 +1,188 @@
+# St Matthew Passion: the words of the work.
+#
+# The owner selected the German texts that Bach set. The words are those of the edition
+# of W. F. Bischof (research/sources.csv, key bischof-244). The work selects sentences
+# and lines; it does not change a word.
+#
+# Each line has a role:
+#   story     the words of the Evangelist (the Gospel of Matthew in the translation of Luther)
+#   person    the words of a person of the story; the voice of the alto says them
+#   poem      the poems of Picander (and of Salomo Franck and B. H. Brockes)
+#   chorale   a chorale verse
+#   wordless  words of the second choir or of the crowd: the instruments have their music,
+#             and the score shows the words above the staves
+# "bach" is the number of the movement in the Neue Bach-Ausgabe.
+
+[[number]]
+number = 1
+lines = [
+    { role = "poem", bach = "1", text = "Kommt, ihr Töchter, helft mir klagen," },
+    { role = "poem", bach = "1", text = "Sehet!" },
+    { role = "wordless", bach = "1", text = "Wen?" },
+    { role = "poem", bach = "1", text = "den Bräutigam." },
+    { role = "poem", bach = "1", text = "Seht ihn!" },
+    { role = "wordless", bach = "1", text = "Wie?" },
+    { role = "poem", bach = "1", text = "als wie ein Lamm." },
+    { role = "wordless", bach = "1", text = "O Lamm Gottes, unschuldig am Stamm des Kreuzes geschlachtet, allzeit erfunden geduldig, wiewohl du warest verachtet. All Sünd hast du getragen, sonst müßten wir verzagen. Erbarm dich unser, o Jesu!" },
+    { role = "poem", bach = "1", text = "Sehet!" },
+    { role = "wordless", bach = "1", text = "Was?" },
+    { role = "poem", bach = "1", text = "seht die Geduld." },
+    { role = "poem", bach = "1", text = "Seht!" },
+    { role = "wordless", bach = "1", text = "Wohin?" },
+    { role = "poem", bach = "1", text = "auf unsre Schuld." },
+    { role = "poem", bach = "1", text = "Sehet ihn aus Lieb und Huld Holz zum Kreuze selber tragen." },
+]
+
+[[number]]
+number = 2
+lines = [
+    { role = "story", bach = "4c", text = "Da nun Jesus war zu Bethanien, im Hause Simonis des Aussätzigen, trat zu ihm ein Weib, die hatte ein Glas mit köstlichem Wasser und goss es auf sein Haupt, da er zu Tische saß." },
+    { role = "poem", bach = "5", text = "Du lieber Heiland du, wenn deine Jünger töricht streiten, dass dieses fromme Weib mit Salben deinen Leib zum Grabe will bereiten, so lasse mir inzwischen zu, von meiner Augen Tränenflüssen ein Wasser auf dein Haupt zu gießen!" },
+    { role = "poem", bach = "6", text = "Buß und Reu knirscht das Sündenherz entzwei, dass die Tropfen meiner Zähren angenehme Spezerei, treuer Jesu, dir gebären." },
+]
+
+[[number]]
+number = 3
+lines = [
+    { role = "story", bach = "18", text = "Da kam Jesus mit ihnen zu einem Hofe, der hieß Gethsemane, und fing an zu trauern und zu zagen. Da sprach Jesus zu ihnen:" },
+    { role = "person", who = "Jesus", bach = "18", text = "Meine Seele ist betrübt bis an den Tod, bleibet hie und wachet mit mir." },
+    { role = "poem", bach = "19", text = "O Schmerz! Hier zittert das gequälte Herz; wie sinkt es hin, wie bleicht sein Angesicht!" },
+    { role = "wordless", bach = "19", text = "Was ist die Ursach aller solcher Plagen?" },
+    { role = "poem", bach = "19", text = "Der Richter führt ihn vor Gericht. Da ist kein Trost, kein Helfer nicht." },
+    { role = "wordless", bach = "19", text = "Ach! meine Sünden haben dich geschlagen;" },
+    { role = "poem", bach = "19", text = "Er leidet alle Höllenqualen, er soll vor fremden Raub bezahlen." },
+    { role = "chorale", bach = "19", text = "Ich, ach Herr Jesu, habe dies verschuldet, was du erduldet." },
+    { role = "story", bach = "21", text = "Und ging hin ein wenig, fiel nieder auf sein Angesicht und betete und sprach:" },
+    { role = "person", who = "Jesus", bach = "21", text = "Mein Vater, ist's möglich, so gehe dieser Kelch von mir; doch nicht wie ich will, sondern wie du willt." },
+]
+
+[[number]]
+number = 4
+lines = [
+    { role = "chorale", bach = "25", text = "Was mein Gott will, das g'scheh allzeit, sein Will, der ist der beste, zu helfen den'n er ist bereit, die an ihn gläuben feste. Er hilft aus Not, der fromme Gott, und züchtiget mit Maßen. Wer Gott vertraut, fest auf ihn baut, den will er nicht verlassen." },
+]
+
+[[number]]
+number = 5
+lines = [
+    { role = "story", bach = "26", text = "Und als er noch redete, siehe, da kam Judas, der Zwölfen einer, und mit ihm eine große Schar mit Schwerten und mit Stangen. Da traten sie hinzu und legten die Hände an Jesum und griffen ihn." },
+    { role = "poem", bach = "27a", text = "So ist mein Jesus nun gefangen." },
+    { role = "wordless", bach = "27a", text = "Lasst ihn, haltet, bindet nicht!" },
+    { role = "poem", bach = "27a", text = "Mond und Licht ist vor Schmerzen untergangen, weil mein Jesus ist gefangen." },
+    { role = "wordless", bach = "27a", text = "Lasst ihn, haltet, bindet nicht!" },
+    { role = "poem", bach = "27a", text = "Sie führen ihn, er ist gebunden." },
+    { role = "poem", bach = "27b", text = "Sind Blitze, sind Donner in Wolken verschwunden?" },
+    { role = "poem", bach = "27b", text = "Eröffne den feurigen Abgrund, o Hölle, zertrümmre, verderbe, verschlinge, zerschelle mit plötzlicher Wut den falschen Verräter, das mördrische Blut!" },
+]
+
+[[number]]
+number = 6
+lines = [
+    { role = "story", bach = "28", text = "Da verließen ihn alle Jünger und flohen." },
+    { role = "chorale", bach = "17", text = "Ich will hier bei dir stehen; verachte mich doch nicht! Von dir will ich nicht gehen, wenn dir dein Herze bricht. Wenn dein Herz wird erblassen im letzten Todesstoß, alsdenn will ich dich fassen in meinen Arm und Schoß." },
+]
+
+[[number]]
+number = 7
+lines = [
+    { role = "poem", bach = "30", text = "Ach! nun ist mein Jesus hin!" },
+    { role = "wordless", bach = "30", text = "Wo ist denn dein Freund hingegangen, o du Schönste unter den Weibern?" },
+    { role = "poem", bach = "30", text = "Ist es möglich, kann ich schauen?" },
+    { role = "wordless", bach = "30", text = "Wo hat sich dein Freund hingewandt?" },
+    { role = "poem", bach = "30", text = "Ach! mein Lamm in Tigerklauen, ach! wo ist mein Jesus hin?" },
+    { role = "wordless", bach = "30", text = "So wollen wir mit dir ihn suchen." },
+    { role = "poem", bach = "30", text = "Ach! was soll ich der Seele sagen, wenn sie mich wird ängstlich fragen? Ach! wo ist mein Jesus hin?" },
+]
+
+[[number]]
+number = 8
+lines = [
+    { role = "story", bach = "38a", text = "Petrus aber saß draußen im Palast; und es trat zu ihm eine Magd und sprach:" },
+    { role = "person", who = "Magd", bach = "38a", text = "Und du warest auch mit dem Jesu aus Galiläa." },
+    { role = "story", bach = "38a", text = "Er leugnete aber vor ihnen allen und sprach:" },
+    { role = "person", who = "Petrus", bach = "38a", text = "Ich weiß nicht, was du sagest." },
+    { role = "story", bach = "38a", text = "Und er leugnete abermal und schwur dazu:" },
+    { role = "person", who = "Petrus", bach = "38a", text = "Ich kenne des Menschen nicht." },
+    { role = "story", bach = "38c", text = "Da hub er an, sich zu verfluchen und zu schwören:" },
+    { role = "person", who = "Petrus", bach = "38c", text = "Ich kenne des Menschen nicht." },
+    { role = "story", bach = "38c", text = "Und alsbald krähete der Hahn. Da dachte Petrus an die Worte Jesu, da er zu ihm sagte: Ehe der Hahn krähen wird, wirst du mich dreimal verleugnen. Und ging heraus und weinete bitterlich." },
+]
+
+[[number]]
+number = 9
+lines = [
+    { role = "poem", bach = "39", text = "Erbarme dich, mein Gott, um meiner Zähren willen! Schaue hier, Herz und Auge weint vor dir bitterlich." },
+]
+
+[[number]]
+number = 10
+lines = [
+    { role = "story", bach = "45a", text = "Auf das Fest aber hatte der Landpfleger Gewohnheit, dem Volk einen Gefangenen loszugeben, welchen sie wollten. Und da sie versammlet waren, sprach Pilatus zu ihnen:" },
+    { role = "person", who = "Pilatus", bach = "45a", text = "Welchen wollet ihr, dass ich euch losgebe? Barrabam oder Jesum, von dem gesaget wird, er sei Christus?" },
+    { role = "story", bach = "45a", text = "Sie sprachen:" },
+    { role = "person", who = "Volk", bach = "45a", text = "Barrabam!" },
+    { role = "story", bach = "45a", text = "Pilatus sprach zu ihnen:" },
+    { role = "person", who = "Pilatus", bach = "45a", text = "Was soll ich denn machen mit Jesu, von dem gesagt wird, er sei Christus?" },
+    { role = "story", bach = "45a", text = "Sie sprachen alle:" },
+    { role = "wordless", bach = "45b", text = "Lass ihn kreuzigen!" },
+    { role = "story", bach = "47", text = "Der Landpfleger sagte:" },
+    { role = "person", who = "Pilatus", bach = "47", text = "Was hat er denn Übels getan?" },
+    { role = "poem", bach = "49", text = "Aus Liebe, aus Liebe will mein Heiland sterben, von einer Sünde weiß er nichts." },
+    { role = "story", bach = "50a", text = "Sie schrieen aber noch mehr und sprachen:" },
+    { role = "wordless", bach = "50b", text = "Lass ihn kreuzigen!" },
+    { role = "story", bach = "50e", text = "Da gab er ihnen Barrabam los; aber Jesum ließ er geißeln und überantwortete ihn, dass er gekreuziget würde." },
+    { role = "poem", bach = "51", text = "Erbarm es Gott! Hier steht der Heiland angebunden. O Geißelung, o Schläg, o Wunden! Ihr Henker, haltet ein! Erbarmt euch, haltet ein!" },
+]
+
+[[number]]
+number = 11
+lines = [
+    { role = "story", bach = "53a", text = "Da nahmen die Kriegsknechte des Landpflegers Jesum zu sich und flochten eine dornene Krone und satzten sie auf sein Haupt" },
+    { role = "story", bach = "53c", text = "und speieten ihn an und nahmen das Rohr und schlugen damit sein Haupt." },
+    { role = "chorale", bach = "54", text = "O Haupt voll Blut und Wunden, voll Schmerz und voller Hohn, o Haupt, zu Spott gebunden mit einer Dornenkron, o Haupt, sonst schön gezieret mit höchster Ehr und Zier, jetzt aber hoch schimpfieret, gegrüßet seist du mir!" },
+]
+
+[[number]]
+number = 12
+lines = [
+    { role = "story", bach = "55", text = "Und da sie ihn verspottet hatten, zogen sie ihm den Mantel aus und zogen ihm seine Kleider an und führeten ihn hin, dass sie ihn kreuzigten." },
+    { role = "story", bach = "58a", text = "Und da sie an die Stätte kamen mit Namen Golgatha, das ist verdeutschet Schädelstätt, gaben sie ihm Essig zu trinken mit Gallen vermischet. Und sie saßen allda und hüteten sein." },
+    { role = "poem", bach = "59", text = "Ach Golgatha, unselges Golgatha! Der Herr der Herrlichkeit muss schimpflich hier verderben, der Segen und das Heil der Welt wird als ein Fluch ans Kreuz gestellt. Die Unschuld muss hier schuldig sterben, das gehet meiner Seele nah; ach Golgatha, unselges Golgatha!" },
+]
+
+[[number]]
+number = 13
+lines = [
+    { role = "story", bach = "61a", text = "Und von der sechsten Stunde an war eine Finsternis über das ganze Land bis zu der neunten Stunde. Und um die neunte Stunde schriee Jesus laut und sprach:" },
+    { role = "person", who = "Jesus", bach = "61a", text = "Eli, Eli, lama asabthani?" },
+    { role = "story", bach = "61a", text = "Das ist: Mein Gott, mein Gott, warum hast du mich verlassen?" },
+    { role = "story", bach = "61e", text = "Aber Jesus schriee abermal laut und verschied." },
+]
+
+[[number]]
+number = 14
+lines = [
+    { role = "chorale", bach = "62", text = "Wenn ich einmal soll scheiden, so scheide nicht von mir, wenn ich den Tod soll leiden, so tritt du denn herfür! Wenn mir am allerbängsten wird um das Herze sein, so reiß mich aus den Ängsten kraft deiner Angst und Pein!" },
+]
+
+[[number]]
+number = 15
+lines = [
+    { role = "story", bach = "63a", text = "Und siehe da, der Vorhang im Tempel zerriss in zwei Stück von oben an bis unten aus. Und die Erde erbebete, und die Felsen zerrissen. Aber der Hauptmann und die bei ihm waren und bewahreten Jesum, da sie sahen das Erdbeben und was da geschah, erschraken sie sehr und sprachen:" },
+    { role = "person", who = "Hauptmann", bach = "63b", text = "Wahrlich, dieser ist Gottes Sohn gewesen." },
+    { role = "story", bach = "63c", text = "Und es waren viel Weiber da, die von ferne zusahen, die da waren nachgefolget aus Galiläa und hatten ihm gedienet." },
+]
+
+[[number]]
+number = 16
+lines = [
+    { role = "poem", bach = "64", text = "Am Abend, da es kühle war, ward Adams Fallen offenbar; am Abend drücket ihn der Heiland nieder. O schöne Zeit! O Abendstunde! Der Friedensschluss ist nun mit Gott gemacht, denn Jesus hat sein Kreuz vollbracht." },
+    { role = "story", bach = "66a", text = "Und Joseph nahm den Leib und wickelte ihn in ein rein Leinwand und legte ihn in sein eigen neu Grab. Es war aber allda Maria Magdalena und die andere Maria, die satzten sich gegen das Grab." },
+    { role = "poem", bach = "67", text = "Nun ist der Herr zur Ruh gebracht." },
+    { role = "wordless", bach = "67", text = "Mein Jesu, gute Nacht!" },
+    { role = "poem", bach = "67", text = "O selige Gebeine, seht, wie ich euch mit Buß und Reu beweine, dass euch mein Fall in solche Not gebracht!" },
+    { role = "poem", bach = "67", text = "Mein Jesu, gute Nacht!" },
+    { role = "poem", bach = "68", text = "Wir setzen uns mit Tränen nieder und rufen dir im Grabe zu:" },
+    { role = "wordless", bach = "68", text = "Ruhe sanfte, sanfte ruh!" },
+    { role = "poem", bach = "68", text = "Ruhe sanfte, sanfte ruh!" },
+]

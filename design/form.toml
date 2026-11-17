@@ -1,0 +1,242 @@
+# St Matthew Passion: form plan.
+#
+# This file gives the shape of the work before the notes: two parts, 16 numbers.
+# The numbers follow each other with no pause (one pause is between the two parts).
+# "seconds" is the planned length of a number. The composition code reads the plan;
+# the command `stmatthew docs` compares the finished music with it.
+# Each decision has its basis in the style study (docs/style-study.md).
+#
+# The idea of the form: the alto is the witness. In the text of Bach, a woman pours
+# water on the head of Jesus in Bethany, women watch the cross from far away, and two
+# women sit at the tomb. In this work one voice is that woman: she tells the story (the
+# words of the Evangelist), she says the words of the other persons, and she answers
+# with the poems and the chorales. The orchestra is the second choir, the crowd, and
+# the congregation: it has their music with no words.
+
+[work]
+duration_seconds = 2560      # 42.7 minutes; the owner selected "about 40 minutes"
+numbers = 16                 # profile "All": 12 to 16 (Lang: 15 numbers in 35 minutes)
+first_key = "E minor"        # as the work of Bach
+last_key = "C minor"         # as the work of Bach
+pause_between_the_parts = "after number 6"
+
+# The events that give the work its shape. A position is a share of the duration.
+[events]
+end_of_part_1 = 0.39          # number 6: the chorale in E major, the one plain setting
+centre = 0.50                 # number 9: "Erbarme dich"
+death = 0.76                  # number 13; profile "All": 0.70 to 0.85
+long_silence = 0.80           # after the death: 7 seconds with no sound
+last_chorale = 0.81           # number 14: the Passion chorale ends on the dominant
+last_note = 1.0               # the voice alone, on the key note
+
+# ------------------------------------------------------------------ part 1
+
+[[number]]
+number = 1
+name = "Eingang"
+words = "Kommt, ihr Töchter, helft mir klagen"
+bach = "1"
+layer = "poem and chorale"
+key = "E minor (the chorale in G major)"
+metre = "12/8"
+seconds = 225
+forces = "tutti; recorders for the chorale"
+bach_elements = ["the bass that steps up from E in the rhythm long, short", "the theme of bar 17", "the calls and the questions (Sehet! - Wen?)", "the chorale O Lamm Gottes, unschuldig as a third layer"]
+device = "The questions of the second choir are a hocket of the instruments. The chorale is a canon of two colours at one beat. One arch, no repeat; at the end the pulse loses its notes one by one."
+
+[[number]]
+number = 2
+name = "Bethanien"
+words = "Du lieber Heiland du - Buß und Reu"
+bach = "4c, 5, 6"
+layer = "story, then poem"
+key = "A minor; B minor; F-sharp minor"
+metre = "4/4; 3/8"
+seconds = 210
+forces = "voice; 2 flutes; theorbo, harpsichord, violoncello"
+bach_elements = ["the thirds of the flutes that fall as drops", "the plucked bass", "the theme of Buß und Reu", "the bass that goes down by semitones"]
+device = "The bass is a ground of five notes that goes down by semitones; each time it starts one step lower. The drops of the flutes are a hocket that gets more notes."
+
+[[number]]
+number = 3
+name = "Gethsemane"
+words = "Meine Seele ist betrübt bis an den Tod - O Schmerz"
+bach = "18, 19, 21"
+layer = "story, poem, and chorale"
+key = "F minor"
+metre = "4/4"
+seconds = 225
+forces = "voice; recorders, oboes da caccia; strings; viola da gamba; organ"
+bach_elements = ["the halo of the strings for the words of Jesus", "the bass of sixteenth notes that trembles", "the sighs in sixths", "the chorale Herzliebster Jesu between the lines of the recitative"]
+device = "The halo is one line that goes by step and one line with the notes of one triad. The pulse of the bass has a pattern of 7 that turns against the bar of 8. The instruments have the chorale with no words; the voice sings its last line."
+
+[[number]]
+number = 4
+name = "Choral"
+words = "Was mein Gott will, das g'scheh allzeit"
+bach = "25"
+layer = "chorale"
+key = "B minor"
+metre = "4/4"
+seconds = 75
+forces = "voice; winds and strings"
+bach_elements = ["the tune", "the four voices of the setting of Bach"]
+device = "The voice has the tune. The three lower voices of Bach go from instrument to instrument: a melody of colours."
+
+[[number]]
+number = 5
+name = "Gefangennahme"
+words = "So ist mein Jesus nun gefangen - Sind Blitze, sind Donner"
+bach = "26, 27a, 27b"
+layer = "story, then poem"
+key = "E minor"
+metre = "4/4; 3/8"
+seconds = 170
+forces = "voice; tutti"
+bach_elements = ["the aria with no bass instrument", "the calls of the choir (Laßt ihn! Haltet! Bindet nicht!)", "the bass theme of the thunder", "the pause in all voices"]
+device = "The calls are chords of the full orchestra with no words. The thunder theme enters at shorter and shorter distances until the lines are one cloud."
+
+[[number]]
+number = 6
+name = "Choral"
+words = "Ich will hier bei dir stehen"
+bach = "28 (last sentence), 17"
+layer = "story, then chorale"
+key = "E major"
+metre = "4/4"
+seconds = 100
+forces = "voice; tutti"
+bach_elements = ["the Passion chorale, first time", "the setting of Bach, note for note"]
+device = "None: this is the one plain setting. All disciples flee; the witness stays."
+
+# ------------------------------------------------------------------ part 2
+
+[[number]]
+number = 7
+name = "Klage"
+words = "Ach! nun ist mein Jesus hin!"
+bach = "30"
+layer = "poem"
+key = "B minor"
+metre = "3/8"
+seconds = 140
+forces = "voice; flute, oboe d'amore; strings; continuo"
+bach_elements = ["the aria of the alto that opens part 2", "the answers of the choir (Wo ist denn dein Freund hingegangen?)"]
+device = "The answers of the choir are a consort of four instruments with no words. Each answer is shorter than the answer before it."
+
+[[number]]
+number = 8
+name = "Petrus"
+words = "Ich kenne des Menschen nicht"
+bach = "38a, 38c"
+layer = "story"
+key = "A major to F-sharp minor"
+metre = "4/4"
+seconds = 85
+forces = "voice; harpsichord, violoncello; oboes"
+bach_elements = ["recitative with short chords", "the three denials", "the long line on 'weinete bitterlich'"]
+device = "The Passion chorale comes as a memory: two phrases in E-flat major, very soft, while Peter remembers."
+
+[[number]]
+number = 9
+name = "Erbarme dich"
+words = "Erbarme dich, mein Gott, um meiner Zähren willen"
+bach = "39"
+layer = "poem"
+key = "B minor"
+metre = "12/8"
+seconds = 285
+forces = "voice; solo violin; strings; theorbo, organ, violoncello, violone"
+bach_elements = ["the theme of the violin and of the voice", "the plucked bass with three notes on each step", "the long notes of the strings"]
+device = "The first phrases are those of Bach. Then the voice and the violin are a canon whose distance gets shorter. The bass has a cycle of 5 steps against a rhythm of 4 beats. The return is short: the theme loses notes at its two ends."
+
+[[number]]
+number = 10
+name = "Pilatus"
+words = "Laß ihn kreuzigen! - Aus Liebe - Erbarm es Gott"
+bach = "45a, 45b, 47, 49, 50a, 50b, 50e, 51"
+layer = "story and poem"
+key = "A minor to B major; A minor; B minor to C-sharp major; F major to G minor"
+metre = "4/4; 3/4"
+seconds = 220
+forces = "voice; tutti; flute and 2 oboes da caccia alone"
+bach_elements = ["the chord on Barrabam", "the subject of Laß ihn kreuzigen, two times, the second time one tone higher", "Aus Liebe with no bass instrument, between the two", "the dotted rhythm of the scourge"]
+device = "The crowd has no words: the subject is a fugue of the orchestra. The second time the entries come nearer and the lines shift against each other (phase)."
+
+[[number]]
+number = 11
+name = "Choral"
+words = "O Haupt voll Blut und Wunden"
+bach = "53a, 53c, 54"
+layer = "story, then chorale"
+key = "D minor to F major"
+metre = "4/4"
+seconds = 100
+forces = "voice; viola da gamba, violas, violoncello; organ"
+bach_elements = ["the Passion chorale, fourth time", "the bass of the setting of Bach"]
+device = "The tune goes by step; the viola da gamba has only the notes of one triad around it (melody voice and triad voice)."
+
+[[number]]
+number = 12
+name = "Golgatha"
+words = "Ach Golgatha, unselges Golgatha!"
+bach = "55, 58a, 59"
+layer = "story, then poem"
+key = "A-flat major"
+metre = "4/4"
+seconds = 105
+forces = "voice; 2 oboes da caccia; violoncello (plucked); organ"
+bach_elements = ["the two oboes da caccia", "the plucked violoncello that leaps as a bell"]
+device = "The notes of the bell make a rhythm cycle of 5 against a pitch cycle of 4."
+
+[[number]]
+number = 13
+name = "Tod"
+words = "Eli, Eli, lama asabthani?"
+bach = "61a, 61e"
+layer = "story"
+key = "E-flat major to C minor to A minor"
+metre = "4/4"
+seconds = 130
+forces = "voice; organ; then the voice alone"
+bach_elements = ["the note outside the key on the word for darkness", "the words of Jesus with no halo", "the leap on 'laut'"]
+device = "The voice is alone for the last words. Then a silence of 7 seconds."
+
+[[number]]
+number = 14
+name = "Choral"
+words = "Wenn ich einmal soll scheiden"
+bach = "62"
+layer = "chorale"
+key = "A minor; the last chord is E major"
+metre = "4/4"
+seconds = 135
+forces = "voice; strings with mutes; viola da gamba"
+bach_elements = ["the Passion chorale, last time", "the four voices of the setting of Bach", "the end on the dominant"]
+device = "The voice has the tune in plain notes. Each string group has its voice of the setting of Bach in a different note value: the chords come apart and come together again at each fermata."
+
+[[number]]
+number = 15
+name = "Erdbeben"
+words = "Wahrlich, dieser ist Gottes Sohn gewesen"
+bach = "63a, 63b, 63c"
+layer = "story"
+key = "C major to A-flat major"
+metre = "4/4"
+seconds = 85
+forces = "voice; tutti"
+bach_elements = ["the runs of the continuo", "the two bars of Wahrlich, note for note", "the women who watch from far away"]
+device = "The runs go through all strings from the top to the bottom as a canon. The two bars of Bach come one time, plain."
+
+[[number]]
+number = 16
+name = "Grablegung"
+words = "Am Abend, da es kühle war - Mein Jesu, gute Nacht - Wir setzen uns mit Tränen nieder"
+bach = "64, 66a, 67, 68"
+layer = "poem, story, poem"
+key = "G minor; E-flat major; C minor"
+metre = "4/4; 3/4"
+seconds = 270
+forces = "voice; tutti"
+bach_elements = ["the refrain Mein Jesu, gute Nacht", "the theme of the last chorus and its rhythm of a sarabande", "the answer Ruhe sanfte of the second choir", "the note B above the last chord"]
+device = "The second choir is the instruments. At the end the flutes hold the note B above the chord of C minor, and the chord goes away under it. The voice alone sings the last note C."

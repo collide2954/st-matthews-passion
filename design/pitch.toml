@@ -1,0 +1,79 @@
+# St Matthew Passion: pitch plan.
+#
+# The work is primarily in the tonal language of Bach. Its material is the material of
+# the St Matthew Passion: the table research/tables/motifs.csv gives each motif with its
+# notes and its source. This file gives the plan that connects the numbers.
+
+# ------------------------------------------------------------------ the call
+# The call is the smallest idea of the work: one leap up, then steps down.
+# Three themes of Bach have this shape. In the plan, the leap gets wider from number to
+# number until the cry at the death. After the death the leaps are small again, and the
+# last move of the work is one semitone up (the note B that goes to C).
+[call]
+shape = "a leap up, then steps down"
+steps = [
+    { leap = "fourth", semitones = 5, where = "the Passion chorale (first two notes)", number = 6 },
+    { leap = "minor sixth", semitones = 8, where = "Erbarme dich (F-sharp to D)", number = 9 },
+    { leap = "minor seventh", semitones = 10, where = "Erbarm es Gott (C to B-flat)", number = 10 },
+    { leap = "octave", semitones = 12, where = "the cry of Jesus (Aber Jesus schriee abermal laut); Bach has a major sixth here", number = 13 },
+    { leap = "semitone", semitones = 1, where = "the note B to the note C above the last chord", number = 16 },
+]
+# Why: the study measured the alto lines of Bach. Leaps of a sixth or more are only 2 to 6
+# percent of the moves: each is a call or a cry. The plan uses them as events.
+
+# ------------------------------------------------------------------ the descent
+# The Passion chorale comes five times, as in the work of Bach, and each time lower.
+[descent]
+tune = "Herzlich tut mich verlangen"
+settings = [
+    { number = 6, key = "E major", form = "complete, plain, with the setting of Bach" },
+    { number = 8, key = "E-flat major", form = "two phrases as a memory, with no words" },
+    { number = 10, key = "D major", form = "one phrase in the bass, with no words" },
+    { number = 11, key = "D minor to F major", form = "complete; the voice with a triad voice" },
+    { number = 14, key = "A minor, ending on E major", form = "complete; each voice in its own note value" },
+]
+# Bach: E major, E-flat major, D major, D minor to F major, A minor (table S5).
+
+# ------------------------------------------------------------------ the keys
+# Sharps on the way to the cross, flats at the death and the tomb (table S8).
+[keys]
+part_1 = ["E minor", "A minor", "B minor", "F-sharp minor", "F minor", "B minor", "E minor", "E major"]
+part_2 = ["B minor", "F-sharp minor", "B minor", "A minor", "B major", "C-sharp major", "G minor", "D minor", "F major", "A-flat major", "C minor", "A minor", "A-flat major", "G minor", "E-flat major", "C minor"]
+turn_to_the_flats = "number 10, after the second 'Laß ihn kreuzigen' (C-sharp major): the scourge music starts in F major"
+one_number_outside = "number 3 (F minor): Gethsemane is in the key of the death scene, as in the work of Bach"
+
+# ------------------------------------------------------------------ the pulse
+# Three numbers of Bach are in 12/8: the first chorus, "Erbarme dich", and "Mache dich,
+# mein Herze, rein". In this work the pulse of three eighth notes is a thread.
+[pulse]
+number_1 = "all twelve eighth notes of the bar; at the end the pulse loses its notes"
+number_3 = "sixteenth notes on one bass note, in a pattern of 7 against the bar"
+number_9 = "three plucked eighth notes on each bass step, in a cycle of 5 steps"
+number_12 = "single plucked notes: a bell"
+number_16 = "one note in a bar, then no pulse"
+
+# ------------------------------------------------------------------ the processes
+# The devices of later music that the work uses (table S7). Each has one place where it
+# is the main idea, so that the ear can follow it.
+[processes]
+hocket = "numbers 1 and 2: the questions of the second choir; the drops of the flutes"
+sinking_ground = "number 2: a bass of five notes that starts one step lower each time"
+melody_and_triad = "numbers 3 and 11: one line by step, one line on the notes of a triad"
+cycles = "numbers 3, 9, and 12: a rhythm pattern and a pitch pattern of different lengths"
+colour_melody = "number 4: the lower voices of a chorale go from instrument to instrument"
+stretto_to_cloud = "numbers 5 and 10: entries that come nearer until the lines are one texture"
+canon_that_closes = "number 9: the voice and the violin; the distance gets shorter"
+theme_that_loses_notes = "number 9: the return of the theme"
+phrase_in_many_speeds = "number 14: the chorale of Bach in four note values at the same time"
+quotation = "numbers 6 and 15: the setting of Bach, note for note, as the plain moments"
+
+# ------------------------------------------------------------------ harmony
+[harmony]
+language = "The chords and the voice leading of Bach. The style profiles give the ranges (docs/style-study.md, part 3)."
+departures = [
+    "number 5: the cloud of the thunder theme",
+    "number 10: the second fugue, where the lines shift against each other",
+    "number 13: the voice alone, then silence",
+    "number 14: the chords of the chorale come apart between the fermatas",
+    "number 16: the last chord goes away under the note B",
+]

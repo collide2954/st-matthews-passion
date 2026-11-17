@@ -57,3 +57,15 @@ score_order = "The voice is immediately above the continuo group, as in the scor
 commit_address = "The commits use the GitHub no-reply address of the owner."
 commit_trailer = "Each commit has the co-author line of the assistant, as in G-Type Star."
 documents = "The documents follow the rules of Simplified Technical English (ASD-STE100), as in the two projects before this one."
+# The plan of the work (2026-11-17, night). The files form.toml, text.toml, and pitch.toml
+# have the full plan; docs/work.md describes it.
+concept = "The alto is the witness: the woman of Bethany, one of the women who watch the cross from far away and who sit at the tomb. She tells the story, says the words of the persons, and answers with the poems and the chorales."
+crowd = "The second choir and the crowd have no words: the orchestra has their music, and the score shows the words above the staves."
+numbers = "16 numbers in two parts, 42.7 minutes. The pause is after number 6."
+scenes = "Bethany, Gethsemane, the arrest, Peter, Pilate, the scourge, Golgotha, the death, the earthquake, the tomb. Not in the work: the Last Supper, Judas, the trial before the high priest."
+words = "The work selects sentences and lines of the text of Bach. It does not change a word."
+quotations = "Two settings of Bach are in the work note for note: the chorale of number 6 and the two bars of 'Wahrlich, dieser ist Gottes Sohn gewesen'. Two more chorales have the four voices of Bach with new instruments and new time. All other music is new, on the themes of Bach."
+chorale_five_times = "The Passion chorale comes five times, each time lower, as in the work of Bach. Two of the five are short memories with no words."
+ending = "The flutes hold the note B above the last chord of C minor, as in the last bar of Bach; the chord goes away under it, and the voice alone sings the last note C."
+pitch = "Performance pitch a' = 415 Hz. The audio is one semitone below the modern pitch."
+voice_in_the_audio = "Not decided. No free sound library has a solo alto that sings German words. The first previews use an instrument in place of the voice."
